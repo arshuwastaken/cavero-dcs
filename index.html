@@ -5,14 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cavero DC's - Home</title>
     <style>
-        /* Base Styling */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
         body, html {
-            margin: 0;
-            padding: 0;
             width: 100%;
             height: 100%;
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            background-color: #020617; /* Fallback color agar image na chale */
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #020617;
             color: white;
             overflow: hidden;
             display: flex;
@@ -20,132 +19,73 @@
             align-items: center;
         }
 
-        /* Background Image - Updated for better visibility */
+        /* BACKGROUND FIX */
         .background {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: url('bg.png'); 
-            background-repeat: no-repeat;
-            background-size: cover;
-            background-position: center;
+            /* Relative path use kiya hai aur name exactly wahi jo repo mein hai */
+            background: url('./bg.png') no-repeat center center/cover;
             z-index: -2;
-            animation: fadeInPage 2s ease-in-out;
         }
 
-        /* Overlay - Thoda transparent kiya hai taaki bg dikhe */
         .overlay {
-            position: absolute;
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(2, 6, 23, 0.4); 
+            background: rgba(0, 0, 0, 0.5); /* reference image jaisa dark look */
             z-index: -1;
         }
 
         /* Snow Effect */
         #snowCanvas {
-            position: absolute;
+            position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
             z-index: 0;
             pointer-events: none;
         }
 
-        /* Sidebar Styling */
-        .sidebar {
-            height: 100%;
-            width: 0;
-            position: fixed;
-            z-index: 10;
-            top: 0;
-            left: 0;
-            background-color: rgba(1, 15, 30, 0.98);
-            overflow-x: hidden;
-            transition: 0.5s;
-            padding-top: 60px;
-            border-right: 2px solid #3b82f6;
-        }
-
-        .sidebar a {
-            padding: 15px 30px;
-            text-decoration: none;
-            font-size: 1.2rem;
-            color: #ffffff;
-            display: block;
-            transition: 0.3s;
-            opacity: 0.8;
-        }
-
-        .sidebar a:hover {
-            color: #3b82f6;
-            background: rgba(59, 130, 246, 0.1);
-            opacity: 1;
-        }
-
-        .sidebar .close-btn {
-            position: absolute;
-            top: 10px;
-            right: 25px;
-            font-size: 36px;
-            cursor: pointer;
-        }
-
-        /* Menu Button */
+        /* Sidebar Toggle */
         .menu-icon {
-            position: absolute;
+            position: fixed;
             top: 25px;
             left: 25px;
-            font-size: 32px;
+            font-size: 30px;
             cursor: pointer;
-            z-index: 5;
-            transition: 0.3s;
-            text-shadow: 0 0 10px rgba(59, 130, 246, 0.8);
+            z-index: 10;
         }
 
-        .menu-icon:hover {
-            color: #3b82f6;
-            transform: scale(1.1);
-        }
-
-        /* Main Content */
-        .main-container {
-            position: relative;
-            z-index: 2;
+        /* Main UI */
+        .container {
             text-align: center;
-            animation: fadeInPage 2s ease-in-out;
-            max-width: 600px;
+            z-index: 5;
             width: 90%;
+            max-width: 600px;
         }
 
-        @keyframes fadeInPage {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .logo-container img {
-            width: 180px;
+        .logo {
+            width: 220px; /* Logo size thoda bada */
             filter: drop-shadow(0 0 20px rgba(59, 130, 246, 0.6));
-            margin-bottom: 20px;
+            margin-bottom: 10px;
         }
 
         .brand-name {
             font-size: 3.5rem;
             font-weight: 800;
-            letter-spacing: 3px;
-            margin-bottom: 40px;
             text-transform: uppercase;
-            text-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
+            letter-spacing: 2px;
+            margin-bottom: 40px;
         }
 
         .brand-name span { color: #3b82f6; }
 
-        .button-group {
+        /* Buttons like Reference Image */
+        .btn-group {
             display: flex;
             flex-direction: column;
             gap: 20px;
@@ -153,55 +93,44 @@
         }
 
         .btn {
-            background: linear-gradient(135deg, #2563eb, #1d4ed8);
-            color: white;
-            border: none;
-            padding: 16px 45px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            border-radius: 12px;
-            cursor: pointer;
             width: 100%;
-            max-width: 320px;
+            max-width: 350px;
+            padding: 18px;
+            border-radius: 15px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            text-decoration: none;
+            color: white;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 12px;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4);
-            text-decoration: none;
+            gap: 15px;
+            background: linear-gradient(135deg, #1d4ed8, #2563eb);
+            box-shadow: 0 0 15px rgba(37, 99, 235, 0.4);
+            transition: 0.3s;
         }
 
         .btn:hover {
-            transform: scale(1.05) translateY(-3px);
-            background: linear-gradient(135deg, #3b82f6, #2563eb);
-            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.6);
+            transform: scale(1.05);
+            box-shadow: 0 0 25px rgba(59, 130, 246, 0.8);
         }
 
         /* Top Nav */
         .top-nav {
-            position: absolute;
-            top: 20px;
-            right: 20px;
+            position: fixed;
+            top: 25px;
+            right: 25px;
             display: flex;
             gap: 15px;
-            z-index: 5;
         }
 
         .nav-item {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(5px);
-            padding: 8px 18px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 10px 20px;
             border-radius: 10px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            font-size: 0.9rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
             cursor: pointer;
-            transition: 0.3s;
-        }
-
-        .nav-item:hover {
-            background: rgba(59, 130, 246, 0.2);
-            border-color: #3b82f6;
+            backdrop-filter: blur(5px);
         }
     </style>
 </head>
@@ -211,41 +140,28 @@
     <div class="overlay"></div>
     <canvas id="snowCanvas"></canvas>
 
-    <div id="mySidebar" class="sidebar">
-        <span class="close-btn" onclick="closeNav()">&times;</span>
-        <a href="#">🏠 Home</a>
-        <a href="#">🛠️ Services</a>
-        <a href="#">📜 Terms</a>
-        <a href="#">📞 Contact</a>
-    </div>
-
-    <div class="menu-icon" onclick="openNav()">☰</div>
+    <div class="menu-icon">☰</div>
 
     <div class="top-nav">
         <div class="nav-item">📄 Terms Of Services</div>
         <div class="nav-item">🔄</div>
     </div>
 
-    <div class="main-container">
-        <div class="logo-container">
-            <img src="logo.png" alt="CD Logo">
-        </div>
+    <div class="container">
+        <img src="./logo.png" alt="" class="logo">
+        <h1 class="brand-name">CAVERO <span>DC'S</span></h1>
 
-        <div class="brand-name">
-            CAVERO <span>DC'S</span>
-        </div>
-
-        <div class="button-group">
-            <a href="#" class="btn"><span>🗄️</span> Create A Dc Server</a>
-            <a href="#" class="btn"><span>💬</span> Contact Us</a>
+        <div class="btn-group">
+            <a href="#" class="btn">
+                <span>🗄️</span> Create A Dc Server
+            </a>
+            <a href="#" class="btn">
+                <span>💬</span> Contact Us
+            </a>
         </div>
     </div>
 
     <script>
-        function openNav() { document.getElementById("mySidebar").style.width = "280px"; }
-        function closeNav() { document.getElementById("mySidebar").style.width = "0"; }
-
-        // Optimized Snow Effect
         const canvas = document.getElementById('snowCanvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
@@ -261,28 +177,23 @@
             constructor() { this.reset(); }
             reset() {
                 this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
+                this.y = Math.random() * -canvas.height;
                 this.size = Math.random() * 2 + 1;
-                this.speed = Math.random() * 0.8 + 0.3;
-                this.velY = this.speed;
-                this.velX = (Math.random() - 0.5) * 0.5;
+                this.speed = Math.random() * 1 + 0.5;
             }
             update() {
-                this.y += this.velY;
-                this.x += this.velX;
-                if (this.y > canvas.height) this.y = -10;
-                if (this.x > canvas.width) this.x = 0;
-                if (this.x < 0) this.x = canvas.width;
+                this.y += this.speed;
+                if (this.y > canvas.height) this.reset();
             }
             draw() {
-                ctx.fillStyle = 'rgba(255, 255, 255, 0.6)';
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
                 ctx.fill();
             }
         }
 
-        for (let i = 0; i < 80; i++) particles.push(new Particle());
+        for (let i = 0; i < 100; i++) particles.push(new Particle());
 
         function animate() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
