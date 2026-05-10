@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cavero DC's - Home</title>
+    <style>
+        /* Base Styling */
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: #020617; /* Dark background */
+            color: white;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Background Nebula Effect (Image se milta julta) */
+        .background {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at bottom, #1e3a8a 0%, #020617 70%);
+            z-index: -1;
+            opacity: 0.8;
+        }
+
+        /* Full Page Fade In Transition */
+        .main-container {
+            text-align: center;
+            animation: fadeInPage 2s ease-in-out;
+            max-width: 600px;
+            width: 90%;
+        }
+
+        @keyframes fadeInPage {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Logo Styling */
+        .logo-container img {
+            width: 180px;
+            filter: drop-shadow(0 0 20px rgba(59, 130, 246, 0.5));
+            margin-bottom: 20px;
+            animation: fadeIn 2.5s ease-out;
+        }
+
+        .brand-name {
+            font-size: 3rem;
+            font-weight: bold;
+            letter-spacing: 2px;
+            margin-bottom: 40px;
+            text-transform: uppercase;
+        }
+
+        .brand-name span {
+            color: #3b82f6; /* Blue color for DC'S */
+        }
+
+        /* Button Styling */
+        .button-group {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.1rem;
+            border-radius: 12px;
+            cursor: pointer;
+            width: 100%;
+            max-width: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+            text-decoration: none;
+            animation: fadeIn 3s ease-out;
+        }
+
+        /* Button Hover Effects */
+        .btn:hover {
+            transform: scale(1.05);
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            box-shadow: 0 0 25px rgba(59, 130, 246, 0.6);
+        }
+
+        .btn:active {
+            transform: scale(0.98);
+        }
+
+        /* Top Bar Icons */
+        .top-nav {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            gap: 15px;
+            animation: fadeIn 2s ease-in;
+        }
+
+        .nav-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 8px 15px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .nav-item:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="background"></div>
+
+    <div class="top-nav">
+        <div class="nav-item">📄 Terms Of Services</div>
+        <div class="nav-item">🔄</div>
+    </div>
+
+    <div class="main-container">
+        <div class="logo-container">
+            <img src="logo.png" alt="CD Logo">
+        </div>
+
+        <div class="brand-name">
+            CAVERO <span>DC'S</span>
+        </div>
+
+        <div class="button-group">
+            <a href="#" class="btn">
+                <span>🗄️</span> Create A Dc Server
+            </a>
+            <a href="#" class="btn">
+                <span>💬</span> Contact Us
+            </a>
+        </div>
+    </div>
+
+</body>
+</html>
