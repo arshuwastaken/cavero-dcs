@@ -12,7 +12,7 @@
             width: 100%;
             height: 100%;
             font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            background-color: #020617; /* Dark background */
+            background-color: #020617;
             color: white;
             overflow: hidden;
             display: flex;
@@ -20,18 +20,92 @@
             align-items: center;
         }
 
-        /* Background Nebula Effect (Image se milta julta) */
+        /* Background Image with Overlay */
         .background {
             position: absolute;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle at bottom, #1e3a8a 0%, #020617 70%);
-            z-index: -1;
-            opacity: 0.8;
+            background: url('bg.png') no-repeat center center/cover;
+            z-index: -2;
+            animation: fadeInPage 2s ease-in-out;
         }
 
-        /* Full Page Fade In Transition */
+        .overlay {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: rgba(2, 6, 23, 0.6); /* Dark tint for readability */
+            z-index: -1;
+        }
+
+        /* Snow/Particle Effect Canvas */
+        #snowCanvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* Sidebar Styling */
+        .sidebar {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            z-index: 10;
+            top: 0;
+            left: 0;
+            background-color: rgba(1, 15, 30, 0.95);
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 60px;
+            border-right: 1px solid #3b82f6;
+        }
+
+        .sidebar a {
+            padding: 15px 30px;
+            text-decoration: none;
+            font-size: 1.2rem;
+            color: #818181;
+            display: block;
+            transition: 0.3s;
+        }
+
+        .sidebar a:hover {
+            color: #3b82f6;
+            background: rgba(59, 130, 246, 0.1);
+        }
+
+        .sidebar .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 25px;
+            font-size: 36px;
+            cursor: pointer;
+        }
+
+        /* Menu Button (3 Lines) */
+        .menu-icon {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 30px;
+            cursor: pointer;
+            z-index: 5;
+            transition: 0.3s;
+        }
+
+        .menu-icon:hover {
+            color: #3b82f6;
+            transform: scale(1.1);
+        }
+
+        /* Main Content */
         .main-container {
+            position: relative;
+            z-index: 2;
             text-align: center;
             animation: fadeInPage 2s ease-in-out;
             max-width: 600px;
@@ -43,12 +117,11 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Logo Styling */
+        /* Logo & Buttons (Keeping your original styling) */
         .logo-container img {
             width: 180px;
             filter: drop-shadow(0 0 20px rgba(59, 130, 246, 0.5));
             margin-bottom: 20px;
-            animation: fadeIn 2.5s ease-out;
         }
 
         .brand-name {
@@ -59,11 +132,8 @@
             text-transform: uppercase;
         }
 
-        .brand-name span {
-            color: #3b82f6; /* Blue color for DC'S */
-        }
+        .brand-name span { color: #3b82f6; }
 
-        /* Button Styling */
         .button-group {
             display: flex;
             flex-direction: column;
@@ -88,28 +158,22 @@
             transition: all 0.3s ease;
             box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
             text-decoration: none;
-            animation: fadeIn 3s ease-out;
         }
 
-        /* Button Hover Effects */
         .btn:hover {
             transform: scale(1.05);
             background: linear-gradient(135deg, #3b82f6, #2563eb);
             box-shadow: 0 0 25px rgba(59, 130, 246, 0.6);
         }
 
-        .btn:active {
-            transform: scale(0.98);
-        }
-
-        /* Top Bar Icons */
+        /* Top Nav Icons */
         .top-nav {
             position: absolute;
             top: 20px;
             right: 20px;
             display: flex;
             gap: 15px;
-            animation: fadeIn 2s ease-in;
+            z-index: 5;
         }
 
         .nav-item {
@@ -121,20 +185,23 @@
             cursor: pointer;
             transition: 0.3s;
         }
-
-        .nav-item:hover {
-            background: rgba(255, 255, 255, 0.2);
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
     </style>
 </head>
 <body>
 
     <div class="background"></div>
+    <div class="overlay"></div>
+    <canvas id="snowCanvas"></canvas>
+
+    <div id="mySidebar" class="sidebar">
+        <span class="close-btn" onclick="closeNav()">&times;</span>
+        <a href="#">🏠 Home</a>
+        <a href="#">🛠️ Services</a>
+        <a href="#">📜 Terms</a>
+        <a href="#">📞 Contact</a>
+    </div>
+
+    <div class="menu-icon" onclick="openNav()">☰</div>
 
     <div class="top-nav">
         <div class="nav-item">📄 Terms Of Services</div>
@@ -151,14 +218,69 @@
         </div>
 
         <div class="button-group">
-            <a href="#" class="btn">
-                <span>🗄️</span> Create A Dc Server
-            </a>
-            <a href="#" class="btn">
-                <span>💬</span> Contact Us
-            </a>
+            <a href="#" class="btn"><span>🗄️</span> Create A Dc Server</a>
+            <a href="#" class="btn"><span>💬</span> Contact Us</a>
         </div>
     </div>
 
+    <script>
+        // Sidebar Logic
+        function openNav() {
+            document.getElementById("mySidebar").style.width = "250px";
+        }
+
+        function closeNav() {
+            document.getElementById("mySidebar").style.width = "0";
+        }
+
+        // Snow Effect Logic
+        const canvas = document.getElementById('snowCanvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
+        class Particle {
+            constructor() {
+                this.reset();
+            }
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 3 + 1;
+                this.speed = Math.random() * 1 + 0.5;
+                this.velY = this.speed;
+                this.velX = (Math.random() - 0.5) * 0.5;
+            }
+            update() {
+                this.y += this.velY;
+                this.x += this.velX;
+                if (this.y > canvas.height) this.y = -10;
+            }
+            draw() {
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        for (let i = 0; i < 100; i++) particles.push(new Particle());
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(animate);
+        }
+        animate();
+    </script>
 </body>
 </html>
