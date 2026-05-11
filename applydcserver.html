@@ -1,15 +1,11 @@
+# Updated `applydcserver.html`
+
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-
-    <!-- FORCE NO CACHE -->
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-    <meta http-equiv="Pragma" content="no-cache" />
-    <meta http-equiv="Expires" content="0" />
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
     <title>Apply DC Server - Cavero DC's</title>
 
     <style>
@@ -24,13 +20,21 @@
         body{
             width:100%;
             min-height:100vh;
-            background:#020617;
             color:white;
             font-family:'Inter','Segoe UI',sans-serif;
             overflow-x:hidden;
-        }
 
-        /* PAGE TRANSITION */
+            background:
+                linear-gradient(rgba(2,6,23,.45), rgba(2,6,23,.45)),
+                url('./bg.png?v=10');
+
+            background-size:cover;
+            background-position:center;
+            background-repeat:no-repeat;
+            background-attachment:fixed;
+
+            background-color:#020617;
+        }
 
         body{
             animation:fadePage .7s ease;
@@ -54,57 +58,19 @@
             transition:.4s ease;
         }
 
-        /* FIXED BACKGROUND */
-
-        #bg-layer{
-            position:fixed;
-            inset:0;
-
-            background-image:url('./bg.png?v=5');
-            background-size:cover;
-            background-position:center;
-            background-repeat:no-repeat;
-
-            z-index:;
-
-            transform:scale(1.02);
-
-            will-change:transform;
-        }
-
-        /* OVERLAY */
-
-        .overlay{
-            position:fixed;
-            inset:0;
-
-            background:rgba(2,6,23,.58);
-
-            z-index:-4;
-        }
-
-        /* SNOW */
-
         #snowCanvas{
             position:fixed;
             inset:0;
-
             width:100%;
             height:100%;
-
             pointer-events:none;
-
             z-index:1;
         }
-
-        /* HEADER */
 
         .header{
             position:relative;
             z-index:2;
-
             padding:45px 20px;
-
             text-align:center;
         }
 
@@ -112,7 +78,6 @@
             font-size:3rem;
             font-weight:900;
             letter-spacing:2px;
-
             text-shadow:0 0 25px rgba(37,99,235,.35);
         }
 
@@ -120,91 +85,50 @@
             color:#3b82f6;
         }
 
-        /* PLANS */
-
         .plans-container{
             position:relative;
             z-index:2;
-
             max-width:1200px;
-
             margin:auto;
-
             padding:40px 20px;
-
             display:flex;
             justify-content:center;
             flex-wrap:wrap;
             gap:30px;
         }
 
-        /* PLAN CARD */
-
         .plan-box{
             width:320px;
-
             padding:40px 30px;
-
             border-radius:24px;
-
             background:rgba(15,23,42,.62);
-
             border:1px solid rgba(59,130,246,.18);
-
             backdrop-filter:blur(14px);
-
             text-align:center;
-
             transition:.35s ease;
-
             box-shadow:0 0 25px rgba(37,99,235,.08);
-
             position:relative;
-
             overflow:hidden;
-        }
-
-        .plan-box::before{
-            content:"";
-
-            position:absolute;
-            inset:0;
-
-            background:linear-gradient(
-                145deg,
-                rgba(59,130,246,.12),
-                transparent,
-                rgba(255,255,255,.03)
-            );
-
-            pointer-events:none;
         }
 
         .plan-box:hover{
             transform:translateY(-10px);
-
             border-color:#3b82f6;
-
             background:rgba(15,23,42,.84);
-
             box-shadow:0 0 35px rgba(37,99,235,.22);
         }
 
         .plan-name{
             font-size:1.9rem;
             font-weight:800;
-
             margin-bottom:15px;
         }
 
         .plan-price{
             font-size:2.7rem;
             font-weight:900;
-
             color:#3b82f6;
-
             margin-bottom:25px;
-
             text-shadow:0 0 20px rgba(37,99,235,.35);
         }
 
@@ -213,65 +137,42 @@
             color:#94a3b8;
         }
 
-        /* BUTTON */
-
         .checkout-btn{
             display:block;
-
             width:100%;
-
             padding:16px;
-
             border-radius:14px;
-
             text-decoration:none;
-
             background:#2563eb;
-
             color:white;
-
             font-size:1rem;
             font-weight:800;
             letter-spacing:1px;
-
             transition:.3s ease;
-
             box-shadow:0 0 20px rgba(37,99,235,.18);
         }
 
         .checkout-btn:hover{
             background:#1d4ed8;
-
             transform:scale(1.03);
-
             box-shadow:0 0 30px rgba(37,99,235,.35);
         }
-
-        /* BACK LINK */
 
         .back-link{
             position:relative;
             z-index:2;
-
             display:block;
-
             text-align:center;
-
             margin-top:40px;
             padding-bottom:50px;
-
             text-decoration:none;
-
             color:#94a3b8;
-
             transition:.3s ease;
         }
 
         .back-link:hover{
             color:white;
         }
-
-        /* MOBILE */
 
         @media(max-width:700px){
 
@@ -287,79 +188,62 @@
 
     </style>
 </head>
-
 <body>
 
-    <!-- BACKGROUND -->
-    <div id="bg-layer"></div>
-
-    <!-- OVERLAY -->
-    <div class="overlay"></div>
-
-    <!-- SNOW -->
     <canvas id="snowCanvas"></canvas>
 
-    <!-- HEADER -->
     <div class="header">
         <h1>
             SELECT YOUR <span>PLAN</span>
         </h1>
     </div>
 
-    <!-- PLANS -->
     <div class="plans-container">
 
         <div class="plan-box">
-
-            <h2 class="plan-name">
-                Base Plan
-            </h2>
+            <h2 class="plan-name">Base Plan</h2>
 
             <div class="plan-price">
                 ₹65<span>/One Time</span>
             </div>
 
-            <a href="#" class="checkout-btn">
+            <a href="checkout.html?plan=BasePlan"
+               class="checkout-btn"
+               onclick="smoothPage(event,this.href)">
                 CHECKOUT PLAN
             </a>
-
         </div>
 
         <div class="plan-box">
-
-            <h2 class="plan-name">
-                Astroid Plan
-            </h2>
+            <h2 class="plan-name">Astroid Plan</h2>
 
             <div class="plan-price">
                 ₹85<span>/One Time</span>
             </div>
 
-            <a href="#" class="checkout-btn">
+            <a href="checkout.html?plan=AstroidPlan"
+               class="checkout-btn"
+               onclick="smoothPage(event,this.href)">
                 CHECKOUT PLAN
             </a>
-
         </div>
 
         <div class="plan-box">
-
-            <h2 class="plan-name">
-                Meteoride Plan
-            </h2>
+            <h2 class="plan-name">Meteoride Plan</h2>
 
             <div class="plan-price">
                 ₹110<span>/One Time</span>
             </div>
 
-            <a href="#" class="checkout-btn">
+            <a href="checkout.html?plan=MeteoridePlan"
+               class="checkout-btn"
+               onclick="smoothPage(event,this.href)">
                 CHECKOUT PLAN
             </a>
-
         </div>
 
     </div>
 
-    <!-- BACK -->
     <a href="index.html"
        class="back-link"
        onclick="smoothPage(event,this.href)">
@@ -368,23 +252,14 @@
 
     <script>
 
-        // PAGE TRANSITION
-
         function smoothPage(e, link){
-
             e.preventDefault();
-
             document.body.classList.add("fade-out");
 
             setTimeout(() => {
-
                 window.location.href = link;
-
             }, 400);
-
         }
-
-        // SNOW EFFECT
 
         const canvas = document.getElementById('snowCanvas');
         const ctx = canvas.getContext('2d');
@@ -401,14 +276,10 @@
             for(let i = 0; i < 180; i++){
 
                 flakes.push({
-
                     x:Math.random() * canvas.width,
                     y:Math.random() * canvas.height,
-
                     r:Math.random() * 3 + 1,
-
                     d:Math.random() * 1 + .5
-
                 });
 
             }
@@ -420,7 +291,6 @@
             ctx.clearRect(0,0,canvas.width,canvas.height);
 
             ctx.fillStyle = "rgba(255,255,255,.9)";
-
             ctx.beginPath();
 
             for(let i = 0; i < flakes.length; i++){
@@ -429,14 +299,7 @@
 
                 ctx.moveTo(f.x,f.y);
 
-                ctx.arc(
-                    f.x,
-                    f.y,
-                    f.r,
-                    0,
-                    Math.PI * 2,
-                    true
-                );
+                ctx.arc(f.x,f.y,f.r,0,Math.PI * 2,true);
 
             }
 
@@ -453,21 +316,15 @@
                 let f = flakes[i];
 
                 f.y += f.d;
-
                 f.x += Math.sin(f.y * .01);
 
                 if(f.y > canvas.height){
 
                     flakes[i] = {
-
                         x:Math.random() * canvas.width,
-
                         y:-10,
-
                         r:f.r,
-
                         d:f.d
-
                     };
 
                 }
@@ -486,4 +343,245 @@
 
 </body>
 </html>
+```
+
+---
+
+# Create New File: `checkout.html`
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Checkout - Cavero DC's</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    min-height:100vh;
+    font-family:'Inter',sans-serif;
+    color:white;
+
+    background:
+    linear-gradient(rgba(2,6,23,.55),rgba(2,6,23,.55)),
+    url('./bg.png');
+
+    background-size:cover;
+    background-position:center;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    padding:30px;
+}
+
+.form-box{
+    width:100%;
+    max-width:650px;
+
+    background:rgba(15,23,42,.72);
+    backdrop-filter:blur(14px);
+
+    border:1px solid rgba(59,130,246,.22);
+
+    border-radius:25px;
+
+    padding:40px;
+
+    box-shadow:0 0 35px rgba(37,99,235,.15);
+
+    animation:fadeIn .7s ease;
+}
+
+@keyframes fadeIn{
+    from{
+        opacity:0;
+        transform:translateY(20px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+.title{
+    text-align:center;
+    margin-bottom:35px;
+}
+
+.title h1{
+    font-size:2.5rem;
+    font-weight:900;
+}
+
+.title span{
+    color:#3b82f6;
+}
+
+.input-box{
+    margin-bottom:20px;
+}
+
+.input-box label{
+    display:block;
+    margin-bottom:8px;
+    color:#cbd5e1;
+    font-size:.95rem;
+}
+
+.input-box input,
+.input-box textarea,
+.input-box select{
+    width:100%;
+
+    padding:15px;
+
+    border-radius:14px;
+    border:1px solid rgba(255,255,255,.08);
+
+    background:rgba(2,6,23,.7);
+
+    color:white;
+
+    outline:none;
+
+    font-size:1rem;
+}
+
+textarea{
+    resize:none;
+    min-height:120px;
+}
+
+.submit-btn{
+    width:100%;
+
+    padding:16px;
+
+    border:none;
+    border-radius:14px;
+
+    background:#2563eb;
+
+    color:white;
+
+    font-size:1rem;
+    font-weight:800;
+
+    cursor:pointer;
+
+    transition:.3s ease;
+}
+
+.submit-btn:hover{
+    background:#1d4ed8;
+    transform:scale(1.02);
+}
+
+.plan-show{
+    margin-bottom:25px;
+
+    background:rgba(37,99,235,.12);
+
+    padding:14px;
+
+    border-radius:14px;
+
+    text-align:center;
+
+    color:#93c5fd;
+
+    font-weight:700;
+}
+
+</style>
+</head>
+<body>
+
+<div class="form-box">
+
+    <div class="title">
+        <h1>CAVERO <span>CHECKOUT</span></h1>
+    </div>
+
+    <div class="plan-show" id="selectedPlan">
+        Selected Plan: Loading...
+    </div>
+
+    <form>
+
+        <div class="input-box">
+            <label>Discord Username</label>
+            <input type="text" placeholder="Enter your discord username">
+        </div>
+
+        <div class="input-box">
+            <label>Email Address</label>
+            <input type="email" placeholder="Enter your email">
+        </div>
+
+        <div class="input-box">
+            <label>Server Name</label>
+            <input type="text" placeholder="Enter server name">
+        </div>
+
+        <div class="input-box">
+            <label>Server Description</label>
+            <textarea placeholder="Describe your server..."></textarea>
+        </div>
+
+        <div class="input-box">
+            <label>Need Admin Access?</label>
+            <select>
+                <option>Yes</option>
+                <option>No</option>
+            </select>
+        </div>
+
+        <button class="submit-btn" type="submit">
+            SUBMIT APPLICATION
+        </button>
+
+    </form>
+
+</div>
+
+<script>
+
+const params = new URLSearchParams(window.location.search);
+
+const plan = params.get('plan');
+
+document.getElementById('selectedPlan').innerText =
+"Selected Plan: " + (plan || "Unknown Plan");
+
+</script>
+
+</body>
+</html>
+```
+
+# Important
+
+Agar tum apni IP ya admin system ko secure rakhna chahte ho to usko HTML/JS frontend me mat rakho.
+
+Inspect Element se frontend ki almost saari cheeze dekhi ja sakti hain.
+
+Secure admin system ke liye:
+
+* Backend use karo (Node.js / Firebase / MongoDB)
+* Admin roles database me rakho
+* IP frontend me kabhi expose mat karo
+* Admin checks server-side hone chahiye
+
 
