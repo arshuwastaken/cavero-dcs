@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,8 +25,6 @@
             z-index: -3;
         }
 
-        /* Overlay Removed as per request */
-
         #snowCanvas {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -33,7 +32,7 @@
             pointer-events: none;
         }
 
-        /* SIDEBAR - Fixed & Cleaned */
+        /* SIDEBAR */
         .sidebar {
             height: 100%;
             width: 0;
@@ -76,7 +75,11 @@
             opacity: 0.8;
             transition: 0.3s;
         }
-        .menu-btn:hover { opacity: 1; transform: scale(1.1); }
+
+        .menu-btn:hover {
+            opacity: 1;
+            transform: scale(1.1);
+        }
 
         /* CONTENT */
         .main-content {
@@ -103,7 +106,9 @@
             line-height: 1;
         }
 
-        .brand-title span { color: #3b82f6; }
+        .brand-title span {
+            color: #3b82f6;
+        }
 
         .btn-box {
             display: flex;
@@ -138,9 +143,17 @@
         }
 
         @media (max-width: 600px) {
-            .brand-title { font-size: 3rem; }
-            .btn-box { width: 90%; }
-            .logo { width: 150px; }
+            .brand-title {
+                font-size: 3rem;
+            }
+
+            .btn-box {
+                width: 90%;
+            }
+
+            .logo {
+                width: 150px;
+            }
         }
     </style>
 </head>
@@ -161,68 +174,107 @@
 
     <div class="main-content">
         <img src="logo.png" alt="Logo" class="logo">
-        <h1 class="brand-title">CAVERO <span>DC'S</span></h1>
-        
+
+        <h1 class="brand-title">
+            CAVERO <span>DC'S</span>
+        </h1>
+
         <div class="btn-box">
-            <a href="applydcserver.html" class="action-btn">CREATE SERVER</a>
-            <a href="#" class="action-btn btn-secondary">SUPPORT</a>
+            <a href="applydcserver.html" class="action-btn">
+                CREATE SERVER
+            </a>
+
+            <a href="#" class="action-btn btn-secondary">
+                SUPPORT
+            </a>
         </div>
     </div>
 
     <script>
-        function openNav() { 
-            document.getElementById("sidebar").style.width = "320px"; 
-        }
-        function closeNav() { 
-            document.getElementById("sidebar").style.width = "0"; 
+        function openNav() {
+            document.getElementById("sidebar").style.width = "320px";
         }
 
-        // Snow Effect Script Fix
+        function closeNav() {
+            document.getElementById("sidebar").style.width = "0";
+        }
+
+        // SNOW EFFECT
         const canvas = document.getElementById('snowCanvas');
         const ctx = canvas.getContext('2d');
+
         let flakes = [];
 
-        function init() {
+        function initSnow() {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
+
             flakes = [];
-            for(let i=0; i<150; i++) {
-                flakes.push({ 
-                    x: Math.random()*canvas.width, 
-                    y: Math.random()*canvas.height, 
-                    r: Math.random()*2+1, 
-                    s: Math.random()*1+0.5 
+
+            for (let i = 0; i < 180; i++) {
+                flakes.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    r: Math.random() * 3 + 1,
+                    d: Math.random() * 1 + 0.5
                 });
             }
         }
 
-        function draw() {
+        function drawSnow() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.fillStyle = "rgba(255, 255, 255, 0.8)";
+
+            ctx.fillStyle = "rgba(255,255,255,0.9)";
             ctx.beginPath();
-            flakes.forEach(f => {
+
+            for (let i = 0; i < flakes.length; i++) {
+                let f = flakes[i];
+
                 ctx.moveTo(f.x, f.y);
-                ctx.arc(f.x, f.y, f.r, 0, Math.PI*2);
-            });
+                ctx.arc(f.x, f.y, f.r, 0, Math.PI * 2, true);
+            }
+
             ctx.fill();
-            move();
+
+            moveSnow();
         }
 
-        function move() {
-            flakes.forEach(f => {
-                f.y += f.s;
-                if(f.y > canvas.height) f.y = -5;
-            });
+        function moveSnow() {
+            for (let i = 0; i < flakes.length; i++) {
+                let f = flakes[i];
+
+                f.y += f.d;
+                f.x += Math.sin(f.y * 0.01);
+
+                if (f.y > canvas.height) {
+                    flakes[i] = {
+                        x: Math.random() * canvas.width,
+                        y: -10,
+                        r: f.r,
+                        d: f.d
+                    };
+                }
+            }
         }
 
-        window.addEventListener('resize', init);
-        init();
-        setInterval(draw, 30);
+        window.addEventListener('resize', initSnow);
 
+        initSnow();
+
+        setInterval(drawSnow, 30);
+
+        // Background fallback
         const bgLayer = document.getElementById('bg-layer');
+
         const img = new Image();
+
         img.src = 'bg.png';
-        img.onerror = () => bgLayer.style.background = "#020617";
+
+        img.onerror = () => {
+            bgLayer.style.background = "#020617";
+        };
     </script>
+
 </body>
 </html>
+```
