@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Checkout - Cavero DC's</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    min-height:100vh;
+    font-family:'Inter',sans-serif;
+    color:white;
+
+    background:
+    linear-gradient(rgba(2,6,23,.55),rgba(2,6,23,.55)),
+    url('./bg.png');
+
+    background-size:cover;
+    background-position:center;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    padding:30px;
+}
+
+.form-box{
+    width:100%;
+    max-width:650px;
+
+    background:rgba(15,23,42,.72);
+    backdrop-filter:blur(14px);
+
+    border:1px solid rgba(59,130,246,.22);
+
+    border-radius:25px;
+
+    padding:40px;
+
+    box-shadow:0 0 35px rgba(37,99,235,.15);
+
+    animation:fadeIn .7s ease;
+}
+
+@keyframes fadeIn{
+    from{
+        opacity:0;
+        transform:translateY(20px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+.title{
+    text-align:center;
+    margin-bottom:35px;
+}
+
+.title h1{
+    font-size:2.5rem;
+    font-weight:900;
+}
+
+.title span{
+    color:#3b82f6;
+}
+
+.input-box{
+    margin-bottom:20px;
+}
+
+.input-box label{
+    display:block;
+    margin-bottom:8px;
+    color:#cbd5e1;
+    font-size:.95rem;
+}
+
+.input-box input,
+.input-box textarea,
+.input-box select{
+    width:100%;
+
+    padding:15px;
+
+    border-radius:14px;
+    border:1px solid rgba(255,255,255,.08);
+
+    background:rgba(2,6,23,.7);
+
+    color:white;
+
+    outline:none;
+
+    font-size:1rem;
+}
+
+textarea{
+    resize:none;
+    min-height:120px;
+}
+
+.submit-btn{
+    width:100%;
+
+    padding:16px;
+
+    border:none;
+    border-radius:14px;
+
+    background:#2563eb;
+
+    color:white;
+
+    font-size:1rem;
+    font-weight:800;
+
+    cursor:pointer;
+
+    transition:.3s ease;
+}
+
+.submit-btn:hover{
+    background:#1d4ed8;
+    transform:scale(1.02);
+}
+
+.plan-show{
+    margin-bottom:25px;
+
+    background:rgba(37,99,235,.12);
+
+    padding:14px;
+
+    border-radius:14px;
+
+    text-align:center;
+
+    color:#93c5fd;
+
+    font-weight:700;
+}
+
+</style>
+</head>
+<body>
+
+<div class="form-box">
+
+    <div class="title">
+        <h1>CAVERO <span>CHECKOUT</span></h1>
+    </div>
+
+    <div class="plan-show" id="selectedPlan">
+        Selected Plan: Loading...
+    </div>
+
+    <form>
+
+        <div class="input-box">
+            <label>Discord Username</label>
+            <input type="text" placeholder="Enter your discord username">
+        </div>
+
+        <div class="input-box">
+            <label>Email Address</label>
+            <input type="email" placeholder="Enter your email">
+        </div>
+
+        <div class="input-box">
+            <label>Server Name</label>
+            <input type="text" placeholder="Enter server name">
+        </div>
+
+        <div class="input-box">
+            <label>Server Description</label>
+            <textarea placeholder="Describe your server..."></textarea>
+        </div>
+
+        <div class="input-box">
+            <label>Need Admin Access?</label>
+            <select>
+                <option>Yes</option>
+                <option>No</option>
+            </select>
+        </div>
+
+        <button class="submit-btn" type="submit">
+            SUBMIT APPLICATION
+        </button>
+
+    </form>
+
+</div>
+
+<script>
+
+const params = new URLSearchParams(window.location.search);
+
+const plan = params.get('plan');
+
+document.getElementById('selectedPlan').innerText =
+"Selected Plan: " + (plan || "Unknown Plan");
+
+</script>
+
+</body>
+</html>
