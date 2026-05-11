@@ -2,240 +2,349 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
     <title>Cavero DC's - Official</title>
 
     <style>
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
         }
 
-        html, body {
-            width: 100%;
-            height: 100%;
-            background-color: #020617;
-            color: white;
-            font-family: 'Inter', 'Segoe UI', sans-serif;
-            overflow: hidden;
-            position: relative;
+        html,
+        body{
+            width:100%;
+            height:100%;
+
+            background-color:#020617;
+
+            color:white;
+
+            font-family:'Inter','Segoe UI',sans-serif;
+
+            overflow:hidden;
+
+            position:relative;
         }
 
         /* PAGE TRANSITION */
-        body {
-            animation: fadePage 0.7s ease;
+
+        body{
+            animation:fadePage .7s ease;
         }
 
-        @keyframes fadePage {
-            from {
-                opacity: 0;
-                transform: scale(1.02);
+        @keyframes fadePage{
+
+            from{
+                opacity:0;
+                transform:scale(1.02);
             }
-            to {
-                opacity: 1;
-                transform: scale(1);
+
+            to{
+                opacity:1;
+                transform:scale(1);
             }
+
         }
 
-        .fade-out {
-            opacity: 0;
-            transform: scale(0.98);
-            transition: 0.4s ease;
+        .fade-out{
+            opacity:0;
+            transform:scale(.98);
+            transition:.4s ease;
         }
 
         /* BACKGROUND */
-        #bg-layer {
-            position: fixed;
-            inset: 0;
 
-            background-image: url('bg.png');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
+        #bg-layer{
+            position:fixed;
+            inset:0;
 
-            z-index: 0;
+            background-image:url('bg.png');
+
+            background-size:cover;
+            background-position:center;
+            background-repeat:no-repeat;
+
+            z-index:0;
         }
 
-        /* DARK OVERLAY */
-        .overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(2, 6, 23, 0.45);
-            z-index: 1;
+        /* OVERLAY */
+
+        .overlay{
+            position:fixed;
+            inset:0;
+
+            background:rgba(2,6,23,.45);
+
+            z-index:1;
         }
 
         /* SNOW */
-        #snowCanvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 2;
-            pointer-events: none;
+
+        #snowCanvas{
+            position:fixed;
+            top:0;
+            left:0;
+
+            width:100%;
+            height:100%;
+
+            z-index:2;
+
+            pointer-events:none;
         }
 
         /* SIDEBAR */
-        .sidebar {
-            height: 100%;
-            width: 0;
-            position: fixed;
-            z-index: 100;
-            top: 0;
-            left: 0;
-            background: rgba(8, 15, 30, 0.96);
-            backdrop-filter: blur(14px);
-            overflow-x: hidden;
-            transition: 0.4s ease;
-            border-right: 1px solid rgba(255, 255, 255, 0.08);
-            padding-top: 110px;
-            box-shadow: 0 0 30px rgba(37, 99, 235, 0.15);
+
+        .sidebar{
+            height:100%;
+            width:0;
+
+            position:fixed;
+
+            z-index:100;
+
+            top:0;
+            left:0;
+
+            background:rgba(8,15,30,.96);
+
+            backdrop-filter:blur(14px);
+
+            overflow-x:hidden;
+
+            transition:.4s ease;
+
+            border-right:1px solid rgba(255,255,255,.08);
+
+            padding-top:110px;
+
+            box-shadow:0 0 30px rgba(37,99,235,.15);
         }
 
-        /* SIDEBAR TITLE */
-        .menu-title {
-            position: absolute;
-            top: 35px;
-            left: 25px;
+        /* MENU TITLE */
 
-            font-size: 1.8rem;
-            font-weight: 800;
+        .menu-title{
+            position:absolute;
 
-            color: white;
+            top:35px;
+            left:25px;
 
-            letter-spacing: 1px;
+            font-size:1.8rem;
+            font-weight:800;
+
+            color:white;
+
+            letter-spacing:1px;
         }
 
-        .menu-title span {
-            color: #3b82f6;
+        .menu-title span{
+            color:#3b82f6;
         }
 
-        .sidebar a {
-            margin: 12px 20px;
-            padding: 18px 25px;
-            text-decoration: none;
-            font-size: 1.2rem;
-            color: #cbd5e1;
-            display: block;
-            transition: 0.3s ease;
-            font-weight: 600;
-            letter-spacing: 1px;
-            border-radius: 14px;
-            border: 1px solid transparent;
+        /* SIDEBAR LINKS */
+
+        .sidebar a{
+
+            margin:12px 20px;
+
+            padding:18px 25px;
+
+            text-decoration:none;
+
+            font-size:1.2rem;
+
+            color:#cbd5e1;
+
+            display:block;
+
+            transition:.3s ease;
+
+            font-weight:600;
+
+            letter-spacing:1px;
+
+            border-radius:14px;
+
+            border:1px solid transparent;
         }
 
-        .sidebar a:hover {
-            color: white;
-            background: rgba(37, 99, 235, 0.18);
-            border: 1px solid rgba(59, 130, 246, 0.35);
-            transform: translateX(8px);
+        .sidebar a:hover{
+
+            color:white;
+
+            background:rgba(37,99,235,.18);
+
+            border:1px solid rgba(59,130,246,.35);
+
+            transform:translateX(8px);
         }
 
-        .close-btn {
-            position: absolute;
-            top: 20px;
-            right: 25px;
-            font-size: 42px;
-            text-decoration: none;
-            color: white;
+        /* CLOSE BUTTON */
+
+        .close-btn{
+            position:absolute;
+
+            top:20px;
+            right:25px;
+
+            font-size:42px;
+
+            text-decoration:none;
+
+            color:white;
         }
 
         /* MENU BUTTON */
-        .menu-btn {
-            position: fixed;
-            top: 30px;
-            left: 30px;
-            font-size: 35px;
-            cursor: pointer;
-            z-index: 50;
-            color: white;
-            opacity: 0.85;
-            transition: 0.3s;
+
+        .menu-btn{
+            position:fixed;
+
+            top:30px;
+            left:30px;
+
+            font-size:35px;
+
+            cursor:pointer;
+
+            z-index:50;
+
+            color:white;
+
+            opacity:.85;
+
+            transition:.3s;
         }
 
-        .menu-btn:hover {
-            opacity: 1;
-            transform: scale(1.1);
+        .menu-btn:hover{
+
+            opacity:1;
+
+            transform:scale(1.1);
         }
 
         /* MAIN CONTENT */
-        .main-content {
-            position: relative;
-            z-index: 5;
 
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 20px;
+        .main-content{
+
+            position:relative;
+
+            z-index:5;
+
+            height:100vh;
+
+            display:flex;
+
+            flex-direction:column;
+
+            justify-content:center;
+
+            align-items:center;
+
+            text-align:center;
+
+            padding:20px;
         }
 
-        .logo {
-            width: 200px;
-            margin-bottom: 30px;
+        .logo{
+            width:200px;
+            margin-bottom:30px;
         }
 
-        .brand-title {
-            font-size: 5rem;
-            letter-spacing: 4px;
-            font-weight: 900;
-            margin-bottom: 50px;
-            color: #f8fafc;
-            line-height: 1;
+        .brand-title{
+
+            font-size:5rem;
+
+            letter-spacing:4px;
+
+            font-weight:900;
+
+            margin-bottom:50px;
+
+            color:#f8fafc;
+
+            line-height:1;
         }
 
-        .brand-title span {
-            color: #3b82f6;
+        .brand-title span{
+            color:#3b82f6;
         }
 
-        .btn-box {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            width: 400px;
+        /* BUTTON BOX */
+
+        .btn-box{
+
+            display:flex;
+
+            flex-direction:column;
+
+            gap:20px;
+
+            width:400px;
         }
 
-        .action-btn {
-            padding: 22px;
-            border-radius: 12px;
-            border: none;
-            background: #2563eb;
-            color: white;
-            font-size: 18px;
-            font-weight: 700;
-            letter-spacing: 1.5px;
-            cursor: pointer;
-            text-decoration: none;
-            transition: 0.3s ease;
+        /* BUTTON */
+
+        .action-btn{
+
+            padding:22px;
+
+            border-radius:12px;
+
+            border:none;
+
+            background:#2563eb;
+
+            color:white;
+
+            font-size:18px;
+
+            font-weight:700;
+
+            letter-spacing:1.5px;
+
+            cursor:pointer;
+
+            text-decoration:none;
+
+            transition:.3s ease;
         }
 
-        .action-btn:hover {
-            background: #1d4ed8;
-            transform: scale(1.03);
+        .action-btn:hover{
+
+            background:#1d4ed8;
+
+            transform:scale(1.03);
         }
 
-        .btn-secondary {
-            background: transparent;
-            border: 2px solid #334155;
-            color: #f8fafc;
+        .btn-secondary{
+
+            background:transparent;
+
+            border:2px solid #334155;
+
+            color:#f8fafc;
         }
 
-        @media (max-width: 600px) {
+        /* MOBILE */
 
-            .brand-title {
-                font-size: 3rem;
+        @media(max-width:600px){
+
+            .brand-title{
+                font-size:3rem;
             }
 
-            .btn-box {
-                width: 90%;
+            .btn-box{
+                width:90%;
             }
 
-            .logo {
-                width: 150px;
+            .logo{
+                width:150px;
             }
 
         }
@@ -245,64 +354,115 @@
 
 <body>
 
+    <!-- BACKGROUND -->
+
     <div id="bg-layer"></div>
+
+    <!-- OVERLAY -->
 
     <div class="overlay"></div>
 
+    <!-- SNOW -->
+
     <canvas id="snowCanvas"></canvas>
+
+    <!-- SIDEBAR -->
 
     <div id="sidebar" class="sidebar">
 
         <!-- MENU TITLE -->
+
         <div class="menu-title">
             🚀 <span>MENU</span>
         </div>
 
+        <!-- CLOSE -->
+
         <a href="javascript:void(0)"
            class="close-btn"
            onclick="closeNav()">
+
            &times;
+
         </a>
 
-        <a href="#">Terms</a>
+        <!-- LOGIN -->
 
-        <a href="#">Support</a>
-
-        <!-- NEW BUTTONS -->
         <a href="login.html"
-           onclick="smoothPage(event, this.href)">
+           onclick="smoothPage(event,this.href)">
+
            Login
+
         </a>
 
-        <a href="create-account.html"
-           onclick="smoothPage(event, this.href)">
+        <!-- CREATE ACCOUNT -->
+
+        <a href="createaccount.html"
+           onclick="smoothPage(event,this.href)">
+
            Create Account
+
+        </a>
+
+        <!-- TERMS -->
+
+        <a href="#"
+           onclick="smoothPage(event,this.href)">
+
+           Terms
+
+        </a>
+
+        <!-- SUPPORT -->
+
+        <a href="#"
+           onclick="smoothPage(event,this.href)">
+
+           Support
+
         </a>
 
     </div>
 
-    <div class="menu-btn" onclick="openNav()">☰</div>
+    <!-- MENU BUTTON -->
+
+    <div class="menu-btn"
+         onclick="openNav()">
+
+         ☰
+
+    </div>
+
+    <!-- MAIN -->
 
     <div class="main-content">
 
-        <img src="logo.png" alt="Logo" class="logo">
+        <img src="logo.png"
+             alt="Logo"
+             class="logo">
 
         <h1 class="brand-title">
+
             CAVERO <span>DC'S</span>
+
         </h1>
 
         <div class="btn-box">
 
             <a href="applydcserver.html"
                class="action-btn"
-               onclick="smoothPage(event, this.href)">
-                BUY DC DEV
+               onclick="smoothPage(event,this.href)">
+
+               BUY DC DEV
+
             </a>
 
             <a href="#"
                class="action-btn btn-secondary"
-               onclick="smoothPage(event, this.href)">
-                BUY DC MANAGER/STAFF
+               onclick="smoothPage(event,this.href)">
+
+               BUY DC MANAGER/STAFF
+
             </a>
 
         </div>
@@ -311,109 +471,170 @@
 
     <script>
 
-        function openNav() {
-            document.getElementById("sidebar").style.width = "320px";
+        /* SIDEBAR */
+
+        function openNav(){
+
+            document
+            .getElementById("sidebar")
+            .style.width = "320px";
+
         }
 
-        function closeNav() {
-            document.getElementById("sidebar").style.width = "0";
+        function closeNav(){
+
+            document
+            .getElementById("sidebar")
+            .style.width = "0";
+
         }
 
-        // PAGE TRANSITION
-        function smoothPage(e, link) {
+        /* PAGE TRANSITION */
+
+        function smoothPage(e,link){
 
             e.preventDefault();
 
-            document.body.classList.add("fade-out");
+            document.body
+            .classList
+            .add("fade-out");
 
-            setTimeout(() => {
+            setTimeout(()=>{
+
                 window.location.href = link;
-            }, 400);
+
+            },400);
+
         }
 
-        // SNOW EFFECT
-        const canvas = document.getElementById('snowCanvas');
-        const ctx = canvas.getContext('2d');
+        /* SNOW EFFECT */
+
+        const canvas =
+        document.getElementById('snowCanvas');
+
+        const ctx =
+        canvas.getContext('2d');
 
         let flakes = [];
 
-        function initSnow() {
+        function initSnow(){
 
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
+            canvas.width =
+            window.innerWidth;
+
+            canvas.height =
+            window.innerHeight;
 
             flakes = [];
 
-            for (let i = 0; i < 180; i++) {
+            for(let i=0;i<180;i++){
 
                 flakes.push({
-                    x: Math.random() * canvas.width,
-                    y: Math.random() * canvas.height,
-                    r: Math.random() * 3 + 1,
-                    d: Math.random() * 1 + 0.5
+
+                    x:Math.random()*canvas.width,
+
+                    y:Math.random()*canvas.height,
+
+                    r:Math.random()*3+1,
+
+                    d:Math.random()*1+.5
+
                 });
 
             }
+
         }
 
-        function drawSnow() {
+        function drawSnow(){
 
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.clearRect(
+                0,
+                0,
+                canvas.width,
+                canvas.height
+            );
 
-            ctx.fillStyle = "rgba(255,255,255,0.9)";
+            ctx.fillStyle =
+            "rgba(255,255,255,.9)";
+
             ctx.beginPath();
 
-            for (let i = 0; i < flakes.length; i++) {
+            for(let i=0;i<flakes.length;i++){
 
                 let f = flakes[i];
 
-                ctx.moveTo(f.x, f.y);
-                ctx.arc(f.x, f.y, f.r, 0, Math.PI * 2, true);
+                ctx.moveTo(f.x,f.y);
+
+                ctx.arc(
+                    f.x,
+                    f.y,
+                    f.r,
+                    0,
+                    Math.PI*2,
+                    true
+                );
 
             }
 
             ctx.fill();
 
             moveSnow();
+
         }
 
-        function moveSnow() {
+        function moveSnow(){
 
-            for (let i = 0; i < flakes.length; i++) {
+            for(let i=0;i<flakes.length;i++){
 
                 let f = flakes[i];
 
                 f.y += f.d;
-                f.x += Math.sin(f.y * 0.01);
 
-                if (f.y > canvas.height) {
+                f.x += Math.sin(f.y*.01);
+
+                if(f.y > canvas.height){
 
                     flakes[i] = {
-                        x: Math.random() * canvas.width,
-                        y: -10,
-                        r: f.r,
-                        d: f.d
+
+                        x:Math.random()*canvas.width,
+
+                        y:-10,
+
+                        r:f.r,
+
+                        d:f.d
+
                     };
 
                 }
+
             }
+
         }
 
-        window.addEventListener('resize', initSnow);
+        window.addEventListener(
+            'resize',
+            initSnow
+        );
 
         initSnow();
 
-        setInterval(drawSnow, 30);
+        setInterval(drawSnow,30);
 
-        // BG FALLBACK
-        const bgLayer = document.getElementById('bg-layer');
+        /* BG FALLBACK */
+
+        const bgLayer =
+        document.getElementById('bg-layer');
 
         const img = new Image();
 
         img.src = 'bg.png';
 
-        img.onerror = () => {
-            bgLayer.style.background = "#020617";
+        img.onerror = ()=>{
+
+            bgLayer.style.background =
+            "#020617";
+
         };
 
     </script>
