@@ -19,18 +19,15 @@
         /* BACKGROUND SECTION */
         #bg-layer {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url 'bg.png' no-repeat center center/cover;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: url('bg.png') no-repeat center center/cover;
             z-index: -3;
         }
 
         .overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(2, 6, 23, 0.7); /* Thoda dark overlay clean look ke liye */
+            background: rgba(2, 6, 23, 0.7);
             z-index: -2;
         }
 
@@ -51,31 +48,24 @@
         .sidebar a {
             padding: 15px 30px;
             text-decoration: none;
-            font-size: 1.1rem;
+            font-size: 1.3rem; /* Sidebar links bade kiye */
             color: #94a3b8;
             display: block;
             transition: 0.2s;
         }
 
-        .sidebar a:hover {
-            color: white;
-            background: #1e293b;
-        }
-
-        /* MENU BUTTON - No Glow */
+        /* MENU BUTTON */
         .menu-btn {
             position: fixed;
-            top: 25px; left: 25px;
-            font-size: 24px;
+            top: 30px; left: 30px;
+            font-size: 35px; /* Menu icon bada kiya */
             cursor: pointer;
             z-index: 50;
             color: white;
             opacity: 0.8;
-            transition: 0.3s;
         }
-        .menu-btn:hover { opacity: 1; }
 
-        /* CONTENT */
+        /* CONTENT - MAIN SIZE UPDATES */
         .main-content {
             height: 100vh;
             display: flex;
@@ -83,20 +73,21 @@
             justify-content: center;
             align-items: center;
             text-align: center;
+            padding: 20px;
         }
 
         .logo {
-            width: 120px; /* Thoda chhota aur clean */
-            margin-bottom: 25px;
-            /* Filter/Glow hata diya gaya hai */
+            width: 200px; /* Logo ka size bada kiya (120px se 200px) */
+            margin-bottom: 30px;
         }
 
         .brand-title {
-            font-size: 3rem;
-            letter-spacing: 2px;
-            font-weight: 800;
-            margin-bottom: 40px;
+            font-size: 5rem; /* Text size kafi bada kiya */
+            letter-spacing: 4px;
+            font-weight: 900;
+            margin-bottom: 50px;
             color: #f8fafc;
+            line-height: 1;
         }
 
         .brand-title span { color: #3b82f6; }
@@ -104,40 +95,40 @@
         .btn-box {
             display: flex;
             flex-direction: column;
-            gap: 12px;
-            width: 280px;
+            gap: 20px;
+            width: 400px; /* Button container ki width badhai */
         }
 
         .action-btn {
-            padding: 16px;
-            border-radius: 6px;
+            padding: 22px; /* Button ki height aur padding badhai */
+            border-radius: 12px;
             border: none;
             background: #2563eb;
             color: white;
-            font-size: 14px;
-            font-weight: 600;
-            letter-spacing: 1px;
+            font-size: 18px; /* Button text bada kiya */
+            font-weight: 700;
+            letter-spacing: 1.5px;
             cursor: pointer;
             text-decoration: none;
-            transition: 0.2s ease;
-            /* Box shadow/Glow hata diya gaya hai */
+            transition: 0.3s ease;
         }
 
         .action-btn:hover {
             background: #1d4ed8;
-            transform: translateY(-2px);
+            transform: scale(1.03); /* Hover par halka sa bada dikhega */
         }
 
         .btn-secondary {
             background: transparent;
-            border: 1px solid #334155;
-            color: #94a3b8;
+            border: 2px solid #334155; /* Border thoda thick kiya */
+            color: #f8fafc;
         }
 
-        .btn-secondary:hover {
-            background: #1e293b;
-            border-color: #475569;
-            color: white;
+        /* Mobile Responsive */
+        @media (max-width: 600px) {
+            .brand-title { font-size: 3rem; }
+            .btn-box { width: 90%; }
+            .logo { width: 150px; }
         }
     </style>
 </head>
@@ -147,7 +138,7 @@
     <div class="overlay"></div>
 
     <div id="sidebar" class="sidebar">
-        <a href="javascript:void(0)" style="position:absolute; top:20px; right:25px; font-size:30px;" onclick="closeNav()">&times;</a>
+        <a href="javascript:void(0)" style="position:absolute; top:20px; right:25px; font-size:40px;" onclick="closeNav()">&times;</a>
         <a href="#">Dashboard</a>
         <a href="#">Services</a>
         <a href="#">Terms</a>
@@ -167,10 +158,9 @@
     </div>
 
     <script>
-        function openNav() { document.getElementById("sidebar").style.width = "260px"; }
+        function openNav() { document.getElementById("sidebar").style.width = "300px"; }
         function closeNav() { document.getElementById("sidebar").style.width = "0"; }
 
-        // Background Fallback
         const bgLayer = document.getElementById('bg-layer');
         const img = new Image();
         img.src = 'bg.png';
