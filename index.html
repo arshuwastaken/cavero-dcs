@@ -1,3 +1,4 @@
+```html id="fadetotal"
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,6 +20,28 @@
             color: white;
             font-family: 'Inter', 'Segoe UI', sans-serif;
             overflow: hidden;
+        }
+
+        /* PAGE TRANSITION */
+        body {
+            animation: fadePage 0.7s ease;
+        }
+
+        @keyframes fadePage {
+            from {
+                opacity: 0;
+                transform: scale(1.02);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .fade-out {
+            opacity: 0;
+            transform: scale(0.98);
+            transition: 0.4s ease;
         }
 
         /* BACKGROUND SECTION */
@@ -210,6 +233,7 @@
     <div class="menu-btn" onclick="openNav()">☰</div>
 
     <div class="main-content">
+
         <img src="logo.png" alt="Logo" class="logo">
 
         <h1 class="brand-title">
@@ -218,11 +242,15 @@
 
         <div class="btn-box">
 
-            <a href="applydcserver.html" class="action-btn">
+            <a href="applydcserver.html"
+               class="action-btn"
+               onclick="smoothPage(event, this.href)">
                 CREATE SERVER
             </a>
 
-            <a href="#" class="action-btn btn-secondary">
+            <a href="#"
+               class="action-btn btn-secondary"
+               onclick="smoothPage(event, this.href)">
                 SUPPORT
             </a>
 
@@ -230,12 +258,25 @@
     </div>
 
     <script>
+
         function openNav() {
             document.getElementById("sidebar").style.width = "320px";
         }
 
         function closeNav() {
             document.getElementById("sidebar").style.width = "0";
+        }
+
+        // PAGE TRANSITION
+        function smoothPage(e, link) {
+
+            e.preventDefault();
+
+            document.body.classList.add("fade-out");
+
+            setTimeout(() => {
+                window.location.href = link;
+            }, 400);
         }
 
         // SNOW EFFECT
@@ -261,12 +302,14 @@
         }
 
         function drawSnow() {
+
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
             ctx.fillStyle = "rgba(255,255,255,0.9)";
             ctx.beginPath();
 
             for (let i = 0; i < flakes.length; i++) {
+
                 let f = flakes[i];
 
                 ctx.moveTo(f.x, f.y);
@@ -279,13 +322,16 @@
         }
 
         function moveSnow() {
+
             for (let i = 0; i < flakes.length; i++) {
+
                 let f = flakes[i];
 
                 f.y += f.d;
                 f.x += Math.sin(f.y * 0.01);
 
                 if (f.y > canvas.height) {
+
                     flakes[i] = {
                         x: Math.random() * canvas.width,
                         y: -10,
@@ -302,7 +348,7 @@
 
         setInterval(drawSnow, 30);
 
-        // Background fallback
+        // BACKGROUND FALLBACK
         const bgLayer = document.getElementById('bg-layer');
 
         const img = new Image();
@@ -312,7 +358,10 @@
         img.onerror = () => {
             bgLayer.style.background = "#020617";
         };
+
     </script>
 
 </body>
 </html>
+```
+
