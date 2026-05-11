@@ -31,41 +31,52 @@
             z-index: -2;
         }
 
-        /* SIDEBAR */
+        /* SIDEBAR - Fixed & Cleaned */
         .sidebar {
             height: 100%;
             width: 0;
             position: fixed;
             z-index: 100;
             top: 0; left: 0;
-            background: #0f172a;
+            background: rgba(15, 23, 42, 0.9); /* Glassy Look */
+            backdrop-filter: blur(10px);
             overflow-x: hidden;
-            transition: 0.3s ease;
-            border-right: 1px solid #1e293b;
-            padding-top: 80px;
+            transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 100px;
         }
 
         .sidebar a {
-            padding: 15px 30px;
+            padding: 20px 40px;
             text-decoration: none;
-            font-size: 1.3rem; /* Sidebar links bade kiye */
+            font-size: 1.4rem;
             color: #94a3b8;
             display: block;
-            transition: 0.2s;
+            transition: 0.3s;
+            font-weight: 500;
+            letter-spacing: 1px;
+        }
+
+        .sidebar a:hover {
+            color: white;
+            background: rgba(59, 130, 246, 0.1);
+            padding-left: 50px;
         }
 
         /* MENU BUTTON */
         .menu-btn {
             position: fixed;
             top: 30px; left: 30px;
-            font-size: 35px; /* Menu icon bada kiya */
+            font-size: 35px;
             cursor: pointer;
             z-index: 50;
             color: white;
             opacity: 0.8;
+            transition: 0.3s;
         }
+        .menu-btn:hover { opacity: 1; transform: scale(1.1); }
 
-        /* CONTENT - MAIN SIZE UPDATES */
+        /* CONTENT */
         .main-content {
             height: 100vh;
             display: flex;
@@ -77,12 +88,12 @@
         }
 
         .logo {
-            width: 200px; /* Logo ka size bada kiya (120px se 200px) */
+            width: 200px;
             margin-bottom: 30px;
         }
 
         .brand-title {
-            font-size: 5rem; /* Text size kafi bada kiya */
+            font-size: 5rem;
             letter-spacing: 4px;
             font-weight: 900;
             margin-bottom: 50px;
@@ -96,16 +107,16 @@
             display: flex;
             flex-direction: column;
             gap: 20px;
-            width: 400px; /* Button container ki width badhai */
+            width: 400px;
         }
 
         .action-btn {
-            padding: 22px; /* Button ki height aur padding badhai */
+            padding: 22px;
             border-radius: 12px;
             border: none;
             background: #2563eb;
             color: white;
-            font-size: 18px; /* Button text bada kiya */
+            font-size: 18px;
             font-weight: 700;
             letter-spacing: 1.5px;
             cursor: pointer;
@@ -115,12 +126,12 @@
 
         .action-btn:hover {
             background: #1d4ed8;
-            transform: scale(1.03); /* Hover par halka sa bada dikhega */
+            transform: scale(1.03);
         }
 
         .btn-secondary {
             background: transparent;
-            border: 2px solid #334155; /* Border thoda thick kiya */
+            border: 2px solid #334155;
             color: #f8fafc;
         }
 
@@ -138,7 +149,7 @@
     <div class="overlay"></div>
 
     <div id="sidebar" class="sidebar">
-        <a href="javascript:void(0)" style="position:absolute; top:20px; right:25px; font-size:40px;" onclick="closeNav()">&times;</a>
+        <a href="javascript:void(0)" style="position:absolute; top:25px; right:30px; font-size:45px;" onclick="closeNav()">&times;</a>
         <a href="#">Dashboard</a>
         <a href="#">Services</a>
         <a href="#">Terms</a>
@@ -152,14 +163,18 @@
         <h1 class="brand-title">CAVERO <span>DC'S</span></h1>
         
         <div class="btn-box">
-            <a href="#" class="action-btn">CREATE SERVER</a>
+            <a href="applydcserver.html" class="action-btn">CREATE SERVER</a>
             <a href="#" class="action-btn btn-secondary">SUPPORT</a>
         </div>
     </div>
 
     <script>
-        function openNav() { document.getElementById("sidebar").style.width = "300px"; }
-        function closeNav() { document.getElementById("sidebar").style.width = "0"; }
+        function openNav() { 
+            document.getElementById("sidebar").style.width = "320px"; 
+        }
+        function closeNav() { 
+            document.getElementById("sidebar").style.width = "0"; 
+        }
 
         const bgLayer = document.getElementById('bg-layer');
         const img = new Image();
