@@ -1,11 +1,17 @@
+```html id="wq7l9x"
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Apply DC Server - Cavero DC's</title>
+
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
         
         body, html {
             width: 100%;
@@ -16,30 +22,42 @@
             overflow-x: hidden;
         }
 
-        /* BACKGROUND & OVERLAY */
+        /* BACKGROUND */
         #bg-layer {
             position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             background: url('bg.png') no-repeat center center/cover;
             z-index: -3;
         }
 
         .overlay {
             position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             background: rgba(2, 6, 23, 0.8);
             z-index: -2;
         }
 
+        /* FIXED SNOW */
         #snowCanvas {
             position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            z-index: -1;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
             pointer-events: none;
         }
 
         /* HEADER */
         .header {
+            position: relative;
+            z-index: 2;
             padding: 40px 20px;
             text-align: center;
         }
@@ -50,10 +68,15 @@
             letter-spacing: 2px;
         }
 
-        .header h1 span { color: #3b82f6; }
+        .header h1 span {
+            color: #3b82f6;
+        }
 
         /* PLANS CONTAINER */
         .plans-container {
+            position: relative;
+            z-index: 2;
+
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
@@ -65,23 +88,25 @@
 
         /* PLAN BOX */
         .plan-box {
-            background: rgba(15, 23, 42, 0.6);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(59, 130, 246, 0.2);
+            background: rgba(15, 23, 42, 0.65);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(59, 130, 246, 0.25);
             width: 320px;
             padding: 40px 30px;
-            border-radius: 20px; /* Curved Edges */
+            border-radius: 22px;
             text-align: center;
             transition: 0.3s ease;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            box-shadow: 0 0 25px rgba(37, 99, 235, 0.08);
         }
 
         .plan-box:hover {
             border-color: #3b82f6;
             transform: translateY(-10px);
-            background: rgba(15, 23, 42, 0.8);
+            background: rgba(15, 23, 42, 0.82);
+            box-shadow: 0 0 30px rgba(37, 99, 235, 0.18);
         }
 
         .plan-name {
@@ -99,11 +124,11 @@
         }
 
         .plan-price span {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             color: #94a3b8;
         }
 
-        /* CHECKOUT BUTTON */
+        /* BUTTON */
         .checkout-btn {
             display: block;
             width: 100%;
@@ -111,7 +136,7 @@
             background: #2563eb;
             color: white;
             text-decoration: none;
-            border-radius: 10px;
+            border-radius: 12px;
             font-weight: 700;
             font-size: 1rem;
             transition: 0.3s;
@@ -120,9 +145,13 @@
 
         .checkout-btn:hover {
             background: #1d4ed8;
+            transform: scale(1.03);
         }
 
         .back-link {
+            position: relative;
+            z-index: 2;
+
             display: block;
             text-align: center;
             color: #94a3b8;
@@ -130,16 +159,31 @@
             margin-top: 40px;
             font-size: 1rem;
             padding-bottom: 50px;
+            transition: 0.3s;
         }
 
-        .back-link:hover { color: white; }
+        .back-link:hover {
+            color: white;
+        }
 
+        @media (max-width: 700px) {
+            .header h1 {
+                font-size: 2.2rem;
+            }
+
+            .plan-box {
+                width: 95%;
+            }
+        }
     </style>
 </head>
+
 <body>
 
     <div id="bg-layer"></div>
+
     <div class="overlay"></div>
+
     <canvas id="snowCanvas"></canvas>
 
     <div class="header">
@@ -147,81 +191,142 @@
     </div>
 
     <div class="plans-container">
+
         <div class="plan-box">
             <div>
                 <h2 class="plan-name">Base Plan</h2>
-                <div class="plan-price">₹65<span>/OneTime</span></div>
+                <div class="plan-price">
+                    ₹65<span>/One Time</span>
+                </div>
             </div>
-            <a href="#" class="checkout-btn">CHECKOUT PLAN</a>
+
+            <a href="#" class="checkout-btn">
+                CHECKOUT PLAN
+            </a>
         </div>
 
         <div class="plan-box">
             <div>
                 <h2 class="plan-name">Astroid Plan</h2>
-                <div class="plan-price">₹85<span>/One Time</span></div>
+                <div class="plan-price">
+                    ₹85<span>/One Time</span>
+                </div>
             </div>
-            <a href="#" class="checkout-btn">CHECKOUT PLAN</a>
+
+            <a href="#" class="checkout-btn">
+                CHECKOUT PLAN
+            </a>
         </div>
 
         <div class="plan-box">
             <div>
                 <h2 class="plan-name">Meteoride Plan</h2>
-                <div class="plan-price">₹110<span>/One Time</span></div>
+                <div class="plan-price">
+                    ₹110<span>/One Time</span>
+                </div>
             </div>
-            <a href="#" class="checkout-btn">CHECKOUT PLAN</a>
+
+            <a href="#" class="checkout-btn">
+                CHECKOUT PLAN
+            </a>
         </div>
+
     </div>
 
-    <a href="index.html" class="back-link">← Go Back Home</a>
+    <a href="index.html" class="back-link">
+        ← Go Back Home
+    </a>
 
     <script>
-        // Snow Logic
+
+        // SNOW EFFECT
         const canvas = document.getElementById('snowCanvas');
         const ctx = canvas.getContext('2d');
+
         let flakes = [];
 
-        function init() {
+        function initSnow() {
+
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
+
             flakes = [];
-            for(let i=0; i<100; i++) {
-                flakes.push({ 
-                    x: Math.random()*canvas.width, 
-                    y: Math.random()*canvas.height, 
-                    r: Math.random()*2+1, 
-                    s: Math.random()*1+0.5 
+
+            for (let i = 0; i < 180; i++) {
+
+                flakes.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    r: Math.random() * 3 + 1,
+                    d: Math.random() * 1 + 0.5
                 });
+
             }
         }
 
-        function draw() {
+        function drawSnow() {
+
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.fillStyle = "white";
+
+            ctx.fillStyle = "rgba(255,255,255,0.9)";
             ctx.beginPath();
-            flakes.forEach(f => {
+
+            for (let i = 0; i < flakes.length; i++) {
+
+                let f = flakes[i];
+
                 ctx.moveTo(f.x, f.y);
-                ctx.arc(f.x, f.y, f.r, 0, Math.PI*2);
-            });
+                ctx.arc(f.x, f.y, f.r, 0, Math.PI * 2, true);
+
+            }
+
             ctx.fill();
-            move();
+
+            moveSnow();
         }
 
-        function move() {
-            flakes.forEach(f => {
-                f.y += f.s;
-                if(f.y > canvas.height) f.y = -5;
-            });
+        function moveSnow() {
+
+            for (let i = 0; i < flakes.length; i++) {
+
+                let f = flakes[i];
+
+                f.y += f.d;
+                f.x += Math.sin(f.y * 0.01);
+
+                if (f.y > canvas.height) {
+
+                    flakes[i] = {
+                        x: Math.random() * canvas.width,
+                        y: -10,
+                        r: f.r,
+                        d: f.d
+                    };
+
+                }
+            }
         }
 
-        window.addEventListener('resize', init);
-        init();
-        setInterval(draw, 30);
+        window.addEventListener('resize', initSnow);
 
-        // BG Fallback
+        initSnow();
+
+        setInterval(drawSnow, 30);
+
+        // BG FALLBACK
         const bgLayer = document.getElementById('bg-layer');
+
         const img = new Image();
+
         img.src = 'bg.png';
-        img.onerror = () => bgLayer.style.background = "#020617";
+
+        img.onerror = () => {
+            bgLayer.style.background = "#020617";
+        };
+
     </script>
+
 </body>
 </html>
+```
+
