@@ -94,6 +94,24 @@
             box-shadow: 0 0 30px rgba(37, 99, 235, 0.15);
         }
 
+        /* SIDEBAR TITLE */
+        .menu-title {
+            position: absolute;
+            top: 35px;
+            left: 25px;
+
+            font-size: 1.8rem;
+            font-weight: 800;
+
+            color: white;
+
+            letter-spacing: 1px;
+        }
+
+        .menu-title span {
+            color: #3b82f6;
+        }
+
         .sidebar a {
             margin: 12px 20px;
             padding: 18px 25px;
@@ -235,6 +253,11 @@
 
     <div id="sidebar" class="sidebar">
 
+        <!-- MENU TITLE -->
+        <div class="menu-title">
+            🚀 <span>MENU</span>
+        </div>
+
         <a href="javascript:void(0)"
            class="close-btn"
            onclick="closeNav()">
@@ -242,7 +265,19 @@
         </a>
 
         <a href="#">Terms</a>
+
         <a href="#">Support</a>
+
+        <!-- NEW BUTTONS -->
+        <a href="login.html"
+           onclick="smoothPage(event, this.href)">
+           Login
+        </a>
+
+        <a href="create-account.html"
+           onclick="smoothPage(event, this.href)">
+           Create Account
+        </a>
 
     </div>
 
@@ -267,7 +302,7 @@
             <a href="#"
                class="action-btn btn-secondary"
                onclick="smoothPage(event, this.href)">
-                BY DC MANAGER/STAFF
+                BUY DC MANAGER/STAFF
             </a>
 
         </div>
