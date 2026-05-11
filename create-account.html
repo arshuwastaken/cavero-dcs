@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Create Account - Cavero DC's</title>
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+        }
+
+        html,
+        body{
+            width:100%;
+            min-height:100vh;
+            background:#020617;
+            color:white;
+            font-family:'Inter','Segoe UI',sans-serif;
+            overflow-x:hidden;
+        }
+
+        body{
+            animation:fadePage .7s ease;
+        }
+
+        @keyframes fadePage{
+            from{
+                opacity:0;
+                transform:scale(1.02);
+            }
+
+            to{
+                opacity:1;
+                transform:scale(1);
+            }
+        }
+
+        .fade-out{
+            opacity:0;
+            transform:scale(.98);
+            transition:.4s ease;
+        }
+
+        /* BACKGROUND */
+
+        #bg-layer{
+            position:fixed;
+            inset:0;
+
+            background-image:url('bg.png');
+            background-size:cover;
+            background-position:center;
+            background-repeat:no-repeat;
+
+            z-index:0;
+        }
+
+        .overlay{
+            position:fixed;
+            inset:0;
+
+            background:rgba(2,6,23,.55);
+
+            z-index:1;
+        }
+
+        /* SNOW */
+
+        #snowCanvas{
+            position:fixed;
+            inset:0;
+
+            width:100%;
+            height:100%;
+
+            z-index:2;
+
+            pointer-events:none;
+        }
+
+        /* MAIN */
+
+        .main{
+            position:relative;
+            z-index:5;
+
+            min-height:100vh;
+
+            display:flex;
+            justify-content:center;
+            align-items:center;
+
+            padding:30px;
+        }
+
+        /* CARD */
+
+        .card{
+            width:100%;
+            max-width:520px;
+
+            background:rgba(15,23,42,.68);
+
+            border:1px solid rgba(59,130,246,.2);
+
+            backdrop-filter:blur(16px);
+
+            border-radius:28px;
+
+            padding:45px;
+
+            box-shadow:0 0 35px rgba(37,99,235,.12);
+        }
+
+        .title{
+            text-align:center;
+
+            font-size:2.5rem;
+            font-weight:900;
+
+            margin-bottom:10px;
+
+            letter-spacing:2px;
+        }
+
+        .title span{
+            color:#3b82f6;
+        }
+
+        .subtitle{
+            text-align:center;
+
+            color:#94a3b8;
+
+            margin-bottom:35px;
+
+            font-size:1rem;
+        }
+
+        /* INPUTS */
+
+        .input-box{
+            margin-bottom:22px;
+        }
+
+        .input-box label{
+            display:block;
+
+            margin-bottom:10px;
+
+            font-size:1rem;
+            font-weight:700;
+
+            color:#cbd5e1;
+        }
+
+        .input-box input{
+            width:100%;
+
+            padding:18px;
+
+            border-radius:14px;
+
+            border:1px solid rgba(59,130,246,.18);
+
+            background:rgba(2,6,23,.72);
+
+            color:white;
+
+            font-size:1rem;
+
+            outline:none;
+
+            transition:.3s ease;
+        }
+
+        .input-box input:focus{
+            border-color:#3b82f6;
+
+            box-shadow:0 0 20px rgba(37,99,235,.18);
+        }
+
+        /* BUTTON */
+
+        .create-btn{
+            width:100%;
+
+            padding:18px;
+
+            border:none;
+
+            border-radius:14px;
+
+            background:#2563eb;
+
+            color:white;
+
+            font-size:1rem;
+            font-weight:800;
+
+            cursor:pointer;
+
+            transition:.3s ease;
+
+            margin-top:10px;
+        }
+
+        .create-btn:hover{
+            background:#1d4ed8;
+
+            transform:scale(1.02);
+        }
+
+        /* MESSAGE */
+
+        .message{
+            margin-top:20px;
+
+            text-align:center;
+
+            font-weight:700;
+
+            color:#22c55e;
+        }
+
+        .error{
+            color:#ef4444;
+        }
+
+        /* BACK */
+
+        .back{
+            display:block;
+
+            text-align:center;
+
+            margin-top:25px;
+
+            color:#94a3b8;
+
+            text-decoration:none;
+
+            transition:.3s ease;
+        }
+
+        .back:hover{
+            color:white;
+        }
+
+        @media(max-width:600px){
+
+            .card{
+                padding:30px 22px;
+            }
+
+            .title{
+                font-size:2rem;
+            }
+
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <!-- BACKGROUND -->
+    <div id="bg-layer"></div>
+
+    <div class="overlay"></div>
+
+    <!-- SNOW -->
+    <canvas id="snowCanvas"></canvas>
+
+    <!-- MAIN -->
+    <div class="main">
+
+        <div class="card">
+
+            <h1 class="title">
+                CREATE <span>ACCOUNT</span>
+            </h1>
+
+            <p class="subtitle">
+                Join Cavero DC's Official Website
+            </p>
+
+            <!-- FORM -->
+            <form id="registerForm">
+
+                <div class="input-box">
+
+                    <label>Create Name</label>
+
+                    <input
+                        type="text"
+                        id="name"
+                        placeholder="Enter your name"
+                        required
+                    >
+
+                </div>
+
+                <div class="input-box">
+
+                    <label>Username</label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        placeholder="Enter email"
+                        required
+                    >
+
+                </div>
+
+                <div class="input-box">
+
+                    <label>Password</label>
+
+                    <input
+                        type="password"
+                        id="password"
+                        placeholder="Enter password"
+                        required
+                    >
+
+                </div>
+
+                <button type="submit" class="create-btn">
+                    CREATE ACCOUNT
+                </button>
+
+            </form>
+
+            <div id="message" class="message"></div>
+
+            <a href="index.html"
+               class="back"
+               onclick="smoothPage(event,this.href)">
+               ← Go Back Home
+            </a>
+
+        </div>
+
+    </div>
+
+    <!-- FIREBASE -->
+    <script type="module">
+
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+        import {
+            getAuth,
+            createUserWithEmailAndPassword,
+            updateProfile
+        }
+
+        from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+        const firebaseConfig = {
+
+            apiKey: "AIzaSyAmC4fe50RFG62d3k10tIrlYfNT3iWF94Y",
+
+            authDomain: "cavero-dcs.firebaseapp.com",
+
+            projectId: "cavero-dcs",
+
+            storageBucket: "cavero-dcs.firebasestorage.app",
+
+            messagingSenderId: "631632094928",
+
+            appId: "1:631632094928:web:cbb62c92117f05a08960d5",
+
+            measurementId: "G-R39B13Q1V8"
+
+        };
+
+        const app = initializeApp(firebaseConfig);
+
+        const auth = getAuth(app);
+
+        const form = document.getElementById("registerForm");
+
+        const message = document.getElementById("message");
+
+        form.addEventListener("submit", async (e) => {
+
+            e.preventDefault();
+
+            const name = document.getElementById("name").value;
+
+            const email = document.getElementById("email").value;
+
+            const password = document.getElementById("password").value;
+
+            try{
+
+                const userCredential =
+                    await createUserWithEmailAndPassword(
+                        auth,
+                        email,
+                        password
+                    );
+
+                await updateProfile(
+                    userCredential.user,
+                    {
+                        displayName:name
+                    }
+                );
+
+                message.classList.remove("error");
+
+                message.innerText =
+                    "Account Created Successfully!";
+
+                setTimeout(() => {
+
+                    window.location.href = "login.html";
+
+                }, 2000);
+
+            }
+
+            catch(error){
+
+                message.classList.add("error");
+
+                message.innerText = error.message;
+
+            }
+
+        });
+
+    </script>
+
+    <!-- PAGE TRANSITION -->
+    <script>
+
+        function smoothPage(e, link){
+
+            e.preventDefault();
+
+            document.body.classList.add("fade-out");
+
+            setTimeout(() => {
+
+                window.location.href = link;
+
+            }, 400);
+
+        }
+
+    </script>
+
+    <!-- SNOW EFFECT -->
+    <script>
+
+        const canvas =
+            document.getElementById('snowCanvas');
+
+        const ctx =
+            canvas.getContext('2d');
+
+        let flakes = [];
+
+        function initSnow(){
+
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            flakes = [];
+
+            for(let i=0;i<180;i++){
+
+                flakes.push({
+
+                    x:Math.random()*canvas.width,
+
+                    y:Math.random()*canvas.height,
+
+                    r:Math.random()*3+1,
+
+                    d:Math.random()*1+.5
+
+                });
+
+            }
+
+        }
+
+        function drawSnow(){
+
+            ctx.clearRect(
+                0,
+                0,
+                canvas.width,
+                canvas.height
+            );
+
+            ctx.fillStyle =
+                "rgba(255,255,255,.9)";
+
+            ctx.beginPath();
+
+            for(let i=0;i<flakes.length;i++){
+
+                let f = flakes[i];
+
+                ctx.moveTo(f.x,f.y);
+
+                ctx.arc(
+                    f.x,
+                    f.y,
+                    f.r,
+                    0,
+                    Math.PI*2,
+                    true
+                );
+
+            }
+
+            ctx.fill();
+
+            moveSnow();
+
+        }
+
+        function moveSnow(){
+
+            for(let i=0;i<flakes.length;i++){
+
+                let f = flakes[i];
+
+                f.y += f.d;
+
+                f.x += Math.sin(f.y*.01);
+
+                if(f.y > canvas.height){
+
+                    flakes[i] = {
+
+                        x:Math.random()*canvas.width,
+
+                        y:-10,
+
+                        r:f.r,
+
+                        d:f.d
+
+                    };
+
+                }
+
+            }
+
+        }
+
+        window.addEventListener(
+            'resize',
+            initSnow
+        );
+
+        initSnow();
+
+        setInterval(drawSnow,30);
+
+    </script>
+
+</body>
+</html>
