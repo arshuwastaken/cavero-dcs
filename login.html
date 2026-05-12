@@ -44,8 +44,6 @@
 
         }
 
-        /* PAGE ANIMATION */
-
         body{
 
             animation:fadePage .7s ease;
@@ -76,8 +74,6 @@
 
         }
 
-        /* BACKGROUND */
-
         #bg-layer{
 
             position:fixed;
@@ -96,8 +92,6 @@
 
         }
 
-        /* OVERLAY */
-
         .overlay{
 
             position:fixed;
@@ -110,8 +104,6 @@
 
         }
 
-        /* SNOW */
-
         #snowCanvas{
 
             position:fixed;
@@ -119,7 +111,6 @@
             inset:0;
 
             width:100%;
-
             height:100%;
 
             z-index:2;
@@ -127,8 +118,6 @@
             pointer-events:none;
 
         }
-
-        /* MAIN */
 
         .main{
 
@@ -148,12 +137,9 @@
 
         }
 
-        /* CARD */
-
         .card{
 
             width:100%;
-
             max-width:520px;
 
             background:rgba(15,23,42,.72);
@@ -169,8 +155,6 @@
             box-shadow:0 0 40px rgba(37,99,235,.16);
 
         }
-
-        /* TITLE */
 
         .title{
 
@@ -203,8 +187,6 @@
             font-size:1rem;
 
         }
-
-        /* INPUT */
 
         .input-box{
 
@@ -256,8 +238,6 @@
 
         }
 
-        /* BUTTON */
-
         .login-btn{
 
             width:100%;
@@ -302,8 +282,6 @@
 
         }
 
-        /* MESSAGE */
-
         .message{
 
             margin-top:22px;
@@ -325,8 +303,6 @@
             color:#ef4444;
 
         }
-
-        /* BACK */
 
         .back{
 
@@ -353,15 +329,11 @@
         @media(max-width:600px){
 
             .card{
-
                 padding:32px 22px;
-
             }
 
             .title{
-
                 font-size:2rem;
-
             }
 
         }
@@ -372,268 +344,111 @@
 
 <body>
 
-    <!-- BACKGROUND -->
-
     <div id="bg-layer"></div>
-
     <div class="overlay"></div>
-
-    <!-- SNOW -->
-
     <canvas id="snowCanvas"></canvas>
-
-    <!-- MAIN -->
 
     <div class="main">
 
         <div class="card">
 
-            <h1 class="title">
+            <h1 class="title">LOGIN <span>ACCOUNT</span></h1>
 
-                LOGIN <span>ACCOUNT</span>
-
-            </h1>
-
-            <p class="subtitle">
-
-                Login To Continue Into Cavero DC's
-
-            </p>
-
-            <!-- FORM -->
+            <p class="subtitle">Login To Continue Into Cavero DC's</p>
 
             <form id="loginForm">
-
-                <!-- EMAIL -->
 
                 <div class="input-box">
 
                     <label>Email</label>
 
-                    <input
-                        type="email"
-                        id="email"
-                        placeholder="Enter your email"
-                        autocomplete="off"
-                        required
-                    >
+                    <input type="email" id="email" placeholder="Enter your email" autocomplete="off" required>
 
                 </div>
-
-                <!-- PASSWORD -->
 
                 <div class="input-box">
 
                     <label>Password</label>
 
-                    <input
-                        type="password"
-                        id="password"
-                        placeholder="Enter your password"
-                        required
-                    >
+                    <input type="password" id="password" placeholder="Enter your password" required>
 
                 </div>
 
-                <!-- BUTTON -->
-
-                <button
-                    type="submit"
-                    class="login-btn"
-                    id="loginBtn">
-
+                <button type="submit" class="login-btn" id="loginBtn">
                     LOGIN ACCOUNT
-
                 </button>
 
             </form>
 
-            <!-- MESSAGE -->
+            <div id="message" class="message"></div>
 
-            <div id="message"
-                 class="message">
-
-            </div>
-
-            <!-- BACK -->
-
-            <a href="index.html"
-               class="back"
-               onclick="smoothPage(event,this.href)">
-
-               ← Go Back Home
-
+            <a href="index.html" class="back" onclick="smoothPage(event,this.href)">
+                ← Go Back Home
             </a>
 
         </div>
 
     </div>
 
-    <!-- FIREBASE -->
-
     <script type="module">
 
-        import {
-
-            initializeApp
-
-        }
-
-        from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-
-        import {
-
-            getAuth,
-
-            signInWithEmailAndPassword,
-
-            setPersistence,
-
-            browserLocalPersistence
-
-        }
-
-        from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-
-        /* FIREBASE CONFIG */
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword, setPersistence, browserLocalPersistence } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
         const firebaseConfig = {
-
-            apiKey:
-            "AIzaSyAmC4fe50RFG62d3k10tIrlYfNT3iWF94Y",
-
-            authDomain:
-            "cavero-dcs.firebaseapp.com",
-
-            projectId:
-            "cavero-dcs",
-
-            storageBucket:
-            "cavero-dcs.firebasestorage.app",
-
-            messagingSenderId:
-            "631632094928",
-
-            appId:
-            "1:631632094928:web:cbb62c92117f05a08960d5",
-
-            measurementId:
-            "G-R39B13Q1V8"
-
+            apiKey: "AIzaSyAmC4fe50RFG62d3k10tIrlYfNT3iWF94Y",
+            authDomain: "cavero-dcs.firebaseapp.com",
+            projectId: "cavero-dcs",
+            storageBucket: "cavero-dcs.firebasestorage.app",
+            messagingSenderId: "631632094928",
+            appId: "1:631632094928:web:cbb62c92117f05a08960d5",
+            measurementId: "G-R39B13Q1V8"
         };
 
-        /* INIT */
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
 
-        const app =
-        initializeApp(firebaseConfig);
+        const form = document.getElementById("loginForm");
+        const message = document.getElementById("message");
+        const loginBtn = document.getElementById("loginBtn");
 
-        const auth =
-        getAuth(app);
-
-        /* ELEMENTS */
-
-        const form =
-        document.getElementById("loginForm");
-
-        const message =
-        document.getElementById("message");
-
-        const loginBtn =
-        document.getElementById("loginBtn");
-
-        /* LOGIN */
-
-        form.addEventListener(
-            "submit",
-            async (e)=>{
+        form.addEventListener("submit", async (e)=>{
 
             e.preventDefault();
 
-            const email =
-            document.getElementById("email")
-            .value
-            .trim();
-
-            const password =
-            document.getElementById("password")
-            .value;
+            const email = document.getElementById("email").value.trim();
+            const password = document.getElementById("password").value;
 
             message.innerText = "";
-
             message.classList.remove("error");
 
             try{
 
                 loginBtn.disabled = true;
+                loginBtn.innerText = "VERIFYING ACCOUNT...";
 
-                loginBtn.innerText =
-                "VERIFYING ACCOUNT...";
+                await setPersistence(auth, browserLocalPersistence);
 
-                /* SESSION */
+                const userCredential = await signInWithEmailAndPassword(auth, email, password);
 
-                await setPersistence(
-
-                    auth,
-
-                    browserLocalPersistence
-
-                );
-
-                /* LOGIN */
-
-                const userCredential =
-
-                await signInWithEmailAndPassword(
-
-                    auth,
-                    email,
-                    password
-
-                );
-
-                /* VERIFY EMAIL */
-
-                if(
-                    !userCredential.user.emailVerified
-                ){
+                if(!userCredential.user.emailVerified){
 
                     message.classList.add("error");
-
-                    message.innerText =
-                    "Please verify your email first.";
-
+                    message.innerText = "Please verify your email first.";
                     return;
 
                 }
 
-                /* SAVE LOGIN */
+                localStorage.setItem("caveroLoggedIn", "true");
+                localStorage.setItem("caveroUserEmail", userCredential.user.email);
+                localStorage.setItem("caveroDisplayName", userCredential.user.displayName || "User");
 
-                localStorage.setItem(
-                    "caveroLoggedIn",
-                    "true"
-                );
-
-                localStorage.setItem(
-                    "caveroUserEmail",
-                    userCredential.user.email
-                );
-
-                localStorage.setItem(
-                    "caveroDisplayName",
-                    userCredential.user.displayName || "User"
-                );
-
-                /* SUCCESS */
-
-                message.innerText =
-                "Login Successful! Redirecting...";
-
-                /* REDIRECT */
+                message.innerText = "Login Successful! Redirecting...";
 
                 setTimeout(()=>{
 
-                    window.location.href =
-                    "dashboard.html";
+                    // ✅ CHANGED HERE ONLY
+                    window.location.href = "index.html";
 
                 },2000);
 
@@ -643,41 +458,17 @@
 
                 message.classList.add("error");
 
-                if(
-                    error.code ===
-                    "auth/user-not-found"
-                ){
-
-                    message.innerText =
-                    "No account found.";
-
+                if(error.code === "auth/user-not-found"){
+                    message.innerText = "No account found.";
                 }
-
-                else if(
-                    error.code ===
-                    "auth/wrong-password"
-                ){
-
-                    message.innerText =
-                    "Incorrect password.";
-
+                else if(error.code === "auth/wrong-password"){
+                    message.innerText = "Incorrect password.";
                 }
-
-                else if(
-                    error.code ===
-                    "auth/invalid-credential"
-                ){
-
-                    message.innerText =
-                    "Invalid email or password.";
-
+                else if(error.code === "auth/invalid-credential"){
+                    message.innerText = "Invalid email or password.";
                 }
-
                 else{
-
-                    message.innerText =
-                    "Login failed.";
-
+                    message.innerText = "Login failed.";
                 }
 
             }
@@ -685,53 +476,28 @@
             finally{
 
                 loginBtn.disabled = false;
-
-                loginBtn.innerText =
-                "LOGIN ACCOUNT";
+                loginBtn.innerText = "LOGIN ACCOUNT";
 
             }
 
         });
 
-        /* DISABLE RIGHT CLICK */
+        document.addEventListener("contextmenu",(e)=>e.preventDefault());
 
-        document.addEventListener(
-            "contextmenu",
-            (e)=>e.preventDefault()
-        );
+        document.addEventListener("keydown",function(e){
 
-        /* DISABLE COMMON INSPECT KEYS */
-
-        document.addEventListener(
-            "keydown",
-            function(e){
-
-                if(
-                    e.key === "F12" ||
-
-                    (e.ctrlKey &&
-                     e.shiftKey &&
-                     e.key === "I") ||
-
-                    (e.ctrlKey &&
-                     e.shiftKey &&
-                     e.key === "J") ||
-
-                    (e.ctrlKey &&
-                     e.key === "U")
-
-                ){
-
-                    e.preventDefault();
-
-                }
-
+            if(
+                e.key === "F12" ||
+                (e.ctrlKey && e.shiftKey && e.key === "I") ||
+                (e.ctrlKey && e.shiftKey && e.key === "J") ||
+                (e.ctrlKey && e.key === "U")
+            ){
+                e.preventDefault();
             }
-        );
+
+        });
 
     </script>
-
-    <!-- PAGE TRANSITION -->
 
     <script>
 
@@ -739,9 +505,7 @@
 
             e.preventDefault();
 
-            document.body
-            .classList
-            .add("fade-out");
+            document.body.classList.add("fade-out");
 
             setTimeout(()=>{
 
@@ -753,25 +517,17 @@
 
     </script>
 
-    <!-- SNOW EFFECT -->
-
     <script>
 
-        const canvas =
-        document.getElementById('snowCanvas');
-
-        const ctx =
-        canvas.getContext('2d');
+        const canvas = document.getElementById('snowCanvas');
+        const ctx = canvas.getContext('2d');
 
         let flakes = [];
 
         function initSnow(){
 
-            canvas.width =
-            window.innerWidth;
-
-            canvas.height =
-            window.innerHeight;
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
 
             flakes = [];
 
@@ -780,11 +536,8 @@
                 flakes.push({
 
                     x:Math.random()*canvas.width,
-
                     y:Math.random()*canvas.height,
-
                     r:Math.random()*3+1,
-
                     d:Math.random()*1+.5
 
                 });
@@ -795,66 +548,29 @@
 
         function drawSnow(){
 
-            ctx.clearRect(
-                0,
-                0,
-                canvas.width,
-                canvas.height
-            );
+            ctx.clearRect(0,0,canvas.width,canvas.height);
 
-            ctx.fillStyle =
-            "rgba(255,255,255,.9)";
-
+            ctx.fillStyle = "rgba(255,255,255,.9)";
             ctx.beginPath();
 
-            for(let i=0;i<flakes.length;i++){
-
-                let f = flakes[i];
+            for(let f of flakes){
 
                 ctx.moveTo(f.x,f.y);
-
-                ctx.arc(
-
-                    f.x,
-                    f.y,
-                    f.r,
-                    0,
-                    Math.PI*2,
-                    true
-
-                );
+                ctx.arc(f.x,f.y,f.r,0,Math.PI*2,true);
 
             }
 
             ctx.fill();
 
-            moveSnow();
-
-        }
-
-        function moveSnow(){
-
-            for(let i=0;i<flakes.length;i++){
-
-                let f = flakes[i];
+            for(let f of flakes){
 
                 f.y += f.d;
-
                 f.x += Math.sin(f.y*.01);
 
                 if(f.y > canvas.height){
 
-                    flakes[i] = {
-
-                        x:Math.random()*canvas.width,
-
-                        y:-10,
-
-                        r:f.r,
-
-                        d:f.d
-
-                    };
+                    f.y = -10;
+                    f.x = Math.random()*canvas.width;
 
                 }
 
@@ -862,13 +578,9 @@
 
         }
 
-        window.addEventListener(
-            'resize',
-            initSnow
-        );
+        window.addEventListener('resize',initSnow);
 
         initSnow();
-
         setInterval(drawSnow,30);
 
     </script>
