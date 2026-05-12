@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Checkout - Cavero DC's</title>
 
 <style>
@@ -30,13 +32,52 @@ body{
     align-items:center;
 
     padding:30px;
+
+    overflow-x:hidden;
 }
 
+/* FADE */
+
+body{
+    animation:fadePage .7s ease;
+}
+
+@keyframes fadePage{
+
+    from{
+        opacity:0;
+        transform:scale(1.02);
+    }
+
+    to{
+        opacity:1;
+        transform:scale(1);
+    }
+
+}
+
+/* SNOW */
+
+#snowCanvas{
+    position:fixed;
+    inset:0;
+    width:100%;
+    height:100%;
+    pointer-events:none;
+    z-index:1;
+}
+
+/* BOX */
+
 .form-box{
+    position:relative;
+    z-index:5;
+
     width:100%;
     max-width:650px;
 
     background:rgba(15,23,42,.72);
+
     backdrop-filter:blur(14px);
 
     border:1px solid rgba(59,130,246,.22);
@@ -51,6 +92,7 @@ body{
 }
 
 @keyframes fadeIn{
+
     from{
         opacity:0;
         transform:translateY(20px);
@@ -60,6 +102,7 @@ body{
         opacity:1;
         transform:translateY(0);
     }
+
 }
 
 .title{
@@ -90,11 +133,13 @@ body{
 .input-box input,
 .input-box textarea,
 .input-box select{
+
     width:100%;
 
     padding:15px;
 
     border-radius:14px;
+
     border:1px solid rgba(255,255,255,.08);
 
     background:rgba(2,6,23,.7);
@@ -104,6 +149,16 @@ body{
     outline:none;
 
     font-size:1rem;
+
+}
+
+.input-box input:focus,
+.input-box textarea:focus,
+.input-box select:focus{
+
+    border-color:#3b82f6;
+    box-shadow:0 0 15px rgba(37,99,235,.18);
+
 }
 
 textarea{
@@ -112,6 +167,7 @@ textarea{
 }
 
 .submit-btn{
+
     width:100%;
 
     padding:16px;
@@ -129,14 +185,18 @@ textarea{
     cursor:pointer;
 
     transition:.3s ease;
+
 }
 
 .submit-btn:hover{
+
     background:#1d4ed8;
     transform:scale(1.02);
+
 }
 
 .plan-show{
+
     margin-bottom:25px;
 
     background:rgba(37,99,235,.12);
@@ -150,11 +210,38 @@ textarea{
     color:#93c5fd;
 
     font-weight:700;
+
+}
+
+.success{
+
+    margin-top:20px;
+
+    text-align:center;
+
+    color:#22c55e;
+
+    font-weight:700;
+
+}
+
+@media(max-width:700px){
+
+    .form-box{
+        padding:28px 20px;
+    }
+
+    .title h1{
+        font-size:2rem;
+    }
+
 }
 
 </style>
 </head>
 <body>
+
+<canvas id="snowCanvas"></canvas>
 
 <div class="form-box">
 
@@ -166,33 +253,55 @@ textarea{
         Selected Plan: Loading...
     </div>
 
-    <form>
+    <form id="checkoutForm">
 
         <div class="input-box">
             <label>Discord Username</label>
-            <input type="text" placeholder="Enter your discord username">
+
+            <input
+            type="text"
+            id="discord"
+            placeholder="Enter your discord username"
+            required>
         </div>
 
         <div class="input-box">
             <label>Email Address</label>
-            <input type="email" placeholder="Enter your email">
+
+            <input
+            type="email"
+            id="email"
+            placeholder="Enter your email"
+            required>
         </div>
 
         <div class="input-box">
             <label>Server Name</label>
-            <input type="text" placeholder="Enter server name">
+
+            <input
+            type="text"
+            id="server"
+            placeholder="Enter server name"
+            required>
         </div>
 
         <div class="input-box">
             <label>Server Description</label>
-            <textarea placeholder="Describe your server..."></textarea>
+
+            <textarea
+            id="description"
+            placeholder="Describe your server..."
+            required></textarea>
         </div>
 
         <div class="input-box">
             <label>Need Admin Access?</label>
-            <select>
+
+            <select id="admin">
+
                 <option>Yes</option>
                 <option>No</option>
+
             </select>
         </div>
 
@@ -202,9 +311,66 @@ textarea{
 
     </form>
 
+    <div class="success" id="successMsg"></div>
+
 </div>
 
-<script>
+<!-- FIREBASE -->
+
+<script type="module">
+
+import { initializeApp }
+
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+import {
+
+    getFirestore,
+
+    collection,
+
+    addDoc,
+
+    serverTimestamp
+
+}
+
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+/* FIREBASE CONFIG */
+
+const firebaseConfig = {
+
+    apiKey:
+    "AIzaSyAmC4fe50RFG62d3k10tIrlYfNT3iWF94Y",
+
+    authDomain:
+    "cavero-dcs.firebaseapp.com",
+
+    projectId:
+    "cavero-dcs",
+
+    storageBucket:
+    "cavero-dcs.firebasestorage.app",
+
+    messagingSenderId:
+    "631632094928",
+
+    appId:
+    "1:631632094928:web:cbb62c92117f05a08960d5",
+
+    measurementId:
+    "G-R39B13Q1V8"
+
+};
+
+/* INIT */
+
+const app = initializeApp(firebaseConfig);
+
+const db = getFirestore(app);
+
+/* PLAN */
 
 const params = new URLSearchParams(window.location.search);
 
@@ -212,6 +378,202 @@ const plan = params.get('plan');
 
 document.getElementById('selectedPlan').innerText =
 "Selected Plan: " + (plan || "Unknown Plan");
+
+/* FORM */
+
+const form =
+document.getElementById("checkoutForm");
+
+const successMsg =
+document.getElementById("successMsg");
+
+form.addEventListener(
+"submit",
+async(e)=>{
+
+    e.preventDefault();
+
+    const discord =
+    document.getElementById("discord").value;
+
+    const email =
+    document.getElementById("email").value;
+
+    const server =
+    document.getElementById("server").value;
+
+    const description =
+    document.getElementById("description").value;
+
+    const admin =
+    document.getElementById("admin").value;
+
+    try{
+
+        /* SAVE TO FIREBASE */
+
+        await addDoc(
+
+            collection(db,"checkout_enquiries"),
+
+            {
+
+                discordUsername:discord,
+
+                email:email,
+
+                serverName:server,
+
+                serverDescription:description,
+
+                adminAccess:admin,
+
+                selectedPlan:plan || "Unknown Plan",
+
+                createdAt:serverTimestamp()
+
+            }
+
+        );
+
+        successMsg.innerText =
+        "Checkout Submitted Successfully!";
+
+        form.reset();
+
+    }
+
+    catch(err){
+
+        successMsg.style.color =
+        "#ef4444";
+
+        successMsg.innerText =
+        "Failed To Submit Checkout.";
+
+        console.error(err);
+
+    }
+
+});
+
+</script>
+
+<!-- SNOW -->
+
+<script>
+
+const canvas =
+document.getElementById('snowCanvas');
+
+const ctx =
+canvas.getContext('2d');
+
+let flakes = [];
+
+function initSnow(){
+
+    canvas.width =
+    window.innerWidth;
+
+    canvas.height =
+    window.innerHeight;
+
+    flakes = [];
+
+    for(let i=0;i<180;i++){
+
+        flakes.push({
+
+            x:Math.random()*canvas.width,
+
+            y:Math.random()*canvas.height,
+
+            r:Math.random()*3+1,
+
+            d:Math.random()*1+.5
+
+        });
+
+    }
+
+}
+
+function drawSnow(){
+
+    ctx.clearRect(
+        0,
+        0,
+        canvas.width,
+        canvas.height
+    );
+
+    ctx.fillStyle =
+    "rgba(255,255,255,.9)";
+
+    ctx.beginPath();
+
+    for(let i=0;i<flakes.length;i++){
+
+        let f = flakes[i];
+
+        ctx.moveTo(f.x,f.y);
+
+        ctx.arc(
+            f.x,
+            f.y,
+            f.r,
+            0,
+            Math.PI*2,
+            true
+        );
+
+    }
+
+    ctx.fill();
+
+    moveSnow();
+
+}
+
+function moveSnow(){
+
+    for(let i=0;i<flakes.length;i++){
+
+        let f = flakes[i];
+
+        f.y += f.d;
+
+        f.x += Math.sin(f.y*.01);
+
+        if(f.y > canvas.height){
+
+            flakes[i] = {
+
+                x:Math.random()*canvas.width,
+
+                y:-10,
+
+                r:f.r,
+
+                d:f.d
+
+            };
+
+        }
+
+    }
+
+}
+
+window.addEventListener(
+'resize',
+initSnow
+);
+
+initSnow();
+
+setInterval(drawSnow,30);
 
 </script>
 
