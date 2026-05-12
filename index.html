@@ -9,6 +9,17 @@
 
     <title>Cavero DC's - Official</title>
 
+    <!-- NO CACHE -->
+
+    <meta http-equiv="Cache-Control"
+          content="no-cache, no-store, must-revalidate">
+
+    <meta http-equiv="Pragma"
+          content="no-cache">
+
+    <meta http-equiv="Expires"
+          content="0">
+
     <style>
 
         *{
@@ -191,6 +202,75 @@
             text-decoration:none;
 
             color:white;
+        }
+
+        /* USER BOX */
+
+        .user-box{
+
+            position:absolute;
+
+            bottom:25px;
+            left:20px;
+            right:20px;
+
+            padding:18px;
+
+            border-radius:16px;
+
+            background:rgba(37,99,235,.14);
+
+            border:1px solid rgba(59,130,246,.25);
+
+            display:none;
+        }
+
+        .user-title{
+
+            font-size:.9rem;
+
+            color:#94a3b8;
+
+            margin-bottom:8px;
+        }
+
+        .user-name{
+
+            font-size:1.1rem;
+
+            font-weight:800;
+
+            color:white;
+
+            word-break:break-word;
+        }
+
+        .logout-btn{
+
+            width:100%;
+
+            margin-top:15px;
+
+            padding:14px;
+
+            border:none;
+
+            border-radius:12px;
+
+            background:#ef4444;
+
+            color:white;
+
+            font-weight:700;
+
+            cursor:pointer;
+
+            transition:.3s ease;
+        }
+
+        .logout-btn:hover{
+
+            background:#dc2626;
         }
 
         /* MENU BUTTON */
@@ -377,6 +457,7 @@
         <!-- LOGIN -->
 
         <a href="login.html"
+           id="loginLink"
            onclick="smoothPage(event,this.href)">
 
            Login
@@ -386,6 +467,7 @@
         <!-- CREATE ACCOUNT -->
 
         <a href="create-account.html"
+           id="createLink"
            onclick="smoothPage(event,this.href)">
 
            Create Account
@@ -407,6 +489,31 @@
            Support
 
         </a>
+
+        <!-- USER BOX -->
+
+        <div class="user-box"
+             id="userBox">
+
+            <div class="user-title">
+                LOGGED IN AS
+            </div>
+
+            <div class="user-name"
+                 id="userName">
+
+                 User
+
+            </div>
+
+            <button class="logout-btn"
+                    id="logoutBtn">
+
+                LOGOUT
+
+            </button>
+
+        </div>
 
     </div>
 
@@ -458,78 +565,160 @@
 
     <script type="module">
 
-        import { initializeApp }
+        import {
+            initializeApp
+        }
+
         from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
         import {
+
             getAuth,
-            onAuthStateChanged
+
+            onAuthStateChanged,
+
+            signOut
+
         }
 
         from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
+        /* FIREBASE CONFIG */
+
         const firebaseConfig = {
 
-            apiKey: "AIzaSyAmC4fe50RFG62d3k10tIrlYfNT3iWF94Y",
+            apiKey:
+            "AIzaSyAmC4fe50RFG62d3k10tIrlYfNT3iWF94Y",
 
-            authDomain: "cavero-dcs.firebaseapp.com",
+            authDomain:
+            "cavero-dcs.firebaseapp.com",
 
-            projectId: "cavero-dcs",
+            projectId:
+            "cavero-dcs",
 
-            storageBucket: "cavero-dcs.firebasestorage.app",
+            storageBucket:
+            "cavero-dcs.firebasestorage.app",
 
-            messagingSenderId: "631632094928",
+            messagingSenderId:
+            "631632094928",
 
-            appId: "1:631632094928:web:cbb62c92117f05a08960d5",
+            appId:
+            "1:631632094928:web:cbb62c92117f05a08960d5",
 
-            measurementId: "G-R39B13Q1V8"
+            measurementId:
+            "G-R39B13Q1V8"
 
         };
 
-        const app = initializeApp(firebaseConfig);
+        /* INIT */
 
-        const auth = getAuth(app);
+        const app =
+        initializeApp(firebaseConfig);
 
-        console.log("Firebase Connected Successfully");
+        const auth =
+        getAuth(app);
 
-        /* AUTO LOGIN CHECK */
+        /* ELEMENTS */
+
+        const userBox =
+        document.getElementById("userBox");
+
+        const userName =
+        document.getElementById("userName");
+
+        const loginLink =
+        document.getElementById("loginLink");
+
+        const createLink =
+        document.getElementById("createLink");
+
+        const logoutBtn =
+        document.getElementById("logoutBtn");
+
+        /* AUTH CHECK */
 
         onAuthStateChanged(auth,(user)=>{
 
             if(user){
 
-                console.log("Logged In:",user.email);
+                userBox.style.display =
+                "block";
+
+                userName.innerText =
+                user.displayName ||
+                user.email;
+
+                loginLink.style.display =
+                "none";
+
+                createLink.style.display =
+                "none";
 
             }
+
             else{
 
-                console.log("No User Logged In");
+                userBox.style.display =
+                "none";
+
+                loginLink.style.display =
+                "block";
+
+                createLink.style.display =
+                "block";
 
             }
+
+        });
+
+        /* LOGOUT */
+
+        logoutBtn.addEventListener(
+            "click",
+            async ()=>{
+
+            await signOut(auth);
+
+            window.location.reload();
 
         });
 
         /* BASIC INSPECT PROTECTION */
 
-        document.addEventListener('contextmenu',e=>{
-            e.preventDefault();
-        });
+        document.addEventListener(
+            'contextmenu',
+            e=>{
+                e.preventDefault();
+            }
+        );
 
-        document.onkeydown = function(e){
+        document.onkeydown =
+        function(e){
 
             if(e.keyCode == 123){
                 return false;
             }
 
-            if(e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)){
+            if(
+                e.ctrlKey &&
+                e.shiftKey &&
+                e.keyCode == 'I'.charCodeAt(0)
+            ){
                 return false;
             }
 
-            if(e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)){
+            if(
+                e.ctrlKey &&
+                e.shiftKey &&
+                e.keyCode == 'J'.charCodeAt(0)
+            ){
                 return false;
             }
 
-            if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)){
+            if(
+                e.ctrlKey &&
+                e.keyCode == 'U'.charCodeAt(0)
+            ){
                 return false;
             }
 
