@@ -9,7 +9,6 @@
 
     <title>Create Account - Cavero DC's</title>
 
-    <!-- NO CACHE -->
     <meta http-equiv="Cache-Control"
           content="no-cache, no-store, must-revalidate">
 
@@ -29,26 +28,16 @@
 
         html,
         body{
-
             width:100%;
             min-height:100vh;
-
             background:#020617;
-
             color:white;
-
             font-family:'Inter','Segoe UI',sans-serif;
-
-            overflow-x:hidden;
-
+            overflow:hidden;
         }
 
-        /* PAGE ANIMATION */
-
         body{
-
             animation:fadePage .7s ease;
-
         }
 
         @keyframes fadePage{
@@ -66,292 +55,172 @@
         }
 
         .fade-out{
-
             opacity:0;
             transform:scale(.98);
-
             transition:.4s ease;
-
         }
 
-        /* BACKGROUND */
-
         #bg-layer{
-
             position:fixed;
             inset:0;
 
             background-image:url('bg.png');
-
             background-size:cover;
             background-position:center;
             background-repeat:no-repeat;
 
             z-index:0;
-
         }
-
-        /* OVERLAY */
 
         .overlay{
-
             position:fixed;
             inset:0;
-
             background:rgba(2,6,23,.62);
-
             z-index:1;
-
         }
-
-        /* SNOW */
 
         #snowCanvas{
-
             position:fixed;
             inset:0;
-
             width:100%;
             height:100%;
-
             z-index:2;
-
             pointer-events:none;
-
         }
 
-        /* MAIN */
-
         .main{
-
             position:relative;
             z-index:5;
-
             min-height:100vh;
-
             display:flex;
             justify-content:center;
             align-items:center;
-
             padding:25px;
-
         }
 
-        /* CARD */
-
         .card{
-
             width:100%;
             max-width:540px;
 
-            background:rgba(15,23,42,.72);
+            background:rgba(15,23,42,.75);
 
-            border:1px solid rgba(59,130,246,.22);
+            border:1px solid rgba(59,130,246,.25);
 
-            backdrop-filter:blur(16px);
+            backdrop-filter:blur(18px);
 
             border-radius:30px;
 
             padding:45px;
 
-            box-shadow:0 0 40px rgba(37,99,235,.16);
-
+            box-shadow:0 0 40px rgba(37,99,235,.18);
         }
 
-        /* TITLE */
-
         .title{
-
             text-align:center;
-
             font-size:2.7rem;
-
             font-weight:900;
-
             letter-spacing:2px;
-
-            margin-bottom:12px;
-
+            margin-bottom:10px;
         }
 
         .title span{
-
             color:#3b82f6;
-
         }
 
         .subtitle{
-
             text-align:center;
-
             color:#94a3b8;
-
             margin-bottom:35px;
-
-            font-size:1rem;
-
         }
 
-        /* INPUT */
-
         .input-box{
-
             margin-bottom:22px;
-
         }
 
         .input-box label{
-
             display:block;
-
             margin-bottom:10px;
-
             font-size:1rem;
-
             font-weight:700;
-
             color:#cbd5e1;
-
         }
 
         .input-box input{
-
             width:100%;
-
             padding:18px;
-
             border-radius:14px;
-
             border:1px solid rgba(59,130,246,.18);
-
-            background:rgba(2,6,23,.82);
-
+            background:rgba(2,6,23,.85);
             color:white;
-
             font-size:1rem;
-
             outline:none;
-
             transition:.3s ease;
-
         }
 
         .input-box input:focus{
-
             border-color:#3b82f6;
-
             box-shadow:0 0 20px rgba(37,99,235,.18);
-
         }
 
-        /* BUTTON */
-
         .create-btn{
-
             width:100%;
-
             padding:18px;
-
             border:none;
-
             border-radius:14px;
-
             background:#2563eb;
-
             color:white;
-
             font-size:1rem;
-
             font-weight:800;
-
             cursor:pointer;
-
             transition:.3s ease;
-
             margin-top:8px;
-
             letter-spacing:1px;
-
         }
 
         .create-btn:hover{
-
             background:#1d4ed8;
-
             transform:scale(1.02);
-
         }
 
         .create-btn:disabled{
-
             opacity:.7;
-
             cursor:not-allowed;
-
         }
 
-        /* MESSAGE */
-
         .message{
-
             margin-top:22px;
-
             text-align:center;
-
             font-weight:700;
-
             font-size:.95rem;
-
             color:#22c55e;
-
             word-break:break-word;
-
         }
 
         .error{
-
             color:#ef4444;
-
         }
 
-        /* BACK */
-
         .back{
-
             display:block;
-
             text-align:center;
-
             margin-top:25px;
-
             text-decoration:none;
-
             color:#94a3b8;
-
             transition:.3s ease;
-
         }
 
         .back:hover{
-
             color:white;
-
         }
-
-        /* MOBILE */
 
         @media(max-width:600px){
 
             .card{
-
                 padding:32px 22px;
-
             }
 
             .title{
-
                 font-size:2rem;
-
             }
 
         }
@@ -362,17 +231,11 @@
 
 <body>
 
-    <!-- BACKGROUND -->
-
     <div id="bg-layer"></div>
 
     <div class="overlay"></div>
 
-    <!-- SNOW -->
-
     <canvas id="snowCanvas"></canvas>
-
-    <!-- MAIN -->
 
     <div class="main">
 
@@ -390,15 +253,11 @@
 
             </p>
 
-            <!-- FORM -->
-
             <form id="registerForm">
-
-                <!-- NAME -->
 
                 <div class="input-box">
 
-                    <label>Create Name</label>
+                    <label>Name</label>
 
                     <input
                         type="text"
@@ -411,8 +270,6 @@
 
                 </div>
 
-                <!-- EMAIL -->
-
                 <div class="input-box">
 
                     <label>Email</label>
@@ -420,14 +277,12 @@
                     <input
                         type="email"
                         id="email"
-                        placeholder="Enter email"
+                        placeholder="Enter your email"
                         autocomplete="off"
                         required
                     >
 
                 </div>
-
-                <!-- PASSWORD -->
 
                 <div class="input-box">
 
@@ -443,8 +298,6 @@
 
                 </div>
 
-                <!-- BUTTON -->
-
                 <button
                     type="submit"
                     class="create-btn"
@@ -456,14 +309,8 @@
 
             </form>
 
-            <!-- MESSAGE -->
-
             <div id="message"
-                 class="message">
-
-            </div>
-
-            <!-- BACK -->
+                 class="message"></div>
 
             <a href="index.html"
                class="back"
@@ -495,13 +342,15 @@
 
             updateProfile,
 
-            sendEmailVerification
+            sendEmailVerification,
+
+            setPersistence,
+
+            browserLocalPersistence
 
         }
 
         from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-
-        /* FIREBASE CONFIG */
 
         const firebaseConfig = {
 
@@ -521,14 +370,9 @@
             "631632094928",
 
             appId:
-            "1:631632094928:web:cbb62c92117f05a08960d5",
-
-            measurementId:
-            "G-R39B13Q1V8"
+            "1:631632094928:web:cbb62c92117f05a08960d5"
 
         };
-
-        /* INIT */
 
         const app =
         initializeApp(firebaseConfig);
@@ -536,7 +380,10 @@
         const auth =
         getAuth(app);
 
-        /* ELEMENTS */
+        await setPersistence(
+            auth,
+            browserLocalPersistence
+        );
 
         const form =
         document.getElementById("registerForm");
@@ -546,8 +393,6 @@
 
         const createBtn =
         document.getElementById("createBtn");
-
-        /* FORM */
 
         form.addEventListener(
             "submit",
@@ -569,13 +414,8 @@
             document.getElementById("password")
             .value;
 
-            /* RESET */
-
             message.innerText = "";
-
             message.classList.remove("error");
-
-            /* VALIDATION */
 
             if(name.length < 3){
 
@@ -588,25 +428,12 @@
 
             }
 
-            if(password.length < 6){
-
-                message.classList.add("error");
-
-                message.innerText =
-                "Password must be at least 6 characters.";
-
-                return;
-
-            }
-
             try{
 
                 createBtn.disabled = true;
 
                 createBtn.innerText =
                 "CREATING ACCOUNT...";
-
-                /* CREATE ACCOUNT */
 
                 const userCredential =
                 await createUserWithEmailAndPassword(
@@ -616,8 +443,6 @@
                     password
 
                 );
-
-                /* SAVE DISPLAY NAME */
 
                 await updateProfile(
 
@@ -629,23 +454,21 @@
 
                 );
 
-                /* EMAIL VERIFY */
-
                 await sendEmailVerification(
                     userCredential.user
                 );
 
                 message.innerText =
-                "Account Created Successfully! Verification Email Sent.";
+                "Verification email sent successfully.";
 
-                /* REDIRECT */
+                form.reset();
 
                 setTimeout(()=>{
 
                     window.location.href =
                     "login.html";
 
-                },2500);
+                },3000);
 
             }
 
@@ -669,7 +492,7 @@
                 ){
 
                     message.innerText =
-                    "Invalid email format.";
+                    "Invalid email.";
 
                 }
 
@@ -679,7 +502,7 @@
                 ){
 
                     message.innerText =
-                    "Password is too weak.";
+                    "Weak password.";
 
                 }
 
@@ -702,6 +525,8 @@
             }
 
         });
+
+        console.clear();
 
     </script>
 
@@ -788,14 +613,12 @@
                 ctx.moveTo(f.x,f.y);
 
                 ctx.arc(
-
                     f.x,
                     f.y,
                     f.r,
                     0,
                     Math.PI*2,
                     true
-
                 );
 
             }
