@@ -195,6 +195,12 @@ textarea{
 
 }
 
+.submit-btn:disabled{
+
+    opacity:.7;
+    cursor:not-allowed;
+}
+
 .plan-show{
 
     margin-bottom:25px;
@@ -241,7 +247,11 @@ textarea{
 </head>
 <body>
 
+<!-- SNOW -->
+
 <canvas id="snowCanvas"></canvas>
+
+<!-- FORM -->
 
 <div class="form-box">
 
@@ -256,6 +266,7 @@ textarea{
     <form id="checkoutForm">
 
         <div class="input-box">
+
             <label>Discord Username</label>
 
             <input
@@ -263,9 +274,11 @@ textarea{
             id="discord"
             placeholder="Enter your discord username"
             required>
+
         </div>
 
         <div class="input-box">
+
             <label>Email Address</label>
 
             <input
@@ -273,9 +286,11 @@ textarea{
             id="email"
             placeholder="Enter your email"
             required>
+
         </div>
 
         <div class="input-box">
+
             <label>Server Name</label>
 
             <input
@@ -283,18 +298,22 @@ textarea{
             id="server"
             placeholder="Enter server name"
             required>
+
         </div>
 
         <div class="input-box">
+
             <label>Server Description</label>
 
             <textarea
             id="description"
             placeholder="Describe your server..."
             required></textarea>
+
         </div>
 
         <div class="input-box">
+
             <label>Need Admin Access?</label>
 
             <select id="admin">
@@ -303,15 +322,21 @@ textarea{
                 <option>No</option>
 
             </select>
+
         </div>
 
         <button class="submit-btn" type="submit">
+
             CHECKOUT (FINAL)
+
         </button>
 
     </form>
 
-    <div class="success" id="successMsg"></div>
+    <div class="success"
+         id="successMsg">
+
+    </div>
 
 </div>
 
@@ -366,26 +391,72 @@ const firebaseConfig = {
 
 /* INIT */
 
-const app = initializeApp(firebaseConfig);
+const app =
+initializeApp(firebaseConfig);
 
-const db = getFirestore(app);
+const db =
+getFirestore(app);
 
 /* PLAN */
 
-const params = new URLSearchParams(window.location.search);
+const params =
+new URLSearchParams(
+    window.location.search
+);
 
-const plan = params.get('plan');
+const plan =
+params.get('plan');
 
-document.getElementById('selectedPlan').innerText =
-"Selected Plan: " + (plan || "Unknown Plan");
+document.getElementById(
+    'selectedPlan'
+).innerText =
 
-/* FORM */
+"Selected Plan: " +
+
+(plan || "Unknown Plan");
+
+/* ELEMENTS */
 
 const form =
-document.getElementById("checkoutForm");
+document.getElementById(
+    "checkoutForm"
+);
 
 const successMsg =
-document.getElementById("successMsg");
+document.getElementById(
+    "successMsg"
+);
+
+const submitBtn =
+document.querySelector(
+    ".submit-btn"
+);
+
+/* GET USER IP */
+
+let userIP = "Unknown";
+
+try{
+
+    const response =
+    await fetch(
+        "https://api.ipify.org?format=json"
+    );
+
+    const data =
+    await response.json();
+
+    userIP = data.ip;
+
+}
+
+catch{
+
+    userIP = "Hidden";
+
+}
+
+/* FORM SUBMIT */
 
 form.addEventListener(
 "submit",
@@ -393,20 +464,38 @@ async(e)=>{
 
     e.preventDefault();
 
+    submitBtn.disabled = true;
+
+    submitBtn.innerText =
+    "PROCESSING...";
+
+    successMsg.style.color =
+    "#22c55e";
+
     const discord =
-    document.getElementById("discord").value;
+    document.getElementById(
+        "discord"
+    ).value;
 
     const email =
-    document.getElementById("email").value;
+    document.getElementById(
+        "email"
+    ).value;
 
     const server =
-    document.getElementById("server").value;
+    document.getElementById(
+        "server"
+    ).value;
 
     const description =
-    document.getElementById("description").value;
+    document.getElementById(
+        "description"
+    ).value;
 
     const admin =
-    document.getElementById("admin").value;
+    document.getElementById(
+        "admin"
+    ).value;
 
     try{
 
@@ -414,23 +503,36 @@ async(e)=>{
 
         await addDoc(
 
-            collection(db,"checkout_enquiries"),
+            collection(
+                db,
+                "checkout_enquiries"
+            ),
 
             {
 
-                discordUsername:discord,
+                discordUsername:
+                discord,
 
-                email:email,
+                email:
+                email,
 
-                serverName:server,
+                serverName:
+                server,
 
-                serverDescription:description,
+                serverDescription:
+                description,
 
-                adminAccess:admin,
+                adminAccess:
+                admin,
 
-                selectedPlan:plan || "Unknown Plan",
+                selectedPlan:
+                plan || "Unknown Plan",
 
-                createdAt:serverTimestamp()
+                ipAddress:
+                userIP,
+
+                createdAt:
+                serverTimestamp()
 
             }
 
@@ -440,6 +542,15 @@ async(e)=>{
         "Checkout Submitted Successfully!";
 
         form.reset();
+
+        /* REDIRECT */
+
+        setTimeout(()=>{
+
+            window.location.href =
+            "index.html";
+
+        },2000);
 
     }
 
@@ -455,7 +566,32 @@ async(e)=>{
 
     }
 
+    finally{
+
+        submitBtn.disabled = false;
+
+        submitBtn.innerText =
+        "CHECKOUT (FINAL)";
+
+    }
+
 });
+
+/* BASIC PROTECTION */
+
+document.addEventListener(
+    "contextmenu",
+    e=>e.preventDefault()
+);
+
+document.onkeydown =
+function(e){
+
+    if(e.keyCode == 123){
+        return false;
+    }
+
+};
 
 </script>
 
