@@ -397,7 +397,7 @@
 
         <!-- CREATE ACCOUNT -->
 
-        <a href="createaccount.html"
+        <a href="create-account.html"
            onclick="smoothPage(event,this.href)">
 
            Create Account
@@ -406,8 +406,7 @@
 
         <!-- TERMS -->
 
-        <a href="#"
-           onclick="smoothPage(event,this.href)">
+        <a href="#">
 
            Terms
 
@@ -415,8 +414,7 @@
 
         <!-- SUPPORT -->
 
-        <a href="#"
-           onclick="smoothPage(event,this.href)">
+        <a href="#">
 
            Support
 
@@ -458,8 +456,7 @@
             </a>
 
             <a href="#"
-               class="action-btn btn-secondary"
-               onclick="smoothPage(event,this.href)">
+               class="action-btn btn-secondary">
 
                BUY DC MANAGER/STAFF
 
@@ -468,6 +465,44 @@
         </div>
 
     </div>
+
+    <!-- FIREBASE -->
+
+    <script type="module">
+
+        import { initializeApp }
+        from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+        import { getAuth }
+        from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+        const firebaseConfig = {
+
+            apiKey: "AIzaSyAmC4fe50RFG62d3k10tIrlYfNT3iWF94Y",
+
+            authDomain: "cavero-dcs.firebaseapp.com",
+
+            projectId: "cavero-dcs",
+
+            storageBucket: "cavero-dcs.firebasestorage.app",
+
+            messagingSenderId: "631632094928",
+
+            appId: "1:631632094928:web:cbb62c92117f05a08960d5",
+
+            measurementId: "G-R39B13Q1V8"
+
+        };
+
+        const app = initializeApp(firebaseConfig);
+
+        const auth = getAuth(app);
+
+        console.log("Firebase Connected Successfully");
+
+    </script>
+
+    <!-- MAIN SCRIPT -->
 
     <script>
 
