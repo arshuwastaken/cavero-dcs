@@ -1,11 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
     <meta charset="UTF-8">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
     <title>Create Account - Cavero DC's</title>
+
+    <!-- NO CACHE -->
+    <meta http-equiv="Cache-Control"
+          content="no-cache, no-store, must-revalidate">
+
+    <meta http-equiv="Pragma"
+          content="no-cache">
+
+    <meta http-equiv="Expires"
+          content="0">
 
     <style>
 
@@ -17,19 +29,30 @@
 
         html,
         body{
+
             width:100%;
             min-height:100vh;
+
             background:#020617;
+
             color:white;
+
             font-family:'Inter','Segoe UI',sans-serif;
+
             overflow-x:hidden;
+
         }
 
+        /* PAGE ANIMATION */
+
         body{
+
             animation:fadePage .7s ease;
+
         }
 
         @keyframes fadePage{
+
             from{
                 opacity:0;
                 transform:scale(1.02);
@@ -39,40 +62,52 @@
                 opacity:1;
                 transform:scale(1);
             }
+
         }
 
         .fade-out{
+
             opacity:0;
             transform:scale(.98);
+
             transition:.4s ease;
+
         }
 
         /* BACKGROUND */
 
         #bg-layer{
+
             position:fixed;
             inset:0;
 
             background-image:url('bg.png');
+
             background-size:cover;
             background-position:center;
             background-repeat:no-repeat;
 
             z-index:0;
+
         }
 
+        /* OVERLAY */
+
         .overlay{
+
             position:fixed;
             inset:0;
 
-            background:rgba(2,6,23,.55);
+            background:rgba(2,6,23,.62);
 
             z-index:1;
+
         }
 
         /* SNOW */
 
         #snowCanvas{
+
             position:fixed;
             inset:0;
 
@@ -82,11 +117,13 @@
             z-index:2;
 
             pointer-events:none;
+
         }
 
         /* MAIN */
 
         .main{
+
             position:relative;
             z-index:5;
 
@@ -96,44 +133,55 @@
             justify-content:center;
             align-items:center;
 
-            padding:30px;
+            padding:25px;
+
         }
 
         /* CARD */
 
         .card{
+
             width:100%;
-            max-width:520px;
+            max-width:540px;
 
-            background:rgba(15,23,42,.68);
+            background:rgba(15,23,42,.72);
 
-            border:1px solid rgba(59,130,246,.2);
+            border:1px solid rgba(59,130,246,.22);
 
             backdrop-filter:blur(16px);
 
-            border-radius:28px;
+            border-radius:30px;
 
             padding:45px;
 
-            box-shadow:0 0 35px rgba(37,99,235,.12);
+            box-shadow:0 0 40px rgba(37,99,235,.16);
+
         }
 
+        /* TITLE */
+
         .title{
+
             text-align:center;
 
-            font-size:2.5rem;
+            font-size:2.7rem;
+
             font-weight:900;
 
-            margin-bottom:10px;
-
             letter-spacing:2px;
+
+            margin-bottom:12px;
+
         }
 
         .title span{
+
             color:#3b82f6;
+
         }
 
         .subtitle{
+
             text-align:center;
 
             color:#94a3b8;
@@ -141,26 +189,33 @@
             margin-bottom:35px;
 
             font-size:1rem;
+
         }
 
-        /* INPUTS */
+        /* INPUT */
 
         .input-box{
+
             margin-bottom:22px;
+
         }
 
         .input-box label{
+
             display:block;
 
             margin-bottom:10px;
 
             font-size:1rem;
+
             font-weight:700;
 
             color:#cbd5e1;
+
         }
 
         .input-box input{
+
             width:100%;
 
             padding:18px;
@@ -169,7 +224,7 @@
 
             border:1px solid rgba(59,130,246,.18);
 
-            background:rgba(2,6,23,.72);
+            background:rgba(2,6,23,.82);
 
             color:white;
 
@@ -178,17 +233,21 @@
             outline:none;
 
             transition:.3s ease;
+
         }
 
         .input-box input:focus{
+
             border-color:#3b82f6;
 
             box-shadow:0 0 20px rgba(37,99,235,.18);
+
         }
 
         /* BUTTON */
 
         .create-btn{
+
             width:100%;
 
             padding:18px;
@@ -202,97 +261,140 @@
             color:white;
 
             font-size:1rem;
+
             font-weight:800;
 
             cursor:pointer;
 
             transition:.3s ease;
 
-            margin-top:10px;
+            margin-top:8px;
+
+            letter-spacing:1px;
+
         }
 
         .create-btn:hover{
+
             background:#1d4ed8;
 
             transform:scale(1.02);
+
+        }
+
+        .create-btn:disabled{
+
+            opacity:.7;
+
+            cursor:not-allowed;
+
         }
 
         /* MESSAGE */
 
         .message{
-            margin-top:20px;
+
+            margin-top:22px;
 
             text-align:center;
 
             font-weight:700;
 
+            font-size:.95rem;
+
             color:#22c55e;
+
+            word-break:break-word;
+
         }
 
         .error{
+
             color:#ef4444;
+
         }
 
         /* BACK */
 
         .back{
+
             display:block;
 
             text-align:center;
 
             margin-top:25px;
 
-            color:#94a3b8;
-
             text-decoration:none;
 
+            color:#94a3b8;
+
             transition:.3s ease;
+
         }
 
         .back:hover{
+
             color:white;
+
         }
+
+        /* MOBILE */
 
         @media(max-width:600px){
 
             .card{
-                padding:30px 22px;
+
+                padding:32px 22px;
+
             }
 
             .title{
+
                 font-size:2rem;
+
             }
 
         }
 
     </style>
+
 </head>
 
 <body>
 
     <!-- BACKGROUND -->
+
     <div id="bg-layer"></div>
 
     <div class="overlay"></div>
 
     <!-- SNOW -->
+
     <canvas id="snowCanvas"></canvas>
 
     <!-- MAIN -->
+
     <div class="main">
 
         <div class="card">
 
             <h1 class="title">
+
                 CREATE <span>ACCOUNT</span>
+
             </h1>
 
             <p class="subtitle">
+
                 Join Cavero DC's Official Website
+
             </p>
 
             <!-- FORM -->
+
             <form id="registerForm">
+
+                <!-- NAME -->
 
                 <div class="input-box">
 
@@ -302,23 +404,30 @@
                         type="text"
                         id="name"
                         placeholder="Enter your name"
+                        maxlength="25"
+                        autocomplete="off"
                         required
                     >
 
                 </div>
 
+                <!-- EMAIL -->
+
                 <div class="input-box">
 
-                    <label>Username</label>
+                    <label>Email</label>
 
                     <input
                         type="email"
                         id="email"
                         placeholder="Enter email"
+                        autocomplete="off"
                         required
                     >
 
                 </div>
+
+                <!-- PASSWORD -->
 
                 <div class="input-box">
 
@@ -327,24 +436,41 @@
                     <input
                         type="password"
                         id="password"
-                        placeholder="Enter password"
+                        placeholder="Minimum 6 characters"
+                        minlength="6"
                         required
                     >
 
                 </div>
 
-                <button type="submit" class="create-btn">
+                <!-- BUTTON -->
+
+                <button
+                    type="submit"
+                    class="create-btn"
+                    id="createBtn">
+
                     CREATE ACCOUNT
+
                 </button>
 
             </form>
 
-            <div id="message" class="message"></div>
+            <!-- MESSAGE -->
+
+            <div id="message"
+                 class="message">
+
+            </div>
+
+            <!-- BACK -->
 
             <a href="index.html"
                class="back"
                onclick="smoothPage(event,this.href)">
+
                ← Go Back Home
+
             </a>
 
         </div>
@@ -352,80 +478,174 @@
     </div>
 
     <!-- FIREBASE -->
+
     <script type="module">
 
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+        import {
+            initializeApp
+        }
+
+        from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
         import {
+
             getAuth,
+
             createUserWithEmailAndPassword,
-            updateProfile
+
+            updateProfile,
+
+            sendEmailVerification
+
         }
 
         from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
+        /* FIREBASE CONFIG */
+
         const firebaseConfig = {
 
-            apiKey: "AIzaSyAmC4fe50RFG62d3k10tIrlYfNT3iWF94Y",
+            apiKey:
+            "AIzaSyAmC4fe50RFG62d3k10tIrlYfNT3iWF94Y",
 
-            authDomain: "cavero-dcs.firebaseapp.com",
+            authDomain:
+            "cavero-dcs.firebaseapp.com",
 
-            projectId: "cavero-dcs",
+            projectId:
+            "cavero-dcs",
 
-            storageBucket: "cavero-dcs.firebasestorage.app",
+            storageBucket:
+            "cavero-dcs.firebasestorage.app",
 
-            messagingSenderId: "631632094928",
+            messagingSenderId:
+            "631632094928",
 
-            appId: "1:631632094928:web:cbb62c92117f05a08960d5",
+            appId:
+            "1:631632094928:web:cbb62c92117f05a08960d5",
 
-            measurementId: "G-R39B13Q1V8"
+            measurementId:
+            "G-R39B13Q1V8"
 
         };
 
-        const app = initializeApp(firebaseConfig);
+        /* INIT */
 
-        const auth = getAuth(app);
+        const app =
+        initializeApp(firebaseConfig);
 
-        const form = document.getElementById("registerForm");
+        const auth =
+        getAuth(app);
 
-        const message = document.getElementById("message");
+        /* ELEMENTS */
 
-        form.addEventListener("submit", async (e) => {
+        const form =
+        document.getElementById("registerForm");
+
+        const message =
+        document.getElementById("message");
+
+        const createBtn =
+        document.getElementById("createBtn");
+
+        /* FORM */
+
+        form.addEventListener(
+            "submit",
+            async (e)=>{
 
             e.preventDefault();
 
-            const name = document.getElementById("name").value;
+            const name =
+            document.getElementById("name")
+            .value
+            .trim();
 
-            const email = document.getElementById("email").value;
+            const email =
+            document.getElementById("email")
+            .value
+            .trim();
 
-            const password = document.getElementById("password").value;
+            const password =
+            document.getElementById("password")
+            .value;
+
+            /* RESET */
+
+            message.innerText = "";
+
+            message.classList.remove("error");
+
+            /* VALIDATION */
+
+            if(name.length < 3){
+
+                message.classList.add("error");
+
+                message.innerText =
+                "Name must be at least 3 characters.";
+
+                return;
+
+            }
+
+            if(password.length < 6){
+
+                message.classList.add("error");
+
+                message.innerText =
+                "Password must be at least 6 characters.";
+
+                return;
+
+            }
 
             try{
 
+                createBtn.disabled = true;
+
+                createBtn.innerText =
+                "CREATING ACCOUNT...";
+
+                /* CREATE ACCOUNT */
+
                 const userCredential =
-                    await createUserWithEmailAndPassword(
-                        auth,
-                        email,
-                        password
-                    );
+                await createUserWithEmailAndPassword(
+
+                    auth,
+                    email,
+                    password
+
+                );
+
+                /* SAVE DISPLAY NAME */
 
                 await updateProfile(
+
                     userCredential.user,
+
                     {
                         displayName:name
                     }
+
                 );
 
-                message.classList.remove("error");
+                /* EMAIL VERIFY */
+
+                await sendEmailVerification(
+                    userCredential.user
+                );
 
                 message.innerText =
-                    "Account Created Successfully!";
+                "Account Created Successfully! Verification Email Sent.";
 
-                setTimeout(() => {
+                /* REDIRECT */
 
-                    window.location.href = "login.html";
+                setTimeout(()=>{
 
-                }, 2000);
+                    window.location.href =
+                    "login.html";
+
+                },2500);
 
             }
 
@@ -433,7 +653,51 @@
 
                 message.classList.add("error");
 
-                message.innerText = error.message;
+                if(
+                    error.code ===
+                    "auth/email-already-in-use"
+                ){
+
+                    message.innerText =
+                    "Email already exists.";
+
+                }
+
+                else if(
+                    error.code ===
+                    "auth/invalid-email"
+                ){
+
+                    message.innerText =
+                    "Invalid email format.";
+
+                }
+
+                else if(
+                    error.code ===
+                    "auth/weak-password"
+                ){
+
+                    message.innerText =
+                    "Password is too weak.";
+
+                }
+
+                else{
+
+                    message.innerText =
+                    "Failed to create account.";
+
+                }
+
+            }
+
+            finally{
+
+                createBtn.disabled = false;
+
+                createBtn.innerText =
+                "CREATE ACCOUNT";
 
             }
 
@@ -442,39 +706,46 @@
     </script>
 
     <!-- PAGE TRANSITION -->
+
     <script>
 
-        function smoothPage(e, link){
+        function smoothPage(e,link){
 
             e.preventDefault();
 
-            document.body.classList.add("fade-out");
+            document.body
+            .classList
+            .add("fade-out");
 
-            setTimeout(() => {
+            setTimeout(()=>{
 
                 window.location.href = link;
 
-            }, 400);
+            },400);
 
         }
 
     </script>
 
     <!-- SNOW EFFECT -->
+
     <script>
 
         const canvas =
-            document.getElementById('snowCanvas');
+        document.getElementById('snowCanvas');
 
         const ctx =
-            canvas.getContext('2d');
+        canvas.getContext('2d');
 
         let flakes = [];
 
         function initSnow(){
 
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
+            canvas.width =
+            window.innerWidth;
+
+            canvas.height =
+            window.innerHeight;
 
             flakes = [];
 
@@ -506,7 +777,7 @@
             );
 
             ctx.fillStyle =
-                "rgba(255,255,255,.9)";
+            "rgba(255,255,255,.9)";
 
             ctx.beginPath();
 
@@ -517,12 +788,14 @@
                 ctx.moveTo(f.x,f.y);
 
                 ctx.arc(
+
                     f.x,
                     f.y,
                     f.r,
                     0,
                     Math.PI*2,
                     true
+
                 );
 
             }
