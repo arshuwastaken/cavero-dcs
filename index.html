@@ -490,6 +490,17 @@
 
         </a>
 
+        <!-- ADMIN PANEL -->
+
+        <a href="data.html"
+           id="adminPanelBtn"
+           style="display:none;"
+           onclick="smoothPage(event,this.href)">
+
+           ENQUIRIES
+
+        </a>
+
         <!-- USER BOX -->
 
         <div class="user-box"
@@ -635,6 +646,17 @@
         const logoutBtn =
         document.getElementById("logoutBtn");
 
+        const adminPanelBtn =
+        document.getElementById("adminPanelBtn");
+
+        /* ADMIN EMAILS */
+
+        const adminEmails = [
+
+            "YOURADMINEMAIL@gmail.com"
+
+        ];
+
         /* AUTH CHECK */
 
         onAuthStateChanged(auth,(user)=>{
@@ -654,6 +676,26 @@
                 createLink.style.display =
                 "none";
 
+                /* ADMIN CHECK */
+
+                if(
+                    adminEmails.includes(
+                        user.email
+                    )
+                ){
+
+                    adminPanelBtn.style.display =
+                    "block";
+
+                }
+
+                else{
+
+                    adminPanelBtn.style.display =
+                    "none";
+
+                }
+
             }
 
             else{
@@ -666,6 +708,9 @@
 
                 createLink.style.display =
                 "block";
+
+                adminPanelBtn.style.display =
+                "none";
 
             }
 
