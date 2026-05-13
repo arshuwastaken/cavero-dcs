@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
 
 <title>ALL ORDERS - Cavero DC's</title>
 
@@ -15,8 +17,11 @@ box-sizing:border-box;
 }
 
 body{
+
 min-height:100vh;
+
 font-family:Inter,sans-serif;
+
 color:white;
 
 background:
@@ -29,32 +34,54 @@ background-position:center;
 overflow-x:hidden;
 }
 
+/* SNOW */
+
 #snowCanvas{
+
 position:fixed;
+
 inset:0;
+
 width:100%;
 height:100%;
+
 z-index:1;
+
 pointer-events:none;
 }
 
+/* MAIN */
+
 .main{
+
 position:relative;
+
 z-index:5;
+
 padding:40px 20px;
 }
 
+/* TOP */
+
 .top-bar{
+
 display:flex;
+
 justify-content:space-between;
+
 align-items:center;
+
 margin-bottom:35px;
-flex-wrap:wrap;
+
 gap:20px;
+
+flex-wrap:wrap;
 }
 
 .title{
+
 font-size:2.5rem;
+
 font-weight:900;
 }
 
@@ -63,50 +90,109 @@ color:#3b82f6;
 }
 
 .back-btn{
+
 padding:14px 22px;
+
 border-radius:14px;
+
 background:#2563eb;
+
 color:white;
+
 text-decoration:none;
+
 font-weight:700;
+
+transition:.3s ease;
 }
 
+.back-btn:hover{
+
+background:#1d4ed8;
+
+transform:scale(1.03);
+}
+
+/* GRID */
+
 .grid{
+
 display:grid;
+
 grid-template-columns:
 repeat(auto-fit,minmax(340px,1fr));
+
 gap:25px;
 }
 
+/* CARD */
+
 .card{
+
 background:rgba(15,23,42,.78);
+
 backdrop-filter:blur(14px);
+
 border:1px solid rgba(59,130,246,.2);
+
 border-radius:24px;
+
 padding:25px;
+
+box-shadow:0 0 30px rgba(37,99,235,.12);
+
+animation:fadeIn .5s ease;
+}
+
+@keyframes fadeIn{
+
+from{
+opacity:0;
+transform:translateY(15px);
+}
+
+to{
+opacity:1;
+transform:translateY(0);
+}
+
 }
 
 .card h2{
+
 margin-bottom:18px;
+
 color:#3b82f6;
+
+font-size:1.4rem;
 }
 
 .info{
-margin-bottom:12px;
+
+margin-bottom:14px;
+
 line-height:1.5;
+
 word-break:break-word;
 }
 
 .label{
+
 color:#93c5fd;
+
 font-weight:700;
 }
 
 .status{
+
 margin-top:15px;
-padding:10px;
+
+padding:12px;
+
 border-radius:12px;
-font-weight:700;
+
+font-weight:800;
+
 text-align:center;
 }
 
@@ -123,46 +209,207 @@ background:#166534;
 }
 
 .buttons{
+
 display:flex;
+
 flex-wrap:wrap;
+
 gap:10px;
+
 margin-top:20px;
 }
 
 .btn{
+
 flex:1;
+
 padding:12px;
+
 border:none;
+
 border-radius:12px;
-font-weight:700;
+
+font-weight:800;
+
 cursor:pointer;
+
 color:white;
+
+transition:.25s;
 }
 
 .confirm-btn{
 background:#2563eb;
 }
 
+.confirm-btn:hover{
+background:#1d4ed8;
+}
+
 .complete-btn{
 background:#16a34a;
+}
+
+.complete-btn:hover{
+background:#15803d;
 }
 
 .delete-btn{
 background:#dc2626;
 }
 
+.delete-btn:hover{
+background:#b91c1c;
+}
+
 .empty{
+
 text-align:center;
+
 margin-top:100px;
-font-size:1.2rem;
+
 color:#94a3b8;
+
+font-size:1.2rem;
+}
+
+/* POPUP */
+
+.popup-overlay{
+
+position:fixed;
+inset:0;
+
+background:rgba(0,0,0,.65);
+
+display:none;
+justify-content:center;
+align-items:center;
+
+z-index:9999;
+
+backdrop-filter:blur(8px);
+}
+
+.popup{
+
+width:90%;
+max-width:420px;
+
+background:rgba(15,23,42,.95);
+
+border:1px solid rgba(59,130,246,.25);
+
+border-radius:24px;
+
+padding:30px;
+
+text-align:center;
+
+box-shadow:0 0 35px rgba(37,99,235,.18);
+
+animation:popupShow .25s ease;
+}
+
+@keyframes popupShow{
+
+from{
+opacity:0;
+transform:scale(.9);
+}
+
+to{
+opacity:1;
+transform:scale(1);
+}
+
+}
+
+.popup h2{
+
+font-size:1.8rem;
+
+margin-bottom:14px;
+}
+
+.popup p{
+
+color:#cbd5e1;
+
+margin-bottom:25px;
+
+line-height:1.5;
+}
+
+.popup-buttons{
+
+display:flex;
+
+gap:12px;
+}
+
+.popup-btn{
+
+flex:1;
+
+padding:14px;
+
+border:none;
+
+border-radius:14px;
+
+font-weight:800;
+
+cursor:pointer;
+
+color:white;
+
+transition:.25s;
+}
+
+.cancel-btn{
+background:#334155;
+}
+
+.cancel-btn:hover{
+background:#475569;
+}
+
+.delete-popup-btn{
+background:#dc2626;
+}
+
+.delete-popup-btn:hover{
+background:#b91c1c;
+}
+
+.success-popup-btn{
+background:#16a34a;
+}
+
+.success-popup-btn:hover{
+background:#15803d;
+}
+
+/* MOBILE */
+
+@media(max-width:700px){
+
+.title{
+font-size:2rem;
+}
+
 }
 
 </style>
 </head>
 <body>
 
+<!-- SNOW -->
+
 <canvas id="snowCanvas"></canvas>
+
+<!-- MAIN -->
 
 <div class="main">
 
@@ -172,23 +419,77 @@ color:#94a3b8;
 ALL <span>ORDERS</span>
 </h1>
 
-<a href="index.html" class="back-btn">
+<a href="index.html"
+class="back-btn">
+
 ← BACK
+
 </a>
 
 </div>
 
-<div class="grid" id="dataContainer"></div>
+<div class="grid"
+id="dataContainer">
 
-<div class="empty" id="emptyMsg">
+</div>
+
+<div class="empty"
+id="emptyMsg">
+
 Loading orders...
+
 </div>
 
 </div>
+
+<!-- POPUP -->
+
+<div class="popup-overlay"
+id="popupOverlay">
+
+<div class="popup">
+
+<h2 id="popupTitle">
+DELETE ORDER
+</h2>
+
+<p id="popupText">
+Are you sure?
+</p>
+
+<div class="popup-buttons">
+
+<button
+class="popup-btn cancel-btn"
+id="cancelPopup">
+
+CANCEL
+
+</button>
+
+<button
+class="popup-btn delete-popup-btn"
+id="confirmPopup">
+
+DELETE
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- FIREBASE -->
 
 <script type="module">
 
-import { initializeApp }
+import {
+
+initializeApp
+
+}
 
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
@@ -205,25 +506,39 @@ deleteDoc
 
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
+/* FIREBASE CONFIG */
+
 const firebaseConfig = {
 
-apiKey:"AIzaSyAmC4fe50RFG62d3k10tIrlYfNT3iWF94Y",
+apiKey:
+"AIzaSyAmC4fe50RFG62d3k10tIrlYfNT3iWF94Y",
 
-authDomain:"cavero-dcs.firebaseapp.com",
+authDomain:
+"cavero-dcs.firebaseapp.com",
 
-projectId:"cavero-dcs",
+projectId:
+"cavero-dcs",
 
-storageBucket:"cavero-dcs.firebasestorage.app",
+storageBucket:
+"cavero-dcs.firebasestorage.app",
 
-messagingSenderId:"631632094928",
+messagingSenderId:
+"631632094928",
 
-appId:"1:631632094928:web:cbb62c92117f05a08960d5"
+appId:
+"1:631632094928:web:cbb62c92117f05a08960d5"
 
 };
 
-const app = initializeApp(firebaseConfig);
+/* INIT */
 
-const db = getFirestore(app);
+const app =
+initializeApp(firebaseConfig);
+
+const db =
+getFirestore(app);
+
+/* ELEMENTS */
 
 const dataContainer =
 document.getElementById("dataContainer");
@@ -231,13 +546,37 @@ document.getElementById("dataContainer");
 const emptyMsg =
 document.getElementById("emptyMsg");
 
+/* POPUP ELEMENTS */
+
+const popupOverlay =
+document.getElementById("popupOverlay");
+
+const popupTitle =
+document.getElementById("popupTitle");
+
+const popupText =
+document.getElementById("popupText");
+
+const confirmPopup =
+document.getElementById("confirmPopup");
+
+const cancelPopup =
+document.getElementById("cancelPopup");
+
+let deleteId = null;
+
+/* LOAD ORDERS */
+
 async function loadOrders(){
 
 try{
 
 const querySnapshot =
 await getDocs(
-collection(db,"checkout_enquiries")
+collection(
+db,
+"checkout_enquiries"
+)
 );
 
 dataContainer.innerHTML = "";
@@ -251,21 +590,25 @@ return;
 
 }
 
-emptyMsg.style.display = "none";
+emptyMsg.style.display =
+"none";
 
 querySnapshot.forEach((documentData)=>{
 
-const data = documentData.data();
+const data =
+documentData.data();
 
 const card =
 document.createElement("div");
 
-card.className = "card";
+card.className =
+"card";
 
 const status =
 data.status || "Pending";
 
-let statusClass = "pending";
+let statusClass =
+"pending";
 
 if(status === "Confirmed"){
 statusClass = "confirmed";
@@ -277,36 +620,68 @@ statusClass = "completed";
 
 card.innerHTML = `
 
-<h2>${data.selectedPlan || "Unknown Plan"}</h2>
+<h2>
+${data.selectedPlan || "Unknown Plan"}
+</h2>
 
 <div class="info">
-<span class="label">Discord:</span>
+
+<span class="label">
+Discord:
+</span>
+
 ${data.discordUsername || "N/A"}
+
 </div>
 
 <div class="info">
-<span class="label">Email:</span>
+
+<span class="label">
+Email:
+</span>
+
 ${data.email || "N/A"}
+
 </div>
 
 <div class="info">
-<span class="label">Server:</span>
+
+<span class="label">
+Server:
+</span>
+
 ${data.serverName || "N/A"}
+
 </div>
 
 <div class="info">
-<span class="label">Description:</span>
+
+<span class="label">
+Description:
+</span>
+
 ${data.serverDescription || "N/A"}
+
 </div>
 
 <div class="info">
-<span class="label">Admin Access:</span>
+
+<span class="label">
+Admin Access:
+</span>
+
 ${data.adminAccess || "N/A"}
+
 </div>
 
 <div class="info">
-<span class="label">IP:</span>
+
+<span class="label">
+IP Address:
+</span>
+
 ${data.ipAddress || "Unknown"}
+
 </div>
 
 <div class="status ${statusClass}">
@@ -315,22 +690,28 @@ ${status}
 
 <div class="buttons">
 
-<button class="btn confirm-btn"
+<button
+class="btn confirm-btn"
 onclick="confirmOrder('${documentData.id}')">
 
 CONFIRM
+
 </button>
 
-<button class="btn complete-btn"
+<button
+class="btn complete-btn"
 onclick="completeOrder('${documentData.id}')">
 
 COMPLETE
+
 </button>
 
-<button class="btn delete-btn"
+<button
+class="btn delete-btn"
 onclick="deleteOrder('${documentData.id}')">
 
 DELETE
+
 </button>
 
 </div>
@@ -354,50 +735,156 @@ emptyMsg.innerText =
 
 }
 
-window.confirmOrder = async(id)=>{
+/* CONFIRM */
+
+window.confirmOrder =
+async(id)=>{
 
 await updateDoc(
-doc(db,"checkout_enquiries",id),
+doc(
+db,
+"checkout_enquiries",
+id
+),
 {
 status:"Confirmed"
 }
 );
 
+showSuccessPopup(
+"ORDER CONFIRMED",
+"The order status has been updated."
+);
+
 loadOrders();
 
 };
 
-window.completeOrder = async(id)=>{
+/* COMPLETE */
+
+window.completeOrder =
+async(id)=>{
 
 await updateDoc(
-doc(db,"checkout_enquiries",id),
+doc(
+db,
+"checkout_enquiries",
+id
+),
 {
 status:"Completed"
 }
 );
 
-loadOrders();
-
-};
-
-window.deleteOrder = async(id)=>{
-
-const sure =
-confirm("Delete this order?");
-
-if(!sure) return;
-
-await deleteDoc(
-doc(db,"checkout_enquiries",id)
+showSuccessPopup(
+"ORDER COMPLETED",
+"The order has been marked completed."
 );
 
 loadOrders();
 
 };
 
+/* DELETE */
+
+window.deleteOrder =
+async(id)=>{
+
+deleteId = id;
+
+popupTitle.innerText =
+"DELETE ORDER";
+
+popupText.innerText =
+"Are you sure you want to permanently delete this order?";
+
+confirmPopup.innerText =
+"DELETE";
+
+confirmPopup.className =
+"popup-btn delete-popup-btn";
+
+popupOverlay.style.display =
+"flex";
+
+};
+
+/* CANCEL */
+
+cancelPopup.onclick = ()=>{
+
+popupOverlay.style.display =
+"none";
+
+};
+
+/* CONFIRM DELETE */
+
+confirmPopup.onclick =
+async()=>{
+
+if(!deleteId) return;
+
+await deleteDoc(
+doc(
+db,
+"checkout_enquiries",
+deleteId
+)
+);
+
+popupOverlay.style.display =
+"none";
+
+deleteId = null;
+
+showSuccessPopup(
+"ORDER DELETED",
+"Order deleted successfully."
+);
+
+loadOrders();
+
+};
+
+/* SUCCESS POPUP */
+
+function showSuccessPopup(
+title,
+text
+){
+
+popupTitle.innerText =
+title;
+
+popupText.innerText =
+text;
+
+confirmPopup.innerText =
+"OK";
+
+confirmPopup.className =
+"popup-btn success-popup-btn";
+
+popupOverlay.style.display =
+"flex";
+
+confirmPopup.onclick = ()=>{
+
+popupOverlay.style.display =
+"none";
+
+};
+
+}
+
+/* START */
+
 loadOrders();
 
 </script>
+
+<!-- SNOW -->
 
 <script>
 
@@ -411,8 +898,11 @@ let flakes = [];
 
 function initSnow(){
 
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+canvas.width =
+window.innerWidth;
+
+canvas.height =
+window.innerHeight;
 
 flakes = [];
 
@@ -437,7 +927,8 @@ d:Math.random()*1+.5
 function drawSnow(){
 
 ctx.clearRect(
-0,0,
+0,
+0,
 canvas.width,
 canvas.height
 );
