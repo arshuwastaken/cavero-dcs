@@ -1,411 +1,229 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
 <meta charset="UTF-8">
-
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>ALL ORDERS - Cavero DC's</title>
 
 <style>
 
 *{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+margin:0;
+padding:0;
+box-sizing:border-box;
 }
 
 body{
+min-height:100vh;
+font-family:Inter,sans-serif;
+color:white;
 
-    min-height:100vh;
+background:
+linear-gradient(rgba(2,6,23,.65),rgba(2,6,23,.65)),
+url('./bg.png');
 
-    font-family:'Inter',sans-serif;
+background-size:cover;
+background-position:center;
 
-    color:white;
-
-    background:
-    linear-gradient(rgba(2,6,23,.65),rgba(2,6,23,.65)),
-    url('./bg.png');
-
-    background-size:cover;
-    background-position:center;
-
-    overflow-x:hidden;
+overflow-x:hidden;
 }
-
-/* SNOW */
 
 #snowCanvas{
-
-    position:fixed;
-
-    inset:0;
-
-    width:100%;
-    height:100%;
-
-    z-index:1;
-
-    pointer-events:none;
+position:fixed;
+inset:0;
+width:100%;
+height:100%;
+z-index:1;
+pointer-events:none;
 }
-
-/* MAIN */
 
 .main{
-
-    position:relative;
-
-    z-index:5;
-
-    padding:40px 20px;
+position:relative;
+z-index:5;
+padding:40px 20px;
 }
 
-/* TOP */
-
 .top-bar{
-
-    display:flex;
-
-    justify-content:space-between;
-
-    align-items:center;
-
-    margin-bottom:35px;
-
-    gap:20px;
-
-    flex-wrap:wrap;
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:35px;
+flex-wrap:wrap;
+gap:20px;
 }
 
 .title{
-
-    font-size:2.5rem;
-
-    font-weight:900;
+font-size:2.5rem;
+font-weight:900;
 }
 
 .title span{
-    color:#3b82f6;
+color:#3b82f6;
 }
 
 .back-btn{
-
-    padding:14px 22px;
-
-    border-radius:14px;
-
-    background:#2563eb;
-
-    color:white;
-
-    text-decoration:none;
-
-    font-weight:700;
-
-    transition:.3s ease;
+padding:14px 22px;
+border-radius:14px;
+background:#2563eb;
+color:white;
+text-decoration:none;
+font-weight:700;
 }
-
-.back-btn:hover{
-
-    background:#1d4ed8;
-
-    transform:scale(1.03);
-}
-
-/* GRID */
 
 .grid{
-
-    display:grid;
-
-    grid-template-columns:
-    repeat(auto-fit,minmax(320px,1fr));
-
-    gap:25px;
+display:grid;
+grid-template-columns:
+repeat(auto-fit,minmax(340px,1fr));
+gap:25px;
 }
-
-/* CARD */
 
 .card{
-
-    background:rgba(15,23,42,.78);
-
-    backdrop-filter:blur(14px);
-
-    border:1px solid rgba(59,130,246,.2);
-
-    border-radius:24px;
-
-    padding:25px;
-
-    box-shadow:0 0 30px rgba(37,99,235,.12);
-
-    animation:fadeIn .5s ease;
-}
-
-@keyframes fadeIn{
-
-    from{
-        opacity:0;
-        transform:translateY(15px);
-    }
-
-    to{
-        opacity:1;
-        transform:translateY(0);
-    }
-
+background:rgba(15,23,42,.78);
+backdrop-filter:blur(14px);
+border:1px solid rgba(59,130,246,.2);
+border-radius:24px;
+padding:25px;
 }
 
 .card h2{
-
-    margin-bottom:18px;
-
-    color:#3b82f6;
-
-    font-size:1.4rem;
+margin-bottom:18px;
+color:#3b82f6;
 }
 
 .info{
-
-    margin-bottom:14px;
-
-    line-height:1.5;
-
-    word-break:break-word;
+margin-bottom:12px;
+line-height:1.5;
+word-break:break-word;
 }
 
 .label{
-
-    color:#93c5fd;
-
-    font-weight:700;
+color:#93c5fd;
+font-weight:700;
 }
-
-.empty{
-
-    text-align:center;
-
-    margin-top:100px;
-
-    color:#94a3b8;
-
-    font-size:1.2rem;
-}
-
-/* STATUS */
 
 .status{
-
-    margin-top:15px;
-
-    padding:10px;
-
-    border-radius:12px;
-
-    text-align:center;
-
-    font-weight:700;
-
-    background:rgba(59,130,246,.15);
-
-    color:#93c5fd;
+margin-top:15px;
+padding:10px;
+border-radius:12px;
+font-weight:700;
+text-align:center;
 }
 
-/* BUTTONS */
-
-.btn-group{
-
-    display:flex;
-
-    flex-direction:column;
-
-    gap:12px;
-
-    margin-top:20px;
+.pending{
+background:#92400e;
 }
 
-.action-btn{
-
-    border:none;
-
-    padding:14px;
-
-    border-radius:14px;
-
-    color:white;
-
-    font-weight:800;
-
-    cursor:pointer;
-
-    transition:.3s ease;
-
-    font-size:.95rem;
+.confirmed{
+background:#1d4ed8;
 }
 
-.action-btn:hover{
+.completed{
+background:#166534;
+}
 
-    transform:scale(1.02);
+.buttons{
+display:flex;
+flex-wrap:wrap;
+gap:10px;
+margin-top:20px;
+}
+
+.btn{
+flex:1;
+padding:12px;
+border:none;
+border-radius:12px;
+font-weight:700;
+cursor:pointer;
+color:white;
 }
 
 .confirm-btn{
-
-    background:#2563eb;
+background:#2563eb;
 }
 
-.final-btn{
-
-    background:#16a34a;
+.complete-btn{
+background:#16a34a;
 }
 
 .delete-btn{
-
-    background:#dc2626;
+background:#dc2626;
 }
 
-/* MOBILE */
-
-@media(max-width:700px){
-
-    .title{
-        font-size:2rem;
-    }
-
+.empty{
+text-align:center;
+margin-top:100px;
+font-size:1.2rem;
+color:#94a3b8;
 }
 
 </style>
 </head>
 <body>
 
-<!-- SNOW -->
-
 <canvas id="snowCanvas"></canvas>
-
-<!-- MAIN -->
 
 <div class="main">
 
-    <div class="top-bar">
+<div class="top-bar">
 
-        <h1 class="title">
-            ALL <span>ORDERS</span>
-        </h1>
+<h1 class="title">
+ALL <span>ORDERS</span>
+</h1>
 
-        <a href="index.html"
-           class="back-btn">
-
-           ← BACK
-
-        </a>
-
-    </div>
-
-    <div class="grid"
-         id="dataContainer">
-
-    </div>
-
-    <div class="empty"
-         id="emptyMsg">
-
-         Loading Orders...
-
-    </div>
+<a href="index.html" class="back-btn">
+← BACK
+</a>
 
 </div>
 
-<!-- FIREBASE -->
+<div class="grid" id="dataContainer"></div>
+
+<div class="empty" id="emptyMsg">
+Loading orders...
+</div>
+
+</div>
 
 <script type="module">
 
-import {
-
-    initializeApp
-
-}
+import { initializeApp }
 
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
 import {
 
-    getAuth,
-
-    onAuthStateChanged
-
-}
-
-from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-
-import {
-
-    getFirestore,
-
-    collection,
-
-    getDocs,
-
-    query,
-
-    doc,
-
-    updateDoc,
-
-    deleteDoc
+getFirestore,
+collection,
+getDocs,
+doc,
+updateDoc,
+deleteDoc
 
 }
 
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-/* FIREBASE CONFIG */
-
 const firebaseConfig = {
 
-    apiKey:
-    "AIzaSyAmC4fe50RFG62d3k10tIrlYfNT3iWF94Y",
+apiKey:"AIzaSyAmC4fe50RFG62d3k10tIrlYfNT3iWF94Y",
 
-    authDomain:
-    "cavero-dcs.firebaseapp.com",
+authDomain:"cavero-dcs.firebaseapp.com",
 
-    projectId:
-    "cavero-dcs",
+projectId:"cavero-dcs",
 
-    storageBucket:
-    "cavero-dcs.firebasestorage.app",
+storageBucket:"cavero-dcs.firebasestorage.app",
 
-    messagingSenderId:
-    "631632094928",
+messagingSenderId:"631632094928",
 
-    appId:
-    "1:631632094928:web:cbb62c92117f05a08960d5",
-
-    measurementId:
-    "G-R39B13Q1V8"
+appId:"1:631632094928:web:cbb62c92117f05a08960d5"
 
 };
 
-/* INIT */
+const app = initializeApp(firebaseConfig);
 
-const app =
-initializeApp(firebaseConfig);
-
-const auth =
-getAuth(app);
-
-const db =
-getFirestore(app);
-
-/* ADMIN EMAILS */
-
-const adminEmails = [
-
-    "arshshuklabpl@gmail.com"
-
-];
-
-/* ELEMENTS */
+const db = getFirestore(app);
 
 const dataContainer =
 document.getElementById("dataContainer");
@@ -413,361 +231,173 @@ document.getElementById("dataContainer");
 const emptyMsg =
 document.getElementById("emptyMsg");
 
-/* SECURITY */
+async function loadOrders(){
 
-onAuthStateChanged(auth,async(user)=>{
+try{
 
-    if(!user){
+const querySnapshot =
+await getDocs(
+collection(db,"checkout_enquiries")
+);
 
-        window.location.href =
-        "login.html";
+dataContainer.innerHTML = "";
 
-        return;
-    }
+if(querySnapshot.empty){
 
-    if(
-        !adminEmails.includes(
-            user.email
-        )
-    ){
+emptyMsg.innerText =
+"No Orders Found";
 
-        document.body.innerHTML = `
+return;
 
-        <div style="
-        height:100vh;
-        display:flex;
-        justify-content:center;
-        align-items:center;
-        font-size:2rem;
-        font-weight:800;
-        color:#ef4444;
-        text-align:center;
-        padding:20px;
-        ">
+}
 
-        ACCESS DENIED
+emptyMsg.style.display = "none";
 
-        </div>
+querySnapshot.forEach((documentData)=>{
 
-        `;
+const data = documentData.data();
 
-        return;
-    }
+const card =
+document.createElement("div");
 
-    loadOrders();
+card.className = "card";
+
+const status =
+data.status || "Pending";
+
+let statusClass = "pending";
+
+if(status === "Confirmed"){
+statusClass = "confirmed";
+}
+
+if(status === "Completed"){
+statusClass = "completed";
+}
+
+card.innerHTML = `
+
+<h2>${data.selectedPlan || "Unknown Plan"}</h2>
+
+<div class="info">
+<span class="label">Discord:</span>
+${data.discordUsername || "N/A"}
+</div>
+
+<div class="info">
+<span class="label">Email:</span>
+${data.email || "N/A"}
+</div>
+
+<div class="info">
+<span class="label">Server:</span>
+${data.serverName || "N/A"}
+</div>
+
+<div class="info">
+<span class="label">Description:</span>
+${data.serverDescription || "N/A"}
+</div>
+
+<div class="info">
+<span class="label">Admin Access:</span>
+${data.adminAccess || "N/A"}
+</div>
+
+<div class="info">
+<span class="label">IP:</span>
+${data.ipAddress || "Unknown"}
+</div>
+
+<div class="status ${statusClass}">
+${status}
+</div>
+
+<div class="buttons">
+
+<button class="btn confirm-btn"
+onclick="confirmOrder('${documentData.id}')">
+
+CONFIRM
+</button>
+
+<button class="btn complete-btn"
+onclick="completeOrder('${documentData.id}')">
+
+COMPLETE
+</button>
+
+<button class="btn delete-btn"
+onclick="deleteOrder('${documentData.id}')">
+
+DELETE
+</button>
+
+</div>
+
+`;
+
+dataContainer.appendChild(card);
 
 });
 
-/* LOAD ORDERS */
+}
 
-async function loadOrders(){
+catch(err){
 
-    try{
+console.error(err);
 
-        const q =
-        query(
-
-            collection(
-                db,
-                "checkout_enquiries"
-            )
-
-        );
-
-        const querySnapshot =
-        await getDocs(q);
-
-        dataContainer.innerHTML = "";
-
-        if(querySnapshot.empty){
-
-            emptyMsg.innerText =
-            "No Orders Found.";
-
-            return;
-        }
-
-        emptyMsg.style.display =
-        "none";
-
-        querySnapshot.forEach((document)=>{
-
-            const data =
-            document.data();
-
-            const docId =
-            document.id;
-
-            const status =
-            data.status || "Pending";
-
-            const card =
-            document.createElement("div");
-
-            card.className =
-            "card";
-
-            card.innerHTML = `
-
-            <h2>
-                ${data.selectedPlan || "Unknown Plan"}
-            </h2>
-
-            <div class="info">
-
-                <span class="label">
-                    Discord:
-                </span>
-
-                ${data.discordUsername || "N/A"}
-
-            </div>
-
-            <div class="info">
-
-                <span class="label">
-                    Email:
-                </span>
-
-                ${data.email || "N/A"}
-
-            </div>
-
-            <div class="info">
-
-                <span class="label">
-                    Server:
-                </span>
-
-                ${data.serverName || "N/A"}
-
-            </div>
-
-            <div class="info">
-
-                <span class="label">
-                    Description:
-                </span>
-
-                ${data.serverDescription || "N/A"}
-
-            </div>
-
-            <div class="info">
-
-                <span class="label">
-                    Admin Access:
-                </span>
-
-                ${data.adminAccess || "N/A"}
-
-            </div>
-
-            <div class="info">
-
-                <span class="label">
-                    IP Address:
-                </span>
-
-                ${data.ipAddress || "Unknown"}
-
-            </div>
-
-            <div class="status">
-
-                STATUS :
-                ${status}
-
-            </div>
-
-            <div class="btn-group">
-
-                <button
-                class="action-btn confirm-btn"
-                data-id="${docId}"
-                data-action="confirm">
-
-                MESSAGE SENT
-
-                </button>
-
-                <button
-                class="action-btn final-btn"
-                data-id="${docId}"
-                data-action="final">
-
-                COMPLETE (FINAL)
-
-                </button>
-
-                <button
-                class="action-btn delete-btn"
-                data-id="${docId}"
-                data-action="delete">
-
-                REMOVE ORDER
-
-                </button>
-
-            </div>
-
-            `;
-
-            dataContainer.appendChild(card);
-
-        });
-
-        addButtonEvents();
-
-    }
-
-    catch(err){
-
-        emptyMsg.innerText =
-        "Failed To Load Orders.";
-
-        console.error(err);
-
-    }
+emptyMsg.innerText =
+"Failed To Load Orders";
 
 }
 
-/* BUTTON ACTIONS */
-
-function addButtonEvents(){
-
-    const buttons =
-    document.querySelectorAll(
-        ".action-btn"
-    );
-
-    buttons.forEach((button)=>{
-
-        button.addEventListener(
-        "click",
-        async()=>{
-
-            const id =
-            button.dataset.id;
-
-            const action =
-            button.dataset.action;
-
-            try{
-
-                if(action === "confirm"){
-
-                    await updateDoc(
-
-                        doc(
-                            db,
-                            "checkout_enquiries",
-                            id
-                        ),
-
-                        {
-                            status:
-                            "Message Sent"
-                        }
-
-                    );
-
-                    alert(
-                        "Order Marked As Message Sent"
-                    );
-
-                }
-
-                if(action === "final"){
-
-                    await updateDoc(
-
-                        doc(
-                            db,
-                            "checkout_enquiries",
-                            id
-                        ),
-
-                        {
-                            status:
-                            "Completed"
-                        }
-
-                    );
-
-                    alert(
-                        "Order Completed"
-                    );
-
-                }
-
-                if(action === "delete"){
-
-                    const confirmDelete =
-                    confirm(
-                        "Remove This Order?"
-                    );
-
-                    if(!confirmDelete)
-                    return;
-
-                    await deleteDoc(
-
-                        doc(
-                            db,
-                            "checkout_enquiries",
-                            id
-                        )
-
-                    );
-
-                    alert(
-                        "Order Removed"
-                    );
-
-                }
-
-                loadOrders();
-
-            }
-
-            catch(err){
-
-                console.error(err);
-
-                alert(
-                    "Action Failed"
-                );
-
-            }
-
-        });
-
-    });
-
 }
 
-/* BASIC PROTECTION */
+window.confirmOrder = async(id)=>{
 
-document.addEventListener(
-"contextmenu",
-e=>e.preventDefault()
+await updateDoc(
+doc(db,"checkout_enquiries",id),
+{
+status:"Confirmed"
+}
 );
 
-document.onkeydown =
-function(e){
-
-    if(e.keyCode == 123){
-
-        return false;
-
-    }
+loadOrders();
 
 };
 
-</script>
+window.completeOrder = async(id)=>{
 
-<!-- SNOW EFFECT -->
+await updateDoc(
+doc(db,"checkout_enquiries",id),
+{
+status:"Completed"
+}
+);
+
+loadOrders();
+
+};
+
+window.deleteOrder = async(id)=>{
+
+const sure =
+confirm("Delete this order?");
+
+if(!sure) return;
+
+await deleteDoc(
+doc(db,"checkout_enquiries",id)
+);
+
+loadOrders();
+
+};
+
+loadOrders();
+
+</script>
 
 <script>
 
@@ -781,98 +411,92 @@ let flakes = [];
 
 function initSnow(){
 
-    canvas.width =
-    window.innerWidth;
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
 
-    canvas.height =
-    window.innerHeight;
+flakes = [];
 
-    flakes = [];
+for(let i=0;i<180;i++){
 
-    for(let i=0;i<180;i++){
+flakes.push({
 
-        flakes.push({
+x:Math.random()*canvas.width,
 
-            x:Math.random()*canvas.width,
+y:Math.random()*canvas.height,
 
-            y:Math.random()*canvas.height,
+r:Math.random()*3+1,
 
-            r:Math.random()*3+1,
+d:Math.random()*1+.5
 
-            d:Math.random()*1+.5
+});
 
-        });
-
-    }
+}
 
 }
 
 function drawSnow(){
 
-    ctx.clearRect(
-        0,
-        0,
-        canvas.width,
-        canvas.height
-    );
+ctx.clearRect(
+0,0,
+canvas.width,
+canvas.height
+);
 
-    ctx.fillStyle =
-    "rgba(255,255,255,.9)";
+ctx.fillStyle =
+"rgba(255,255,255,.9)";
 
-    ctx.beginPath();
+ctx.beginPath();
 
-    for(let i=0;i<flakes.length;i++){
+for(let i=0;i<flakes.length;i++){
 
-        let f = flakes[i];
+let f = flakes[i];
 
-        ctx.moveTo(f.x,f.y);
+ctx.moveTo(f.x,f.y);
 
-        ctx.arc(
+ctx.arc(
+f.x,
+f.y,
+f.r,
+0,
+Math.PI*2,
+true
+);
 
-            f.x,
-            f.y,
-            f.r,
-            0,
-            Math.PI*2,
-            true
+}
 
-        );
+ctx.fill();
 
-    }
-
-    ctx.fill();
-
-    moveSnow();
+moveSnow();
 
 }
 
 function moveSnow(){
 
-    for(let i=0;i<flakes.length;i++){
+for(let i=0;i<flakes.length;i++){
 
-        let f = flakes[i];
+let f = flakes[i];
 
-        f.y += f.d;
+f.y += f.d;
 
-        f.x += Math.sin(f.y*.01);
+f.x += Math.sin(f.y*.01);
 
-        if(f.y > canvas.height){
+if(f.y > canvas.height){
 
-            flakes[i] = {
+flakes[i] = {
 
-                x:Math.random()*canvas.width,
+x:Math.random()*canvas.width,
 
-                y:-10,
+y:-10,
 
-                r:f.r,
+r:f.r,
 
-                d:f.d
+d:f.d
 
-            };
+};
 
-        }
+}
 
-    }
+}
 
 }
 
