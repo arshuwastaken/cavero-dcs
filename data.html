@@ -353,9 +353,7 @@ import {
 
     updateDoc,
 
-    deleteDoc,
-
-    orderBy
+    deleteDoc
 
 }
 
@@ -472,11 +470,6 @@ async function loadOrders(){
             collection(
                 db,
                 "checkout_enquiries"
-            ),
-
-            orderBy(
-                "createdAt",
-                "desc"
             )
 
         );
