@@ -229,6 +229,7 @@ textarea{
 
     font-weight:700;
 
+    line-height:1.6;
 }
 
 @media(max-width:700px){
@@ -325,7 +326,9 @@ textarea{
 
         </div>
 
-        <button class="submit-btn" type="submit">
+        <button class="submit-btn"
+                id="submitBtn"
+                type="submit">
 
             CHECKOUT (FINAL)
 
@@ -401,14 +404,14 @@ getFirestore(app);
 
 const params =
 new URLSearchParams(
-    window.location.search
+window.location.search
 );
 
 const plan =
 params.get('plan');
 
 document.getElementById(
-    'selectedPlan'
+'selectedPlan'
 ).innerText =
 
 "Selected Plan: " +
@@ -419,42 +422,18 @@ document.getElementById(
 
 const form =
 document.getElementById(
-    "checkoutForm"
+"checkoutForm"
 );
 
 const successMsg =
 document.getElementById(
-    "successMsg"
+"successMsg"
 );
 
 const submitBtn =
-document.querySelector(
-    ".submit-btn"
+document.getElementById(
+"submitBtn"
 );
-
-/* GET USER IP */
-
-let userIP = "Unknown";
-
-try{
-
-    const response =
-    await fetch(
-        "https://api.ipify.org?format=json"
-    );
-
-    const data =
-    await response.json();
-
-    userIP = data.ip;
-
-}
-
-catch{
-
-    userIP = "Hidden";
-
-}
 
 /* FORM SUBMIT */
 
@@ -469,33 +448,62 @@ async(e)=>{
     submitBtn.innerText =
     "PROCESSING...";
 
+    successMsg.innerText = "";
+
     successMsg.style.color =
     "#22c55e";
 
     const discord =
     document.getElementById(
-        "discord"
-    ).value;
+    "discord"
+    ).value.trim();
 
     const email =
     document.getElementById(
-        "email"
-    ).value;
+    "email"
+    ).value.trim();
 
     const server =
     document.getElementById(
-        "server"
-    ).value;
+    "server"
+    ).value.trim();
 
     const description =
     document.getElementById(
-        "description"
-    ).value;
+    "description"
+    ).value.trim();
 
     const admin =
     document.getElementById(
-        "admin"
+    "admin"
     ).value;
+
+    /* USER IP */
+
+    let userIP =
+    "Unknown";
+
+    try{
+
+        const response =
+        await fetch(
+        "https://api.ipify.org?format=json"
+        );
+
+        const ipData =
+        await response.json();
+
+        userIP =
+        ipData.ip || "Unknown";
+
+    }
+
+    catch{
+
+        userIP =
+        "Unknown";
+
+    }
 
     try{
 
@@ -531,6 +539,9 @@ async(e)=>{
                 ipAddress:
                 userIP,
 
+                submittedAt:
+                new Date().toLocaleString(),
+
                 createdAt:
                 serverTimestamp()
 
@@ -538,12 +549,13 @@ async(e)=>{
 
         );
 
+        successMsg.style.color =
+        "#22c55e";
+
         successMsg.innerText =
-        "Checkout Submitted Successfully!";
+        "Checkout Submitted Successfully! Redirecting...";
 
         form.reset();
-
-        /* REDIRECT */
 
         setTimeout(()=>{
 
@@ -556,13 +568,13 @@ async(e)=>{
 
     catch(err){
 
+        console.error(err);
+
         successMsg.style.color =
         "#ef4444";
 
         successMsg.innerText =
         "Failed To Submit Checkout.";
-
-        console.error(err);
 
     }
 
@@ -580,8 +592,8 @@ async(e)=>{
 /* BASIC PROTECTION */
 
 document.addEventListener(
-    "contextmenu",
-    e=>e.preventDefault()
+"contextmenu",
+e=>e.preventDefault()
 );
 
 document.onkeydown =
@@ -638,10 +650,10 @@ function initSnow(){
 function drawSnow(){
 
     ctx.clearRect(
-        0,
-        0,
-        canvas.width,
-        canvas.height
+    0,
+    0,
+    canvas.width,
+    canvas.height
     );
 
     ctx.fillStyle =
@@ -656,12 +668,12 @@ function drawSnow(){
         ctx.moveTo(f.x,f.y);
 
         ctx.arc(
-            f.x,
-            f.y,
-            f.r,
-            0,
-            Math.PI*2,
-            true
+        f.x,
+        f.y,
+        f.r,
+        0,
+        Math.PI*2,
+        true
         );
 
     }
