@@ -195,6 +195,77 @@ body{
     font-size:1.2rem;
 }
 
+/* STATUS */
+
+.status{
+
+    margin-top:15px;
+
+    padding:10px;
+
+    border-radius:12px;
+
+    text-align:center;
+
+    font-weight:700;
+
+    background:rgba(59,130,246,.15);
+
+    color:#93c5fd;
+}
+
+/* BUTTONS */
+
+.btn-group{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:12px;
+
+    margin-top:20px;
+}
+
+.action-btn{
+
+    border:none;
+
+    padding:14px;
+
+    border-radius:14px;
+
+    color:white;
+
+    font-weight:800;
+
+    cursor:pointer;
+
+    transition:.3s ease;
+
+    font-size:.95rem;
+}
+
+.action-btn:hover{
+
+    transform:scale(1.02);
+}
+
+.confirm-btn{
+
+    background:#2563eb;
+}
+
+.final-btn{
+
+    background:#16a34a;
+}
+
+.delete-btn{
+
+    background:#dc2626;
+}
+
 /* MOBILE */
 
 @media(max-width:700px){
@@ -217,8 +288,6 @@ body{
 
 <div class="main">
 
-    <!-- TOP -->
-
     <div class="top-bar">
 
         <h1 class="title">
@@ -234,19 +303,15 @@ body{
 
     </div>
 
-    <!-- DATA -->
-
     <div class="grid"
          id="dataContainer">
 
     </div>
 
-    <!-- EMPTY -->
-
     <div class="empty"
          id="emptyMsg">
 
-         Loading enquiries...
+         Loading Orders...
 
     </div>
 
@@ -282,7 +347,15 @@ import {
 
     getDocs,
 
-    query
+    query,
+
+    doc,
+
+    updateDoc,
+
+    deleteDoc,
+
+    orderBy
 
 }
 
@@ -383,13 +456,13 @@ onAuthStateChanged(auth,async(user)=>{
         return;
     }
 
-    loadEnquiries();
+    loadOrders();
 
 });
 
-/* LOAD DATA */
+/* LOAD ORDERS */
 
-async function loadEnquiries(){
+async function loadOrders(){
 
     try{
 
@@ -399,6 +472,11 @@ async function loadEnquiries(){
             collection(
                 db,
                 "checkout_enquiries"
+            ),
+
+            orderBy(
+                "createdAt",
+                "desc"
             )
 
         );
@@ -411,7 +489,7 @@ async function loadEnquiries(){
         if(querySnapshot.empty){
 
             emptyMsg.innerText =
-            "No enquiries found.";
+            "No Orders Found.";
 
             return;
         }
@@ -419,9 +497,16 @@ async function loadEnquiries(){
         emptyMsg.style.display =
         "none";
 
-        querySnapshot.forEach((doc)=>{
+        querySnapshot.forEach((document)=>{
 
-            const data = doc.data();
+            const data =
+            document.data();
+
+            const docId =
+            document.id;
+
+            const status =
+            data.status || "Pending";
 
             const card =
             document.createElement("div");
@@ -495,24 +580,197 @@ async function loadEnquiries(){
 
             </div>
 
+            <div class="status">
+
+                STATUS :
+                ${status}
+
+            </div>
+
+            <div class="btn-group">
+
+                <button
+                class="action-btn confirm-btn"
+                data-id="${docId}"
+                data-action="confirm">
+
+                MESSAGE SENT
+
+                </button>
+
+                <button
+                class="action-btn final-btn"
+                data-id="${docId}"
+                data-action="final">
+
+                COMPLETE (FINAL)
+
+                </button>
+
+                <button
+                class="action-btn delete-btn"
+                data-id="${docId}"
+                data-action="delete">
+
+                REMOVE ORDER
+
+                </button>
+
+            </div>
+
             `;
 
             dataContainer.appendChild(card);
 
         });
 
+        addButtonEvents();
+
     }
 
     catch(err){
 
         emptyMsg.innerText =
-        "Failed to load enquiries.";
+        "Failed To Load Orders.";
 
         console.error(err);
 
     }
 
 }
+
+/* BUTTON ACTIONS */
+
+function addButtonEvents(){
+
+    const buttons =
+    document.querySelectorAll(
+        ".action-btn"
+    );
+
+    buttons.forEach((button)=>{
+
+        button.addEventListener(
+        "click",
+        async()=>{
+
+            const id =
+            button.dataset.id;
+
+            const action =
+            button.dataset.action;
+
+            try{
+
+                if(action === "confirm"){
+
+                    await updateDoc(
+
+                        doc(
+                            db,
+                            "checkout_enquiries",
+                            id
+                        ),
+
+                        {
+                            status:
+                            "Message Sent"
+                        }
+
+                    );
+
+                    alert(
+                        "Order Marked As Message Sent"
+                    );
+
+                }
+
+                if(action === "final"){
+
+                    await updateDoc(
+
+                        doc(
+                            db,
+                            "checkout_enquiries",
+                            id
+                        ),
+
+                        {
+                            status:
+                            "Completed"
+                        }
+
+                    );
+
+                    alert(
+                        "Order Completed"
+                    );
+
+                }
+
+                if(action === "delete"){
+
+                    const confirmDelete =
+                    confirm(
+                        "Remove This Order?"
+                    );
+
+                    if(!confirmDelete)
+                    return;
+
+                    await deleteDoc(
+
+                        doc(
+                            db,
+                            "checkout_enquiries",
+                            id
+                        )
+
+                    );
+
+                    alert(
+                        "Order Removed"
+                    );
+
+                }
+
+                loadOrders();
+
+            }
+
+            catch(err){
+
+                console.error(err);
+
+                alert(
+                    "Action Failed"
+                );
+
+            }
+
+        });
+
+    });
+
+}
+
+/* BASIC PROTECTION */
+
+document.addEventListener(
+"contextmenu",
+e=>e.preventDefault()
+);
+
+document.onkeydown =
+function(e){
+
+    if(e.keyCode == 123){
+
+        return false;
+
+    }
+
+};
 
 </script>
 
