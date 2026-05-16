@@ -1,8 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0" />
+
     <title>Apply DC Server - Cavero DC's</title>
 
     <style>
@@ -15,15 +19,19 @@
 
         html,
         body{
+
             width:100%;
             min-height:100vh;
+
             color:white;
+
             font-family:'Inter','Segoe UI',sans-serif;
+
             overflow-x:hidden;
 
             background:
-                linear-gradient(rgba(2,6,23,.45), rgba(2,6,23,.45)),
-                url('./bg.png?v=10');
+            linear-gradient(rgba(2,6,23,.45),rgba(2,6,23,.45)),
+            url('./bg.png?v=10');
 
             background-size:cover;
             background-position:center;
@@ -31,6 +39,7 @@
             background-attachment:fixed;
 
             background-color:#020617;
+
         }
 
         body{
@@ -38,6 +47,7 @@
         }
 
         @keyframes fadePage{
+
             from{
                 opacity:0;
                 transform:scale(1.02);
@@ -47,128 +57,373 @@
                 opacity:1;
                 transform:scale(1);
             }
+
         }
 
         .fade-out{
+
             opacity:0;
+
             transform:scale(.98);
+
             transition:.4s ease;
+
         }
+
+        /* SNOW */
 
         #snowCanvas{
+
             position:fixed;
             inset:0;
+
             width:100%;
             height:100%;
+
             pointer-events:none;
+
             z-index:1;
+
         }
 
+        /* HEADER */
+
         .header{
+
             position:relative;
             z-index:2;
+
             padding:45px 20px;
+
             text-align:center;
+
         }
 
         .header h1{
+
             font-size:3rem;
+
             font-weight:900;
+
             letter-spacing:2px;
+
             text-shadow:0 0 25px rgba(37,99,235,.35);
+
         }
 
         .header h1 span{
             color:#3b82f6;
         }
 
+        /* PLANS */
+
         .plans-container{
+
             position:relative;
             z-index:2;
+
             max-width:1200px;
+
             margin:auto;
+
             padding:40px 20px;
+
             display:flex;
+
             justify-content:center;
+
             flex-wrap:wrap;
+
             gap:30px;
+
         }
 
         .plan-box{
+
             width:320px;
+
             padding:40px 30px;
+
             border-radius:24px;
+
             background:rgba(15,23,42,.62);
+
             border:1px solid rgba(59,130,246,.18);
+
             backdrop-filter:blur(14px);
+
             text-align:center;
+
             transition:.35s ease;
+
             box-shadow:0 0 25px rgba(37,99,235,.08);
+
             position:relative;
+
             overflow:hidden;
+
         }
 
         .plan-box:hover{
+
             transform:translateY(-10px);
+
             border-color:#3b82f6;
+
             background:rgba(15,23,42,.84);
+
             box-shadow:0 0 35px rgba(37,99,235,.22);
+
         }
 
         .plan-name{
+
             font-size:1.9rem;
+
             font-weight:800;
+
             margin-bottom:15px;
+
         }
 
         .plan-price{
+
             font-size:2.7rem;
+
             font-weight:900;
+
             color:#3b82f6;
+
             margin-bottom:25px;
+
             text-shadow:0 0 20px rgba(37,99,235,.35);
+
         }
 
         .plan-price span{
+
             font-size:1rem;
+
             color:#94a3b8;
+
         }
 
+        /* BUTTON */
+
         .checkout-btn{
-            display:block;
+
             width:100%;
+
             padding:16px;
+
+            border:none;
+
             border-radius:14px;
-            text-decoration:none;
+
             background:#2563eb;
+
             color:white;
+
             font-size:1rem;
+
             font-weight:800;
+
             letter-spacing:1px;
+
+            cursor:pointer;
+
             transition:.3s ease;
+
             box-shadow:0 0 20px rgba(37,99,235,.18);
+
         }
 
         .checkout-btn:hover{
+
             background:#1d4ed8;
+
             transform:scale(1.03);
+
             box-shadow:0 0 30px rgba(37,99,235,.35);
+
         }
 
+        /* BACK */
+
         .back-link{
+
             position:relative;
             z-index:2;
+
             display:block;
+
             text-align:center;
+
             margin-top:40px;
+
             padding-bottom:50px;
+
             text-decoration:none;
+
             color:#94a3b8;
+
             transition:.3s ease;
+
         }
 
         .back-link:hover{
             color:white;
+        }
+
+        /* POPUP */
+
+        .popup-overlay{
+
+            position:fixed;
+            inset:0;
+
+            background:rgba(0,0,0,.75);
+
+            backdrop-filter:blur(8px);
+
+            display:none;
+
+            justify-content:center;
+            align-items:center;
+
+            z-index:999;
+
+            padding:20px;
+
+        }
+
+        .popup{
+
+            width:100%;
+            max-width:520px;
+
+            background:rgba(15,23,42,.95);
+
+            border:1px solid rgba(59,130,246,.25);
+
+            border-radius:28px;
+
+            padding:35px;
+
+            position:relative;
+
+            animation:popupAnim .3s ease;
+
+            box-shadow:0 0 40px rgba(37,99,235,.28);
+
+        }
+
+        @keyframes popupAnim{
+
+            from{
+                opacity:0;
+                transform:scale(.9);
+            }
+
+            to{
+                opacity:1;
+                transform:scale(1);
+            }
+
+        }
+
+        .popup-title{
+
+            font-size:2rem;
+
+            font-weight:900;
+
+            margin-bottom:18px;
+
+            color:#3b82f6;
+
+            text-align:center;
+
+        }
+
+        .popup-text{
+
+            color:#cbd5e1;
+
+            line-height:1.8;
+
+            font-size:1rem;
+
+            margin-bottom:30px;
+
+            text-align:left;
+
+        }
+
+        .popup-text li{
+            margin-bottom:10px;
+        }
+
+        .popup-buttons{
+
+            display:flex;
+
+            gap:15px;
+
+        }
+
+        .popup-btn{
+
+            flex:1;
+
+            padding:15px;
+
+            border:none;
+
+            border-radius:14px;
+
+            cursor:pointer;
+
+            font-size:1rem;
+
+            font-weight:800;
+
+            transition:.3s ease;
+
+        }
+
+        .continue-btn{
+
+            background:#2563eb;
+
+            color:white;
+
+        }
+
+        .continue-btn:hover{
+
+            background:#1d4ed8;
+
+            transform:scale(1.03);
+
+        }
+
+        .cancel-btn{
+
+            background:transparent;
+
+            border:1px solid rgba(255,255,255,.12);
+
+            color:#cbd5e1;
+
+        }
+
+        .cancel-btn:hover{
+
+            background:rgba(255,255,255,.06);
+
+            color:white;
+
         }
 
         @media(max-width:700px){
@@ -181,102 +436,303 @@
                 width:95%;
             }
 
+            .popup{
+                padding:28px 22px;
+            }
+
+            .popup-buttons{
+                flex-direction:column;
+            }
+
         }
 
     </style>
+
 </head>
+
 <body>
+
+    <!-- SNOW -->
 
     <canvas id="snowCanvas"></canvas>
 
+    <!-- HEADER -->
+
     <div class="header">
+
         <h1>
             SELECT YOUR <span>PLAN</span>
         </h1>
+
     </div>
+
+    <!-- PLANS -->
 
     <div class="plans-container">
 
+        <!-- BASE -->
+
         <div class="plan-box">
-            <h2 class="plan-name">Base Plan</h2>
+
+            <h2 class="plan-name">
+                Base Plan
+            </h2>
 
             <div class="plan-price">
                 ₹70<span>/One Time</span>
             </div>
 
-            <a href="checkout.html?plan=BasePlan"
-               class="checkout-btn"
-               onclick="smoothPage(event,this.href)">
+            <button
+                class="checkout-btn"
+                onclick="openPopup(
+                'Base Plan',
+                'checkout.html?plan=BasePlan',
+                [
+                'Only server design included',
+                'Maximum 8 roles',
+                'No bot setup included'
+                ])">
+
                 CHECKOUT PLAN
-            </a>
+
+            </button>
+
         </div>
 
+        <!-- ASTROID -->
+
         <div class="plan-box">
-            <h2 class="plan-name">Astroid Plan</h2>
+
+            <h2 class="plan-name">
+                Astroid Plan
+            </h2>
 
             <div class="plan-price">
                 ₹85<span>/One Time</span>
             </div>
 
-            <a href="checkout.html?plan=AstroidPlan"
-               class="checkout-btn"
-               onclick="smoothPage(event,this.href)">
+            <button
+                class="checkout-btn"
+                onclick="openPopup(
+                'Astroid Plan',
+                'checkout.html?plan=AstroidPlan',
+                [
+                'Channel design included',
+                'Needed server roles included',
+                'Embed messages included',
+                'Public bot setup included'
+                ])">
+
                 CHECKOUT PLAN
-            </a>
+
+            </button>
+
         </div>
 
+        <!-- METEORIDE -->
+
         <div class="plan-box">
-            <h2 class="plan-name">Meteoride Plan</h2>
+
+            <h2 class="plan-name">
+                Meteoride Plan
+            </h2>
 
             <div class="plan-price">
                 ₹110<span>/One Time</span>
             </div>
 
-            <a href="checkout.html?plan=MeteoridePlan"
-               class="checkout-btn"
-               onclick="smoothPage(event,this.href)">
+            <button
+                class="checkout-btn"
+                onclick="openPopup(
+                'Meteoride Plan',
+                'checkout.html?plan=MeteoridePlan',
+                [
+                'Full server design included',
+                'Needed roles included',
+                'Embed messages included',
+                'Custom bot with your server icon and name',
+                'Bot duration permanent',
+                'Functions only for embed generating',
+                'Bot hosting will not be provided'
+                ])">
+
                 CHECKOUT PLAN
-            </a>
+
+            </button>
+
         </div>
 
     </div>
 
+    <!-- BACK -->
+
     <a href="index.html"
        class="back-link"
        onclick="smoothPage(event,this.href)">
-        ← Go Back Home
+
+       ← Go Back Home
+
     </a>
+
+    <!-- POPUP -->
+
+    <div class="popup-overlay"
+         id="popupOverlay">
+
+        <div class="popup">
+
+            <h2 class="popup-title"
+                id="popupTitle">
+
+            </h2>
+
+            <ul class="popup-text"
+                id="popupText">
+
+            </ul>
+
+            <div class="popup-buttons">
+
+                <button
+                    class="popup-btn cancel-btn"
+                    onclick="closePopup()">
+
+                    CANCEL
+
+                </button>
+
+                <button
+                    class="popup-btn continue-btn"
+                    id="continueBtn">
+
+                    CHECKOUT
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
 
     <script>
 
-        function smoothPage(e, link){
+        /* PAGE TRANSITION */
+
+        function smoothPage(e,link){
+
             e.preventDefault();
+
             document.body.classList.add("fade-out");
 
-            setTimeout(() => {
+            setTimeout(()=>{
+
                 window.location.href = link;
-            }, 400);
+
+            },400);
+
         }
 
-        const canvas = document.getElementById('snowCanvas');
-        const ctx = canvas.getContext('2d');
+        /* POPUP */
+
+        const popupOverlay =
+        document.getElementById("popupOverlay");
+
+        const popupTitle =
+        document.getElementById("popupTitle");
+
+        const popupText =
+        document.getElementById("popupText");
+
+        const continueBtn =
+        document.getElementById("continueBtn");
+
+        function openPopup(
+            title,
+            link,
+            features
+        ){
+
+            popupTitle.innerText = title;
+
+            popupText.innerHTML = "";
+
+            features.forEach(feature=>{
+
+                popupText.innerHTML +=
+                `<li>${feature}</li>`;
+
+            });
+
+            continueBtn.onclick = ()=>{
+
+                document.body.classList.add("fade-out");
+
+                setTimeout(()=>{
+
+                    window.location.href = link;
+
+                },300);
+
+            };
+
+            popupOverlay.style.display = "flex";
+
+        }
+
+        function closePopup(){
+
+            popupOverlay.style.display = "none";
+
+        }
+
+        popupOverlay.addEventListener(
+            "click",
+            (e)=>{
+
+                if(
+                    e.target === popupOverlay
+                ){
+
+                    closePopup();
+
+                }
+
+            }
+        );
+
+        /* SNOW */
+
+        const canvas =
+        document.getElementById('snowCanvas');
+
+        const ctx =
+        canvas.getContext('2d');
 
         let flakes = [];
 
         function initSnow(){
 
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
+            canvas.width =
+            window.innerWidth;
+
+            canvas.height =
+            window.innerHeight;
 
             flakes = [];
 
-            for(let i = 0; i < 180; i++){
+            for(let i=0;i<180;i++){
 
                 flakes.push({
-                    x:Math.random() * canvas.width,
-                    y:Math.random() * canvas.height,
-                    r:Math.random() * 3 + 1,
-                    d:Math.random() * 1 + .5
+
+                    x:Math.random()*canvas.width,
+
+                    y:Math.random()*canvas.height,
+
+                    r:Math.random()*3+1,
+
+                    d:Math.random()*1+.5
+
                 });
 
             }
@@ -285,18 +741,32 @@
 
         function drawSnow(){
 
-            ctx.clearRect(0,0,canvas.width,canvas.height);
+            ctx.clearRect(
+                0,
+                0,
+                canvas.width,
+                canvas.height
+            );
 
-            ctx.fillStyle = "rgba(255,255,255,.9)";
+            ctx.fillStyle =
+            "rgba(255,255,255,.9)";
+
             ctx.beginPath();
 
-            for(let i = 0; i < flakes.length; i++){
+            for(let i=0;i<flakes.length;i++){
 
                 let f = flakes[i];
 
                 ctx.moveTo(f.x,f.y);
 
-                ctx.arc(f.x,f.y,f.r,0,Math.PI * 2,true);
+                ctx.arc(
+                    f.x,
+                    f.y,
+                    f.r,
+                    0,
+                    Math.PI*2,
+                    true
+                );
 
             }
 
@@ -308,20 +778,26 @@
 
         function moveSnow(){
 
-            for(let i = 0; i < flakes.length; i++){
+            for(let i=0;i<flakes.length;i++){
 
                 let f = flakes[i];
 
                 f.y += f.d;
-                f.x += Math.sin(f.y * .01);
+
+                f.x += Math.sin(f.y*.01);
 
                 if(f.y > canvas.height){
 
                     flakes[i] = {
-                        x:Math.random() * canvas.width,
+
+                        x:Math.random()*canvas.width,
+
                         y:-10,
+
                         r:f.r,
+
                         d:f.d
+
                     };
 
                 }
@@ -330,7 +806,10 @@
 
         }
 
-        window.addEventListener('resize', initSnow);
+        window.addEventListener(
+            'resize',
+            initSnow
+        );
 
         initSnow();
 
